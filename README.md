@@ -3,6 +3,7 @@
 ## Build Status
 
 - Master Build Status [![Build Status](https://travis-ci.org/AllInHouse/seMethodsCW.svg?branch=master)](https://travis-ci.org/AllInHouse/seMethodsCW)
+- Develop Build Status [![Build Status](https://travis-ci.org/AllInHouse/seMethodsCW.svg?branch=develop)](https://travis-ci.org/AllInHouse/seMethodsCW)
 
 ## Code of Conduct
 
