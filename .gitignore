@@ -37,3 +37,6 @@ buildNumber.properties
 
 # InteliJ
 .idea/
+
+# .iml
+seMethodsCW.iml
