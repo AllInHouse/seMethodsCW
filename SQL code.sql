@@ -22,15 +22,18 @@ ORDER BY population DESC
 
 --All the cities in a continent organised by largest population to smallest:
 SELECT name FROM city
+JOIN country ON CountryCode = country.code
 ORDER BY continent, population DESC
 
 --All the cities in a region organised by largest population to smallest:
 SELECT name FROM city
+JOIN country ON CountryCode = country.code
 ORDER BY region, population DESC
 
 --All the cities in a country organised by largest population to smallest:
 SELECT name FROM city
-ORDER BY country, population DESC
+JOIN country ON CountryCode = country.code
+ORDER BY country.name, population DESC
 
 --All the cities in a district organised by largest population to smallest:
 SELECT name FROM city
@@ -88,8 +91,7 @@ JOIN city ON code = city.CountryCode
 GROUP BY population
 
 --Populations
-SELECT name, population FROM country
-ORDER BY population DESC
+SELECT SUM(population) FROM country
 
 SELECT name, population FROM country
 ORDER BY continent, population DESC
@@ -98,7 +100,7 @@ SELECT name, population FROM country
 ORDER BY region, population DESC
 
 SELECT name, population FROM country
-ORDER BY code, population DESC
+ORDER BY population DESC
 
 SELECT name, population FROM city
 ORDER BY district, population DESC
