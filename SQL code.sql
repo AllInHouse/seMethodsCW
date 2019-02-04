@@ -109,3 +109,27 @@ SELECT name, population FROM city
 ORDER BY population DESC
 
 --Language Report
+SELECT population, countrylanguage.percentage FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "Chinese"
+ORDER BY population DESC
+
+SELECT population, countrylanguage.percentage FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "English"
+ORDER BY population DESC
+
+SELECT population, countrylanguage.percentage FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "Hindi"
+ORDER BY population DESC
+
+SELECT population, countrylanguage.percentage FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "Spanish"
+ORDER BY population DESC
+
+SELECT population, countrylanguage.percentage FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "Arabic"
+ORDER BY population DESC
