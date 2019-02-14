@@ -100,9 +100,13 @@ public class App {
             // Execute query
             ResultSet rs = statement.executeQuery("SELECT LocalName FROM country");
 
+            int Count = 0; //Count to make sure it doesn't go anywhere near Travis max log size
+
             // Print results
             while (rs.next()) {
+                if(Count > 50) return; //Only going to 50
                 System.out.println(rs.getString("LocalName"));
+                Count++;
             }
         }
         // Catch any exception from this code
