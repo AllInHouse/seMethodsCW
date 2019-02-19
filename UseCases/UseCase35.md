@@ -1,10 +1,10 @@
-# USE CASE: All the countries in the world organised by largest population to smallest.
+# USE CASE: All the cities in the world organised by largest population to smallest.
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an *employee* of the organisation, *I want to sort each country in the world from largest population to smallest* so that *I can review this data.*
+As an *employee* of the organisation, *I want to sort each city in the world from largest population to smallest* so that *I can review this data.*
 
 ### Scope
 

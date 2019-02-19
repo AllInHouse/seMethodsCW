@@ -1,10 +1,10 @@
-# USE CASE: All the countries in the world organised by largest population to smallest.
+# USE CASE: All the capital cities in the world organised by largest population to smallest.
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an *employee* of the organisation, *I want to sort each country in the world from largest population to smallest* so that *I can review this data.*
+As an *employee* of the organisation, *I want to sort each capital city in the world from largest population to smallest,* so that *I can review this data.*
 
 ### Scope
 
@@ -16,7 +16,7 @@ Primary task.
 
 ### Preconditions
 
-Database contains population data.
+Database contains population data for capital cities in the world.
 
 ### Success End Condition
 
@@ -37,7 +37,7 @@ A request for the information is given.
 ## MAIN SUCCESS SCENARIO
 
 1. Report is requested.
-2. Report is generated with correct information.
+4. Report is generated with correct information.
 
 ## EXTENSIONS
 

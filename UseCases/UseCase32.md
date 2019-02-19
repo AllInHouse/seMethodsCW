@@ -1,10 +1,10 @@
-# USE CASE: All the countries in the world organised by largest population to smallest.
+# USE CASE: The top N populated countries in the world where N is provided by the user.
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an *employee* of the organisation, *I want to sort each country in the world from largest population to smallest* so that *I can review this data.*
+As an *employee* of the organisation, *I want to be able to find the top populated countries in the world, and be able to define the length of the list,* so that *I can review this data.*
 
 ### Scope
 
@@ -16,7 +16,7 @@ Primary task.
 
 ### Preconditions
 
-Database contains population data.
+We know the length of the list. Database contains population data.
 
 ### Success End Condition
 
@@ -41,7 +41,8 @@ A request for the information is given.
 
 ## EXTENSIONS
 
-None.
+2. **No list length is specified**:
+    1. Application asks user to specify list length.
 
 ## SUB-VARIATIONS
 

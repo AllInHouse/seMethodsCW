@@ -1,10 +1,10 @@
-# USE CASE: All the countries in the world organised by largest population to smallest.
+# USE CASE: All the countries in a continent organised by largest population to smallest.
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an *employee* of the organisation, *I want to sort each country in the world from largest population to smallest* so that *I can review this data.*
+As an *employee* of the organisation, *I want to sort each country in a continent from largest population to smallest* so that *I can review this data.*
 
 ### Scope
 
@@ -16,7 +16,7 @@ Primary task.
 
 ### Preconditions
 
-Database contains population data.
+We know the continent. Database contains population data.
 
 ### Success End Condition
 
@@ -41,7 +41,8 @@ A request for the information is given.
 
 ## EXTENSIONS
 
-None.
+2. **Continent does not exist**:
+    1. Application informs user continent doesn't exist.
 
 ## SUB-VARIATIONS
 
