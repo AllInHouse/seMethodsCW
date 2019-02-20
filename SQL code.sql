@@ -109,43 +109,46 @@ GROUP BY population
 --Populations
 SELECT SUM(population) FROM country
 
-SELECT name, population FROM country
-ORDER BY continent, population DESC
+SELECT name, SUM(population) FROM country
+GROUP BY continent
+ORDER BY population DESC
 
-SELECT name, population FROM country
-ORDER BY region, population DESC
+SELECT name, SUM(population) FROM country
+GROUP BY region
+ORDER BY population DESC
 
 SELECT name, population FROM country
 ORDER BY population DESC
 
-SELECT name, population FROM city
-ORDER BY district, population DESC
+SELECT name, SUM(population) FROM city
+GROUP BY district
+ORDER BY population DESC
 
 SELECT name, population FROM city
 ORDER BY population DESC
 
 --Language Report
-SELECT population, SUM(countrylanguage.percentage) FROM country
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
 JOIN countrylanguage ON code = countrylanguage.CountryCode
 WHERE language = "Chinese"
 ORDER BY population DESC
 
-SELECT population, SUM(countrylanguage.percentage) FROM country
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
 JOIN countrylanguage ON code = countrylanguage.CountryCode
 WHERE language = "English"
 ORDER BY population DESC
 
-SELECT population, SUM(countrylanguage.percentage) FROM country
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
 JOIN countrylanguage ON code = countrylanguage.CountryCode
 WHERE language = "Hindi"
 ORDER BY population DESC
 
-SELECT population, SUM(countrylanguage.percentage) FROM country
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
 JOIN countrylanguage ON code = countrylanguage.CountryCode
 WHERE language = "Spanish"
 ORDER BY population DESC
 
-SELECT population, SUM(countrylanguage.percentage) FROM country
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
 JOIN countrylanguage ON code = countrylanguage.CountryCode
 WHERE language = "Arabic"
 ORDER BY population DESC
