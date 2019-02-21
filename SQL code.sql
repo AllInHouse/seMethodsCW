@@ -11,12 +11,19 @@ SELECT code, name, continent, region, population, capital FROM country
 ORDER BY region, population DESC
 
 --The top N populated countries in the world where N is provided by the user:
-SELECT code, name, continent, region, population, capital FROM country LIMIT 
+SELECT code, name, continent, region, population, capital FROM country
 ORDER BY population DESC
+--LIMIT 
+
+--The top N populated countries in a continent where N is provided by the user:
+SELECT code, name, continent, region, population, capital FROM country
+ORDER BY continent, population DESC
+--LIMIT 
 
 --The top N populated countries in a region where N is provided by the user:
-SELECT code, name, continent, region, population, capital FROM country LIMIT 
+SELECT code, name, continent, region, population, capital FROM country
 ORDER BY region, population DESC
+--LIMIT 
 
 --All the cities in the world organised by largest population to smallest:
 SELECT name, country.name, district, population FROM city
@@ -44,28 +51,33 @@ JOIN country ON CountryCode = country.code
 ORDER BY district, population DESC
 
 --The top N populated cities in the world where N is provided by the user:
-SELECT name, country.name, district, population FROM city LIMIT 
+SELECT name, country.name, district, population FROM city
 JOIN country ON CountryCode = country.code 
 ORDER BY population DESC
+--LIMIT 
 
 --The top N populated cities in a continent where N is provided by the user:
-SELECT name, country.name, district, population FROM city LIMIT
+SELECT name, country.name, district, population FROM city
 JOIN country ON CountryCode = country.code 
 ORDER BY continent, population DESC
+--LIMIT 
 
 --The top N populated cities in a region where N is provided by the user:
-SELECT name, country.name, district, population FROM city LIMIT
+SELECT name, country.name, district, population FROM city
 JOIN country ON CountryCode = country.code 
 ORDER BY region, population DESC
+--LIMIT 
 
 --The top N populated cities in a country where N is provided by the user:
-SELECT name, country.name, district, population FROM city LIMIT
+SELECT name, country.name, district, population FROM city
 JOIN country ON CountryCode = country.code 
 ORDER BY country, population DESC
+--LIMIT 
 
 --The top N populated cities in a district where N is provided by the user:
-SELECT name, country.name, district, population FROM city LIMIT 
+SELECT name, country.name, district, population FROM city
 ORDER BY district, population DESC
+--LIMIT 
 
 --All the capital cities in the world organised by largest population to smallest:
 SELECT capital, name, population FROM country
@@ -80,49 +92,52 @@ SELECT capital, name, population FROM country
 ORDER BY region, population DESC
 
 --The top N populated capital cities in the world where N is provided by the user:
-SELECT capital, name, population FROM country LIMIT 
+SELECT capital, name, population FROM country
 ORDER BY population DESC
+--LIMIT 
 
 --The top N populated capital cities in a continent where N is provided by the user:
-SELECT capital, name, population FROM country LIMIT 
+SELECT capital, name, population FROM country
 ORDER BY continent, population DESC
+--LIMIT 
 
 --The top N populated capital cities in a region where N is provided by the user:
-SELECT capital, name, population FROM country LIMIT 
+SELECT capital, name, population FROM country
 ORDER BY region, population DESC
+--LIMIT 
 
 --The population of people, people living in cities, and people not living in cities in each continent:
-SELECT population, city.population, SUM(population - city.population) FROM country
+SELECT continent, population, city.population, SUM(population - city.population) FROM country
 JOIN city ON code = city.CountryCode
 GROUP BY continent
 
 --The population of people, people living in cities, and people not living in cities in each region:--
-SELECT population, city.population, SUM(population - city.population) FROM country
+SELECT region, population, city.population, SUM(population - city.population) FROM country
 JOIN city ON code = city.CountryCode
 GROUP BY region
 
 --The population of people, people living in cities, and people not living in cities in each country:
-SELECT population, city.population, SUM(population - city.population) FROM country
+SELECT name, population, city.population, SUM(population - city.population) FROM country
 JOIN city ON code = city.CountryCode
-GROUP BY population
+GROUP BY name
 
 --Populations
 SELECT SUM(population) FROM country
 
-SELECT name, SUM(population) FROM country
+SELECT continent, SUM(population) FROM country
 GROUP BY continent
-ORDER BY population DESC
+ORDER BY SUM(population) DESC
 
-SELECT name, SUM(population) FROM country
+SELECT region, SUM(population) FROM country
 GROUP BY region
-ORDER BY population DESC
+ORDER BY SUM(population) DESC
 
 SELECT name, population FROM country
 ORDER BY population DESC
 
-SELECT name, SUM(population) FROM city
+SELECT district, SUM(population) FROM city
 GROUP BY district
-ORDER BY population DESC
+ORDER BY SUM(population) DESC
 
 SELECT name, population FROM city
 ORDER BY population DESC
