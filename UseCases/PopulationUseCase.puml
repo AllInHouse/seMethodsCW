@@ -1,0 +1,135 @@
+@startuml
+
+actor E as "Employee"
+rectangle Database
+
+rectangle "Population Application" {
+    usecase Print as "Print Report"
+
+    usecase UC29 as "29. All the countries in the world organised by largest population to smallest."
+    usecase UC30 as "30. All the countries in a continent organised by largest population to smallest."
+    usecase UC31 as "31. All the countries in a region organised by largest population to smallest."
+    usecase UC32 as "32. The top N populated countries in the world where N is provided by the user."
+    usecase UC33 as "33. The top N populated countries in a continent where N is provided by the user."
+    usecase UC34 as "34. The top N populated countries in a region where N is provided by the user."
+    usecase UC35 as "35. All the cities in the world organised by largest population to smallest."
+    usecase UC36 as "36. All the cities in a continent organised by largest population to smallest."
+    usecase UC37 as "37. All the cities in a region organised by largest population to smallest"
+    usecase UC38 as "38. All the cities in a country organised by largest population to smallest."
+    usecase UC39 as "39. All the cities in a district organised by largest population to smallest."
+    usecase UC40 as "40. The top N populated cities in the world where N is provided by the user."
+    usecase UC41 as "41. The top N populated cities in a region where N is provided by the user."
+    usecase UC42 as "42. The top N populated cities in a continet where N is provided by the user."
+    usecase UC43 as "43. The top N populated cities in a country where N is provided by the user."
+    usecase UC44 as "44. The top N populated cities in a district where N is provided by the user."
+    usecase UC45 as "45. All the capital cities in the world organised by largest population to smallest."
+    usecase UC46 as "46. All the capital cities in a continent organised by largest population to smallest."
+    usecase UC47 as "47. All the capital cities in a region organised by largest to smallest."
+    usecase UC48 as "48. The top N populated capital cities in the world where N is provided by the user."
+    usecase UC49 as "49. The top N populated capital cities in a continent where N is provided by the user."
+    usecase UC50 as "50. The top N populated capital cities in a region where N is provided by the user."
+    usecase UC51 as "51. The population of people, people living in cities, and people not living in cities in each continent."
+    usecase UC52 as "52. The population of people, people living in cities, and people not living in cities in each region."
+    usecase UC53 as "53. The population of people, people living in cities, and people not living in cities in each region."
+
+    E - UC29
+    UC29 ..> Print : include
+    UC29 - Database
+
+    E - UC30
+    UC30 ..> Print : include
+    UC30 - Database
+
+    E - UC31
+    UC31 ..> Print : include
+    UC31 - Database
+
+    E - UC32
+    UC32 ..> Print : include
+    UC32 - Database
+
+    E - UC33
+    UC33 ..> Print : include
+    UC33 - Database
+
+    E - UC34
+    UC34 ..> Print : include
+    UC34 - Database
+
+    E - UC35
+    UC35 ..> Print : include
+    UC35 - Database
+
+    E - UC36
+    UC36 ..> Print : include
+    UC36 - Database
+
+    E - UC37
+    UC37 ..> Print : include
+    UC37 - Database
+
+    E - UC38
+    UC38 ..> Print : include
+    UC38 - Database
+
+    E - UC39
+    UC39 ..> Print : include
+    UC39 - Database
+
+    E - UC40
+    UC40 ..> Print : include
+    UC40 - Database
+
+    E - UC41
+    UC41 ..> Print : include
+    UC41 - Database
+
+    E - UC42
+    UC42 ..> Print : include
+    UC42 - Database
+
+    E - UC43
+    UC43 ..> Print : include
+    UC43 - Database
+
+    E - UC44
+    UC44 ..> Print : include
+    UC44 - Database
+
+    E - UC45
+    UC45 ..> Print : include
+    UC45 - Database
+
+    E - UC46
+    UC46 ..> Print : include
+    UC46 - Database
+
+    E - UC47
+    UC47 ..> Print : include
+    UC47 - Database
+
+    E - UC48
+    UC48 ..> Print : include
+    UC48 - Database
+
+    E - UC49
+    UC49 ..> Print : include
+    UC49 - Database
+
+    E - UC50
+    UC50 ..> Print : include
+    UC50 - Database
+
+    E - UC51
+    UC51 ..> Print : include
+    UC51 - Database
+
+    E - UC52
+    UC52 ..> Print : include
+    UC52 - Database
+
+    E - UC53
+    UC53 ..> Print : include
+    UC53 - Database
+}
+@enduml
