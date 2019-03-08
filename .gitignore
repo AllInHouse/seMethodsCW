@@ -40,3 +40,6 @@ buildNumber.properties
 
 # .iml
 seMethodsCW.iml
+
+# Mac files
+.DS_Store
