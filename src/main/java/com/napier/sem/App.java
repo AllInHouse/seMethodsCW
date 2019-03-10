@@ -27,11 +27,15 @@ public class App {
      */
     public Connection connection = null;
 
+    public void connect(){
+        connect("db:3306");
+    }
+
     /**
      * Connect to the MySQL database.
      * Code adapted from the lab tutorials :)
      */
-    public void connect()
+    public void connect(String dbLocation)
     {
         try
         {
@@ -52,8 +56,8 @@ public class App {
             {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
-                // Connect to database :)
-                connection = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                // Connect to database :)   Used to be db:3306
+                connection = DriverManager.getConnection("jdbc:mysql://" + dbLocation + "/world?useSSL=false", "root", "example");
                 // Print a message in console when db is connected
                 System.out.println("Connected to database.");
                 break;
