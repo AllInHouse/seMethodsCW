@@ -303,7 +303,7 @@ public class App {
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             
-            // Extract country information
+            // Extract city information
             ArrayList<City> cities = new ArrayList<City>();
 
             while(rset.next())
@@ -319,7 +319,7 @@ public class App {
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -353,7 +353,7 @@ public class App {
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             
-            // Extract country information
+            // Extract city information
             ArrayList<City> ctCont = new ArrayList<City>();
 
             while(rset.next())
@@ -369,12 +369,12 @@ public class App {
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
     
-    public ArrayList<City> getContCity(boolean limit, int limNum)
+    public ArrayList<City> getRegCity(boolean limit, int limNum)
     {
         try
         {
@@ -403,7 +403,7 @@ public class App {
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             
-            // Extract country information
+            // Extract city information
             ArrayList<City> ctReg = new ArrayList<City>();
 
             while(rset.next())
@@ -419,12 +419,12 @@ public class App {
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
 
-    public ArrayList<City> getContCity(boolean limit, int limNum)
+    public ArrayList<City> getCountryCity(boolean limit, int limNum)
     {
         try
         {
@@ -453,7 +453,7 @@ public class App {
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             
-            // Extract country information
+            // Extract city information
             ArrayList<City> ctCountry = new ArrayList<City>();
 
             while(rset.next())
@@ -469,7 +469,7 @@ public class App {
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
@@ -503,7 +503,7 @@ public class App {
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             
-            // Extract country information
+            // Extract city information
             ArrayList<City> districts = new ArrayList<City>();
 
             while(rset.next())
@@ -519,12 +519,12 @@ public class App {
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
 
-    public ArrayList<Country> getCountry(boolean limit, int limNum)
+    public ArrayList<Country> getCap(boolean limit, int limNum)
     {
         try
         {
@@ -571,7 +571,7 @@ public class App {
         }
     }
 
-    public ArrayList<Country> getCountry(boolean limit, int limNum)
+    public ArrayList<Country> getCapCont(boolean limit, int limNum)
     {
         try
         {
@@ -618,7 +618,7 @@ public class App {
         }
     }
 
-    public ArrayList<Country> getCountry(boolean limit, int limNum)
+    public ArrayList<Country> getCapReg(boolean limit, int limNum)
     {
         try
         {
@@ -661,6 +661,340 @@ public class App {
         {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getPopCont()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT Continent, Population, city.Population, SUM(Population - city.Population) "
+                    + "FROM country "
+                    + "JOIN city ON Code = city.CountryCode "
+                    + "GROUP BY Continent";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> popCont = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country pop = new Country();
+                pop.Continent = rset.getString("Continent");
+                pop.Population = rset.getString("Population");
+                pop.city.Population = rset.getString("city.Population");
+                pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
+            }
+            return popCont;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+	
+	public ArrayList<Country> getPopReg()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT Region, Population, city.Population, SUM(Population - city.Population) "
+                    + "FROM country "
+                    + "JOIN city ON Code = city.CountryCode "
+                    + "GROUP BY Region";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> popReg = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country pop = new Country();
+                pop.Region = rset.getString("Region");
+                pop.Population = rset.getString("Population");
+                pop.city.Population = rset.getString("city.Population");
+                pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
+            }
+            return popReg;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+	
+    public ArrayList<Country> getPop()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT Name, Population, city.Population, SUM(Population - city.Population) "
+                    + "FROM country "
+                    + "JOIN city ON Code = city.CountryCode "
+                    + "GROUP BY Name";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> pop = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country pop = new Country();
+                pop.Name = rset.getString("Name");
+                pop.Population = rset.getString("Population");
+                pop.city.Population = rset.getString("city.Population");
+                pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
+            }
+            return pop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getPopulation()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT SUM(Population) "
+                    + "FROM country";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> population = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country pop = new Country();
+                pop.SUM(Population) = rset.getString("SUM(Population)");
+            }
+            return population;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+	
+    public ArrayList<Country> getPopulationCont()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT Continent, SUM(Population) "
+                    + "FROM country "
+                    + "GROUP BY Continent "
+                    + "ORDER BY SUM(Population) DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> populationCont = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country pop = new Country();
+                pop.Continent = rset.getString("Continent");
+                pop.SUM(Population) = rset.getString("SUM(Population)");
+            }
+            return populationCont;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getPopulationReg()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT Region, SUM(Population) "
+                    + "FROM country "
+                    + "GROUP BY Region "
+                    + "ORDER BY SUM(Population) DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> populationReg = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country pop = new Country();
+                pop.Region = rset.getString("Region");
+                pop.SUM(Population) = rset.getString("SUM(Population)");
+            }
+            return populationReg;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getPopulationCountry()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT Name, Population "
+                    + "FROM country "
+                    + "ORDER BY SUM(Population) DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> populationCountry = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country pop = new Country();
+                pop.Name = rset.getString("Name");
+                pop.Population = rset.getString("Population");
+            }
+            return populationCountry;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getPopulationDist()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT District, SUM(Population) "
+                    + "FROM city "
+                    + "GROUP BY District "
+                    + "ORDER BY SUM(Population) DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract city information
+            ArrayList<City> populationDist = new ArrayList<City>();
+
+            while(rset.next())
+            {
+                City pop = new City();
+                pop.District = rset.getString("District");
+                pop.SUM(Population) = rset.getString("SUM(Population)");
+            }
+            return populationDist;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getPopulationCity()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT Name, Population "
+                    + "FROM city "
+                    + "ORDER BY Population DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract city information
+            ArrayList<City> populationCity = new ArrayList<City>();
+
+            while(rset.next())
+            {
+                City pop = new City();
+                pop.Name = rset.getString("Name");
+                pop.Population = rset.getString("Population");
+            }
+            return populationCity;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
             return null;
         }
     }
