@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SemUnitTests {
 
-    App app;
+    static App app;
 
-    @AfterAll
-    void BeforeTasks(){
+    @BeforeAll
+    static void BeforeTasks(){
         app = new App();
     }
 
