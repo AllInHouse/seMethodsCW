@@ -999,7 +999,200 @@ public class App {
         }
     }
 
-    
+    public ArrayList<Country> getlanChinese()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
+                    + "FROM country "
+                    + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
+                    + "WHERE countrylanguage.Language = "'Chinese'" "
+                    + "ORDER BY lanulation DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> lanChinese = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country lan = new Country();
+                lan.Name = rset.getString("Name");
+                lan.Population = rset.getString("Population");
+                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+            }
+            return lanChinese;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getlanEnglish()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
+                    + "FROM country "
+                    + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
+                    + "WHERE countrylanguage.Language = "'English'" "
+                    + "ORDER BY lanulation DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> lanEnglish = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country lan = new Country();
+                lan.Name = rset.getString("Name");
+                lan.Population = rset.getString("Population");
+                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+            }
+            return lanEnglish;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getlanHindi()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
+                    + "FROM country "
+                    + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
+                    + "WHERE countrylanguage.Language = "'Hindi'" "
+                    + "ORDER BY lanulation DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> lanHindi = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country lan = new Country();
+                lan.Name = rset.getString("Name");
+                lan.Population = rset.getString("Population");
+                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+            }
+            return lanHindi;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getlanSpanish()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
+                    + "FROM country "
+                    + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
+                    + "WHERE countrylanguage.Language = "'Spanish'" "
+                    + "ORDER BY lanulation DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> lanSpanish = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country lan = new Country();
+                lan.Name = rset.getString("Name");
+                lan.Population = rset.getString("Population");
+                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+            }
+            return lanSpanish;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> getlanArabic()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            
+            // Create string for SQL statement
+            String strSelect =
+                "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
+                    + "FROM country "
+                    + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
+                    + "WHERE countrylanguage.Language = "'Arabic'" "
+                    + "ORDER BY lanulation DESC";
+            
+            
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            
+            // Extract country information
+            ArrayList<Country> lanArabic = new ArrayList<Country>();
+
+            while(rset.next())
+            {
+                Country lan = new Country();
+                lan.Name = rset.getString("Name");
+                lan.Population = rset.getString("Population");
+                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+            }
+            return lanArabic;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }    
 
     /**
      * Not sure this will stay, prints out all data for a City.
