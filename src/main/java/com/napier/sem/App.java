@@ -1,5 +1,7 @@
 package com.napier.sem;
 
+import com.napier.sem.DatabaseObjects.City;
+
 import java.sql.*;
 
 public class App {
@@ -117,5 +119,17 @@ public class App {
         catch (Exception e){
             System.out.println("Except! :: " + e.getMessage());
         }
+    }
+
+
+    /**
+     * Not sure this will stay, prints out all data for a City.
+     * May throw IllegalArgumentException if ct is null
+     * @param ct the city to print
+     */
+    public void PrintCity(City ct){
+        if(ct == null) throw new IllegalArgumentException();
+        String.format("%-10s %-15s %-20s %-8s", "ID", "Country Code", "District", "Name", "Population");
+        String.format("%-10s %-15s %-20s %-8s", ct.ID, ct.CountryCode, ct.District, ct.Name, ct.Population);
     }
 }
