@@ -12,7 +12,7 @@ public class App {
         App app = new App();
 
         // Connect to the db
-        app.connect();
+        app.connect("localhost:33060");
 
         // Execute the sample query
         app.sampleQuery();
