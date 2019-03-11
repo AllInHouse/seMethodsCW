@@ -22,4 +22,7 @@ public class SemUnitTests {
         app.PrintCity(null);
     }
 
+
+
+
 }

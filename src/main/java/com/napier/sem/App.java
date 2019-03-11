@@ -99,7 +99,8 @@ public class App {
     /**
      * Sample query that prints the contents of LocalName in the Country table
      */
-    public void sampleQuery(){
+    public String sampleQuery(){
+        String out = "Empty :)";
         try {
             // New statement
             Statement statement = connection.createStatement();
@@ -110,8 +111,9 @@ public class App {
 
             // Print results
             while (rs.next()) {
-                if(Count > 50) return; //Only going to 50
-                System.out.println(rs.getString("LocalName"));
+                if(Count > 50) return out; //Only going to 50
+                out = rs.getString("LocalName");
+                System.out.println(out);
                 Count++;
             }
         }
@@ -119,6 +121,7 @@ public class App {
         catch (Exception e){
             System.out.println("Except! :: " + e.getMessage());
         }
+        return out;
     }
 
 
