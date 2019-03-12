@@ -1,8 +1,10 @@
 package com.napier.sem;
 
 import com.napier.sem.DatabaseObjects.City;
+import com.napier.sem.DatabaseObjects.Country;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App {
 
@@ -132,19 +134,20 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Code, Name, Continent, Region, Population, Capital "
                             + "FROM country "
                             + "ORDER BY Population DESC";
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Code, Name, Continent, Region, Population, Capital "
                             + "FROM country "
                             + "ORDER BY Population DESC"
@@ -160,12 +163,12 @@ public class App {
             while(rset.next())
             {
                 Country cntry = new Country();
-                cntry.Code = rset.getInt("Code");
+                cntry.Code = rset.getString("Code");
                 cntry.Name = rset.getString("Name");
                 cntry.Continent = rset.getString("Continent");
                 cntry.Region = rset.getString("Region");
                 cntry.Population = rset.getInt("Population");
-                cntry.Capital = rset.getString("Capital");
+                cntry.Capital = rset.getInt("Capital");
             }
             return countries;
         }
@@ -182,19 +185,20 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Code, Name, Continent, Region, Population, Capital "
                             + "FROM country "
                             + "ORDER BY Continent, Population DESC";
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Code, Name, Continent, Region, Population, Capital "
                             + "FROM country "
                             + "ORDER BY Continent, Population DESC"
@@ -210,12 +214,12 @@ public class App {
             while(rset.next())
             {
                 Country cont = new Country();
-                cont.Code = rset.getInt("Code");
+                cont.Code = rset.getString("Code");
                 cont.Name = rset.getString("Name");
                 cont.Continent = rset.getString("Continent");
                 cont.Region = rset.getString("Region");
                 cont.Population = rset.getInt("Population");
-                cont.Capital = rset.getString("Capital");
+                cont.Capital = rset.getInt("Capital");
             }
             return continents;
         }
@@ -232,19 +236,20 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Code, Name, Continent, Region, Population, Capital "
                             + "FROM country "
                             + "ORDER BY Region, Population DESC";
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Code, Name, Continent, Region, Population, Capital "
                             + "FROM country "
                             + "ORDER BY Region, Population DESC"
@@ -260,12 +265,12 @@ public class App {
             while(rset.next())
             {
                 Country reg = new Country();
-                reg.Code = rset.getInt("Code");
+                reg.Code = rset.getString("Code");
                 reg.Name = rset.getString("Name");
                 reg.Continent = rset.getString("Continent");
                 reg.Region = rset.getString("Region");
                 reg.Population = rset.getInt("Population");
-                reg.Capital = rset.getString("Capital");
+                reg.Capital = rset.getInt("Capital");
             }
             return regions;
         }
@@ -282,12 +287,13 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
-
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
+            
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -295,7 +301,7 @@ public class App {
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -313,7 +319,7 @@ public class App {
             {
                 City ct = new City();
                 ct.Name = rset.getString("Name");
-                ct.country.Name = rset.getString("country.Name");
+                ct.CountryCode = rset.getString("country.Name"); //TODO shouldn't this be CountryCode?
                 ct.District = rset.getString("District");
                 ct.Population = rset.getInt("Population");
             }
@@ -332,12 +338,13 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt =  connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -345,7 +352,7 @@ public class App {
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -363,7 +370,7 @@ public class App {
             {
                 City ct = new City();
                 ct.Name = rset.getString("Name");
-                ct.country.Name = rset.getString("country.Name");
+                ct.CountryCode = rset.getString("country.Name");
                 ct.District = rset.getString("District");
                 ct.Population = rset.getInt("Population");
             }
@@ -382,12 +389,13 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -395,7 +403,7 @@ public class App {
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -413,7 +421,7 @@ public class App {
             {
                 City ct = new City();
                 ct.Name = rset.getString("Name");
-                ct.country.Name = rset.getString("country.Name");
+                ct.CountryCode = rset.getString("country.Name");
                 ct.District = rset.getString("District");
                 ct.Population = rset.getInt("Population");
             }
@@ -432,12 +440,13 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -445,7 +454,7 @@ public class App {
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -463,7 +472,7 @@ public class App {
             {
                 City ct = new City();
                 ct.Name = rset.getString("Name");
-                ct.country.Name = rset.getString("country.Name");
+                ct.CountryCode = rset.getString("country.Name");
                 ct.District = rset.getString("District");
                 ct.Population = rset.getInt("Population");
             }
@@ -482,12 +491,13 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -495,7 +505,7 @@ public class App {
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Name, country.Name, District, Population "
                             + "FROM city "
                             + "JOIN country ON CountryCode = country.Code "
@@ -513,7 +523,7 @@ public class App {
             {
                 City ct = new City();
                 ct.Name = rset.getString("Name");
-                ct.country.Name = rset.getString("country.Name");
+                ct.CountryCode = rset.getString("country.Name");
                 ct.District = rset.getString("District");
                 ct.Population = rset.getInt("Population");
             }
@@ -532,19 +542,20 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Capital, Name, Population "
                             + "FROM country "
                             + "ORDER BY Population DESC";
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Capital, Name, Population "
                             + "FROM country "
                             + "ORDER BY Population DESC"
@@ -560,7 +571,7 @@ public class App {
             while(rset.next())
             {
                 Country cntry = new Country();
-                cntry.Capital = rset.getString("Capital");
+                cntry.Capital = rset.getInt("Capital");
                 cntry.Name = rset.getString("Name");
                 cntry.Population = rset.getInt("Population");
             }
@@ -579,19 +590,20 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Capital, Name, Population "
                             + "FROM country "
                             + "ORDER BY Continent, Population DESC";
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Capital, Name, Population "
                             + "FROM country "
                             + "ORDER BY Continent, Population DESC"
@@ -607,7 +619,7 @@ public class App {
             while(rset.next())
             {
                 Country cntry = new Country();
-                cntry.Capital = rset.getString("Capital");
+                cntry.Capital = rset.getInt("Capital");
                 cntry.Name = rset.getString("Name");
                 cntry.Population = rset.getInt("Population");
             }
@@ -626,19 +638,20 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
+            String strSelect = "";
 
             if(limit == false)
             {
                 // Create string for SQL statement
-                String strSelect =
+                strSelect =
                     "SELECT Capital, Name, Population "
                             + "FROM country "
                             + "ORDER BY Region, Population DESC";
 
             } else {
 
-                String strSelect =
+                strSelect =
                     "SELECT Capital, Name, Population "
                             + "FROM country "
                             + "ORDER BY Region, Population DESC"
@@ -654,7 +667,7 @@ public class App {
             while(rset.next())
             {
                 Country cntry = new Country();
-                cntry.Capital = rset.getString("Capital");
+                cntry.Capital = rset.getInt("Capital");
                 cntry.Name = rset.getString("Name");
                 cntry.Population = rset.getInt("Population");
             }
@@ -673,7 +686,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -693,9 +706,10 @@ public class App {
             {
                 Country pop = new Country();
                 pop.Continent = rset.getString("Continent");
-                pop.Population = rset.getString("Population");
-                pop.city.Population = rset.getString("city.Population");
-                pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
+                pop.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.city.Population = rset.getString("city.Population");
+                //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
             }
             return popCont;
         }
@@ -712,7 +726,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -732,9 +746,10 @@ public class App {
             {
                 Country pop = new Country();
                 pop.Region = rset.getString("Region");
-                pop.Population = rset.getString("Population");
-                pop.city.Population = rset.getString("city.Population");
-                pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
+                pop.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.city.Population = rset.getString("city.Population");
+                //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
             }
             return popReg;
         }
@@ -751,7 +766,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -769,11 +784,12 @@ public class App {
 
             while(rset.next())
             {
-                Country pop = new Country();
-                pop.Name = rset.getString("Name");
-                pop.Population = rset.getString("Population");
-                pop.city.Population = rset.getString("city.Population");
-                pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
+                Country popC = new Country();
+                popC.Name = rset.getString("Name");
+                popC.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.city.Population = rset.getString("city.Population");
+                //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
             }
             return pop;
         }
@@ -790,7 +806,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -807,7 +823,8 @@ public class App {
             while(rset.next())
             {
                 Country pop = new Country();
-                pop.SUM(Population) = rset.getString("SUM(Population)");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.SUM(Population) = rset.getString("SUM(Population)");
             }
             return population;
         }
@@ -824,7 +841,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -844,7 +861,8 @@ public class App {
             {
                 Country pop = new Country();
                 pop.Continent = rset.getString("Continent");
-                pop.SUM(Population) = rset.getString("SUM(Population)");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.SUM(Population) = rset.getString("SUM(Population)");
             }
             return populationCont;
         }
@@ -861,7 +879,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -881,7 +899,8 @@ public class App {
             {
                 Country pop = new Country();
                 pop.Region = rset.getString("Region");
-                pop.SUM(Population) = rset.getString("SUM(Population)");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.SUM(Population) = rset.getString("SUM(Population)");
             }
             return populationReg;
         }
@@ -898,7 +917,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -917,7 +936,7 @@ public class App {
             {
                 Country pop = new Country();
                 pop.Name = rset.getString("Name");
-                pop.Population = rset.getString("Population");
+                pop.Population = rset.getInt("Population");
             }
             return populationCountry;
         }
@@ -934,7 +953,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -954,7 +973,8 @@ public class App {
             {
                 City pop = new City();
                 pop.District = rset.getString("District");
-                pop.SUM(Population) = rset.getString("SUM(Population)");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.SUM(Population) = rset.getString("SUM(Population)");
             }
             return populationDist;
         }
@@ -971,7 +991,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -990,7 +1010,8 @@ public class App {
             {
                 City pop = new City();
                 pop.Name = rset.getString("Name");
-                pop.Population = rset.getString("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.Population = rset.getString("Population");
             }
             return populationCity;
         }
@@ -1007,7 +1028,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -1028,8 +1049,9 @@ public class App {
             {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getString("Population");
-                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+                lan.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanChinese;
         }
@@ -1046,7 +1068,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -1067,8 +1089,9 @@ public class App {
             {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getString("Population");
-                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+                lan.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanEnglish;
         }
@@ -1085,7 +1108,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -1106,8 +1129,9 @@ public class App {
             {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getString("Population");
-                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+                lan.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanHindi;
         }
@@ -1124,7 +1148,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -1145,8 +1169,9 @@ public class App {
             {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getString("Population");
-                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+                lan.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanSpanish;
         }
@@ -1163,7 +1188,7 @@ public class App {
         try
         {
             // Create an SQL statement
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
 
             // Create string for SQL statement
             String strSelect =
@@ -1184,8 +1209,9 @@ public class App {
             {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getString("Population");
-                lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
+                lan.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanArabic;
         }
