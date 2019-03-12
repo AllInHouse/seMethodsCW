@@ -1014,7 +1014,7 @@ public class App {
                 "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
                     + "FROM country "
                     + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
-                    + "WHERE countrylanguage.Language = "'Chinese'" "
+                    + "WHERE countrylanguage.Language = 'Chinese' "
                     + "ORDER BY lanulation DESC";
 
 
@@ -1053,7 +1053,7 @@ public class App {
                 "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
                     + "FROM country "
                     + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
-                    + "WHERE countrylanguage.Language = "'English'" "
+                    + "WHERE countrylanguage.Language = 'English' "
                     + "ORDER BY lanulation DESC";
 
 
@@ -1092,7 +1092,7 @@ public class App {
                 "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
                     + "FROM country "
                     + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
-                    + "WHERE countrylanguage.Language = "'Hindi'" "
+                    + "WHERE countrylanguage.Language = 'Hindi' "
                     + "ORDER BY lanulation DESC";
 
 
@@ -1131,7 +1131,7 @@ public class App {
                 "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
                     + "FROM country "
                     + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
-                    + "WHERE countrylanguage.Language = "'Spanish'" "
+                    + "WHERE countrylanguage.Language = 'Spanish' "
                     + "ORDER BY lanulation DESC";
 
 
@@ -1170,7 +1170,7 @@ public class App {
                 "SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) "
                     + "FROM country "
                     + "JOIN countrylanguage ON Code = countrylanguage.CountryCode "
-                    + "WHERE countrylanguage.Language = "'Arabic'" "
+                    + "WHERE countrylanguage.Language = 'Arabic' "
                     + "ORDER BY lanulation DESC";
 
 
