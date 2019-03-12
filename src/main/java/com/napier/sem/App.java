@@ -60,7 +60,7 @@ public class App {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database :)   Used to be db:3306
-                connection = DriverManager.getConnection("jdbc:mysql://" + dbLocation + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
+                connection = DriverManager.getConnection("jdbc:mysql://" + dbLocation + "/world?useSSL=false", "root", "example");
                 // Print a message in console when db is connected
                 System.out.println("Connected to database.");
                 break;
@@ -1224,9 +1224,21 @@ public class App {
      * May throw IllegalArgumentException if ct is null
      * @param ct the city to print
      */
-    public void PrintCity(City ct){
-        if(ct == null) throw new IllegalArgumentException();
-        String.format("%-10s %-15s %-20s %-8s", "ID", "Country Code", "District", "Name", "Population");
-        String.format("%-10s %-15s %-20s %-8s", ct.ID, ct.CountryCode, ct.District, ct.Name, ct.Population);
+    public void PrintCountry(Country cntry){
+     if(cntry == null) throw new IllegalArgumentException();
+     System.out.println("Code | Name | Continent | Region | Population | Capital");
+     System.out.println(cntry.Code + " | " + cntry.Name + " | " + cntry.Continent + " | " + cntry.Region + " | " + cntry.Population + " | " + cntry.Capital);
     }
+
+    public void PrintCity(City ct){
+     if(ct == null) throw new IllegalArgumentException();
+     System.out.println("Name | Country | District | Population");
+     System.out.println(ct.Name + " | " + ct.Country + " | " + ct.District + " | " + ct.Population);
+    }
+
+    public void PrintLanguage(Country lan){
+     if(lan == null) throw new IllegalArgumentException();
+     System.out.println("Name | Population");
+     System.out.println(lan.Name + " | " + lan.Population);
+    }    
 }
