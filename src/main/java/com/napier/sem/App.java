@@ -60,7 +60,7 @@ public class App {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database :)   Used to be db:3306
-                connection = DriverManager.getConnection("jdbc:mysql://" + dbLocation + "/world?useSSL=false", "root", "example");
+                connection = DriverManager.getConnection("jdbc:mysql://" + dbLocation + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 // Print a message in console when db is connected
                 System.out.println("Connected to database.");
                 break;
