@@ -1233,7 +1233,7 @@ public class App {
     public void PrintCity(City ct){
      if(ct == null) throw new IllegalArgumentException();
      System.out.println("Name | Country | District | Population");
-     System.out.println(ct.Name + " | " + ct.Country + " | " + ct.District + " | " + ct.Population);
+     System.out.println(ct.Name + " | " + ct.CountryCode + " | " + ct.District + " | " + ct.Population);
     }
 
     public void PrintLanguage(Country lan){
