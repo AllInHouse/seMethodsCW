@@ -16,7 +16,7 @@ public class SemIntTests {
     static void init()
     {
         app = new App();
-        app.connect("db");
+        app.connect("db:33060");
     }
 
     @Test

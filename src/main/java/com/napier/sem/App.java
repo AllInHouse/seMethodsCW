@@ -34,10 +34,6 @@ public class App {
      */
     public Connection connection = null;
 
-    public void connect(){
-        connect("db:3306");
-    }
-
     /**
      * Connect to the MySQL database.
      * Code adapted from the lab tutorials :)
