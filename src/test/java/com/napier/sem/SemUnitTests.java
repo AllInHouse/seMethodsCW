@@ -13,16 +13,23 @@ public class SemUnitTests {
     }
 
     @Test
-    void TestPrint(){
+    void TestPrints(){
         //Assertions.assertThrows(IllegalArgumentException, app.PrintCity(null));
         assertThrows(IllegalArgumentException.class, this::PrintCityNull);
+        assertThrows(IllegalArgumentException.class, this::PrintCountryNull);
+        assertThrows(IllegalArgumentException.class, this::PrintCountryLang);
     }
 
     void PrintCityNull(){
         app.PrintCity(null);
     }
 
+    void PrintCountryNull(){
+        app.PrintCountry(null);
+    }
 
-
+    void PrintCountryLang(){
+        app.PrintLanguage(null);
+    }
 
 }
