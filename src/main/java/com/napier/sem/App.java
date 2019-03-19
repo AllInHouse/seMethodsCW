@@ -13,8 +13,15 @@ public class App {
         // App instance to connect to db with
         App app = new App();
 
+        String dbloc = "";
+
+        if(args.length > 0){
+            dbloc = args[0];
+        }else dbloc = "localhost:33060";
+
         // Connect to the db
-        app.connect("localhost:33060");
+        //app.connect("localhost:33060");
+        app.connect(dbloc);
 
         // Execute the sample query
         app.sampleQuery();
