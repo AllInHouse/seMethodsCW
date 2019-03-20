@@ -15,11 +15,10 @@ public class App {
 
         String dbloc = "";
 
-        if(args.length > 0){
-            dbloc = args[0];
-        }else dbloc = "localhost:33060";
+        //Check for arguments passed to the app. If aeegs[0] exists we will use it as the host address
+        if(args.length > 0) dbloc = args[0];
+        else dbloc = "localhost:33060";
 
-        // Connect to the db
         //app.connect("localhost:33060");
         app.connect(dbloc);
 
