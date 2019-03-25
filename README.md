@@ -5,6 +5,11 @@
 - Master Build Status [![Build Status](https://travis-ci.org/AllInHouse/seMethodsCW.svg?branch=master)](https://travis-ci.org/AllInHouse/seMethodsCW)
 - Develop Build Status [![Build Status](https://travis-ci.org/AllInHouse/seMethodsCW.svg?branch=develop)](https://travis-ci.org/AllInHouse/seMethodsCW)
 
+## Code Coverage Status
+- Master Coverage Status [![codecov](https://codecov.io/gh/AllInHouse/seMethodsCW/branch/master/graph/badge.svg)](https://codecov.io/gh/AllInHouse/seMethodsCW)
+- Develop Coverage Status[![codecov](https://codecov.io/gh/AllInHouse/seMethodsCW/branch/develop/graph/badge.svg)](https://codecov.io/gh/AllInHouse/seMethodsCW)
+- Feature/deploy-process Coverage Status[![codecov](https://codecov.io/gh/AllInHouse/seMethodsCW/branch/feature%2Fdeploy-process/graph/badge.svg)](https://codecov.io/gh/AllInHouse/seMethodsCW)
+
 ## Code of Conduct
 
 1. Acts of aggression will not be tolerated and will be reported on first instance.
