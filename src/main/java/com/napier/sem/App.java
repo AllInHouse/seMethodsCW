@@ -115,28 +115,17 @@ public class App {
         return out;
     }
 
-    public ArrayList<Country> getCountry(boolean limit, int limNum) {
+    public ArrayList<Country> getCountry(int limNum) {
         try {
             // Create an SQL statement
             Statement stmt = connection.createStatement();
-            String strSelect = "";
+            String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                    + "FROM country "
+                    + "ORDER BY Population DESC";
 
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Code, Name, Continent, Region, Population, Capital "
-                                + "FROM country "
-                                + "ORDER BY Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Code, Name, Continent, Region, Population, Capital "
-                                + "FROM country "
-                                + "ORDER BY Population DESC"
-                                + "LIMIT " + limNum;
+            if (!(limNum < 0)) {
+                strSelect = strSelect + " LIMIT " + limNum;
             }
-
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
@@ -1077,7 +1066,7 @@ public class App {
      * Not sure this will stay, prints out all data for a City.
      * May throw IllegalArgumentException if ct is null
      *
-     * @param cntryt the city to print
+     * @param cntry the city to print
      */
     public void PrintCountry(Country cntry) {
         if (cntry == null) throw new IllegalArgumentException();
