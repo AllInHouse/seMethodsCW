@@ -3,6 +3,8 @@ package com.napier.sem;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
 import com.napier.sem.DatabaseObjects.DataObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.plaf.nimbus.State;
 import java.net.SocketOption;
@@ -10,6 +12,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class App {
+
+    public static Logger log = LogManager.getLogger("seMethodsCW");
 
     public static void main(String[] args) {
         // App instance to connect to db with
@@ -44,6 +48,7 @@ public class App {
         app.disconnect();
 
         System.out.println("We're doing it all in house");
+        log.debug("We're doing it all in house");
 
         //User input to add requested limit
         //int limNum = Integer.parseInt(System.console().readLine());
@@ -70,14 +75,14 @@ public class App {
 
         int retries = 10;
         for (int i = 0; i < retries; ++i) {
-            System.out.println("Connecting to database...");
+            log.info("Connecting to database...");
             try {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database :)   Used to be db:3306
                 connection = DriverManager.getConnection("jdbc:mysql://" + dbLocation + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 // Print a message in console when db is connected
-                System.out.println("Connected to database.");
+                log.info("Connected to database.");
                 break;
             } catch (SQLException sqle) {
                 System.out.println("Failed to connect to database attempt " + i);
@@ -116,8 +121,8 @@ public class App {
             while(rs.next()){
                 T type = returnType.newInstance();
                 if (type.ParseRSET(rs)){
-                    System.out.println("Parse Succ");
-                }else System.out.println("Parse Fail??");
+                    log.debug("Parse Succ");
+                }else log.warn("Parse Fail??");
 
                 dataSet.add(type);
             }
