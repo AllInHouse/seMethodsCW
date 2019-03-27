@@ -1,11 +1,121 @@
 package com.napier.sem.DatabaseObjects;
 
+import org.springframework.beans.TypeMismatchException;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * Country class, same as in the database.
  */
 public class Country {
 
     public Country(){
+    }
+
+    public boolean AttemptParseRSET(ResultSet rset){
+        boolean setSomething = false; //Using this to make sure something actually gets set
+        try{
+            this.Name = rset.getString("Code");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: Code"); }
+
+        try{
+            this.Code = rset.getString("Name");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: Name"); }
+
+        try{
+            this.Continent = rset.getString("Continent");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: Continent"); }
+
+        try{
+            this.Region = rset.getString("Region");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: Region"); }
+
+        try{
+            this.SurfaceArea = rset.getFloat("SurfaceArea");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: SurfaceArea"); }
+
+        try{
+            this.IndepYear = rset.getInt("IndepYear");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: IndepYear"); }
+
+        try{
+            this.Population = rset.getInt("Population");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: Population"); }
+
+        try{
+            this.LifeExpectancy = rset.getFloat("LifeExpectancy");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: LifeExpectancy"); }
+
+        try{
+            this.GNP = rset.getFloat("GNP");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: GNP"); }
+
+        try{
+            this.GNPOld = rset.getFloat("GNPOld");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: GNPOld"); }
+
+        try{
+            this.LocalName = rset.getString("LocalName");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: LocalName"); }
+
+        try{
+            this.GovernemntForm = rset.getString("GovernmentForm");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: GovernmentForm"); }
+
+        try{
+            this.HeadOfState = rset.getString("HeadOfState");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: HeadOfState"); }
+
+        try{
+            this.Capital = rset.getInt("Capital");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: Capital"); }
+
+        try{
+            this.Code2 = rset.getString("Code2");
+            setSomething = true;
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: Code2"); }
+        return setSomething;
+    }
+
+    private enum dataType { STRING, INT, FLOAT}
+
+    private boolean throwableMeth(ResultSet rset, String colName, dataType dt, Object object){
+        boolean objectSet = false;
+        try{
+            switch(dt){
+                case STRING:
+                    //if(!(object instanceof String)) throw new ArithmeticException("lol");
+                    object = rset.getString(colName);
+                    objectSet = true;
+                    break;
+                case INT:
+                    //if(!(object instanceof Integer)) throw new ArithmeticException("lol");
+                    object = rset.getInt(colName);
+                    objectSet = true;
+                    break;
+                case FLOAT:
+                    //if(!(object instanceof Float)) throw new ArithmeticException("lol");
+                    object = rset.getFloat(colName);
+                    objectSet = true;
+                    break;
+            }
+        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: " + colName); }
+        return objectSet;
     }
 
     /**

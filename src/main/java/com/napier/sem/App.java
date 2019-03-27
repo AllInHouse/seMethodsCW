@@ -3,6 +3,7 @@ package com.napier.sem;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
 
+import java.net.SocketOption;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -16,21 +17,28 @@ public class App {
 
         //Check for arguments passed to the app. If args[0] exists we will use it as the host address
         if (args.length > 0) dbloc = args[0];
-        else dbloc = "localhost:33060";
+        else dbloc = "db:3306"; //localhost? Is this for Travis?
+
+        System.out.println("DB Loc :: " + dbloc);
 
         //app.connect("localhost:33060");
         app.connect(dbloc);
 
         // Execute the sample query
-        app.sampleQuery();
+        //app.sampleQuery();
 
+        ArrayList<Country> al = app.getCountry(-1);
+
+        for(Country country : al){
+            app.PrintCountry(country);
+        }
         // Disconnect from the db
         app.disconnect();
 
         System.out.println("We're doing it all in house");
 
         //User input to add requested limit
-        int limNum = Integer.parseInt(System.console().readLine());
+        //int limNum = Integer.parseInt(System.console().readLine());
     }
 
 
@@ -132,14 +140,21 @@ public class App {
             // Extract country information
             ArrayList<Country> countries = new ArrayList<Country>();
 
-            while (rset.next()) {
-                Country cntry = new Country();
-                cntry.Code = rset.getString("Code");
-                cntry.Name = rset.getString("Name");
-                cntry.Continent = rset.getString("Continent");
-                cntry.Region = rset.getString("Region");
-                cntry.Population = rset.getInt("Population");
-                cntry.Capital = rset.getInt("Capital");
+//            while (rset.next()) {
+//                Country cntry = new Country();
+//                cntry.Code = rset.getString("Code");
+//                cntry.Name = rset.getString("Name");
+//                cntry.Continent = rset.getString("Continent");
+//                cntry.Region = rset.getString("Region");
+//                cntry.Population = rset.getInt("Population");
+//                cntry.Capital = rset.getInt("Capital");
+//            }
+            while(rset.next()){
+                Country count = new Country();
+                if (count.AttemptParseRSET(rset)){
+                    System.out.println("Parse Succ");
+                }else System.out.println("Parse Fail??");
+                countries.add(count);
             }
             return countries;
         } catch (Exception e) {
@@ -179,12 +194,7 @@ public class App {
 
             while (rset.next()) {
                 Country cont = new Country();
-                cont.Code = rset.getString("Code");
-                cont.Name = rset.getString("Name");
-                cont.Continent = rset.getString("Continent");
-                cont.Region = rset.getString("Region");
-                cont.Population = rset.getInt("Population");
-                cont.Capital = rset.getInt("Capital");
+                cont.AttemptParseRSET(rset);
             }
             return continents;
         } catch (Exception e) {
