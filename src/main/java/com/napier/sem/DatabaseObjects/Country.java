@@ -92,32 +92,6 @@ public class Country implements DataObject{
         return setSomething;
     }
 
-    private enum dataType { STRING, INT, FLOAT}
-
-    private boolean throwableMeth(ResultSet rset, String colName, dataType dt, Object object){
-        boolean objectSet = false;
-        try{
-            switch(dt){
-                case STRING:
-                    //if(!(object instanceof String)) throw new ArithmeticException("lol");
-                    object = rset.getString(colName);
-                    objectSet = true;
-                    break;
-                case INT:
-                    //if(!(object instanceof Integer)) throw new ArithmeticException("lol");
-                    object = rset.getInt(colName);
-                    objectSet = true;
-                    break;
-                case FLOAT:
-                    //if(!(object instanceof Float)) throw new ArithmeticException("lol");
-                    object = rset.getFloat(colName);
-                    objectSet = true;
-                    break;
-            }
-        } catch (SQLException sqlE) { System.out.println("Caught exception reading rset :: " + colName); }
-        return objectSet;
-    }
-
     /**
      * The country code
      */
