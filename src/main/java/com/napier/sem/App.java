@@ -2,7 +2,9 @@ package com.napier.sem;
 
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
+import com.napier.sem.DatabaseObjects.DataObject;
 
+import javax.swing.plaf.nimbus.State;
 import java.net.SocketOption;
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,7 +29,13 @@ public class App {
         // Execute the sample query
         //app.sampleQuery();
 
-        ArrayList<Country> al = app.getCountry(-1);
+        //ArrayList<Country> al = app.getCountry(-1);
+
+        String qr = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Population DESC";
+
+        ArrayList<Country> al = app.RunListQuery(Country.class, qr);
 
         for(Country country : al){
             app.PrintCountry(country);
@@ -95,6 +103,31 @@ public class App {
         }
     }
 
+    private <T extends DataObject> ArrayList<T> RunListQuery(Class<T> returnType, String Query){
+        try{
+            //Create the new Statement
+            Statement statement = connection.createStatement();
+            //Execute query
+            ResultSet rs = statement.executeQuery(Query);
+            // Create return object
+            ArrayList<T> dataSet = new ArrayList<T>();
+
+            //Loop through entries and get the data
+            while(rs.next()){
+                T type = returnType.newInstance();
+                if (type.ParseRSET(rs)){
+                    System.out.println("Parse Succ");
+                }else System.out.println("Parse Fail??");
+
+                dataSet.add(type);
+            }
+            return dataSet;
+        } catch (SQLException | IllegalAccessException | InstantiationException e){
+            System.out.println("Except! :: " + e.getMessage());
+        }
+        return null;
+    }
+
     /**
      * Sample query that prints the contents of LocalName in the Country table
      */
@@ -125,38 +158,15 @@ public class App {
 
     public ArrayList<Country> getCountry(int limNum) {
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
             String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                     + "FROM country "
                     + "ORDER BY Population DESC";
-
             if (!(limNum < 0)) {
                 strSelect = strSelect + " LIMIT " + limNum;
             }
             // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
 
-            // Extract country information
-            ArrayList<Country> countries = new ArrayList<Country>();
-
-//            while (rset.next()) {
-//                Country cntry = new Country();
-//                cntry.Code = rset.getString("Code");
-//                cntry.Name = rset.getString("Name");
-//                cntry.Continent = rset.getString("Continent");
-//                cntry.Region = rset.getString("Region");
-//                cntry.Population = rset.getInt("Population");
-//                cntry.Capital = rset.getInt("Capital");
-//            }
-            while(rset.next()){
-                Country count = new Country();
-                if (count.AttemptParseRSET(rset)){
-                    System.out.println("Parse Succ");
-                }else System.out.println("Parse Fail??");
-                countries.add(count);
-            }
-            return countries;
+            return RunListQuery(Country.class, strSelect);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
@@ -194,7 +204,7 @@ public class App {
 
             while (rset.next()) {
                 Country cont = new Country();
-                cont.AttemptParseRSET(rset);
+                cont.ParseRSET(rset);
             }
             return continents;
         } catch (Exception e) {
@@ -208,40 +218,14 @@ public class App {
         try {
             // Create an SQL statement
             Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Code, Name, Continent, Region, Population, Capital "
+            String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                                 + "FROM country "
                                 + "ORDER BY Region, Population DESC";
 
-            } else {
+            if(!(limNum < 0)) strSelect = strSelect + " LIMIT " + limNum;
 
-                strSelect =
-                        "SELECT Code, Name, Continent, Region, Population, Capital "
-                                + "FROM country "
-                                + "ORDER BY Region, Population DESC"
-                                + "LIMIT " + limNum;
-            }
+            return RunListQuery(Country.class, strSelect);
 
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract country information
-            ArrayList<Country> regions = new ArrayList<Country>();
-
-            while (rset.next()) {
-                Country reg = new Country();
-                reg.Code = rset.getString("Code");
-                reg.Name = rset.getString("Name");
-                reg.Continent = rset.getString("Continent");
-                reg.Region = rset.getString("Region");
-                reg.Population = rset.getInt("Population");
-                reg.Capital = rset.getInt("Capital");
-            }
-            return regions;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");

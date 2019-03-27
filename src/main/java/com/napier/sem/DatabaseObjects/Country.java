@@ -8,12 +8,12 @@ import java.sql.SQLException;
 /**
  * Country class, same as in the database.
  */
-public class Country {
+public class Country implements DataObject{
 
     public Country(){
     }
 
-    public boolean AttemptParseRSET(ResultSet rset){
+    public boolean ParseRSET(ResultSet rset){
         boolean setSomething = false; //Using this to make sure something actually gets set
         try{
             this.Name = rset.getString("Code");
