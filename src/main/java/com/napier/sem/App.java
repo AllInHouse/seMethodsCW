@@ -69,7 +69,7 @@ public class App {
             // Load / test database driver
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("Could not load SQL driver");
+            log.fatal("Could not load SQL driver");
             System.exit(-1);
         }
 
@@ -85,10 +85,10 @@ public class App {
                 log.info("Connected to database.");
                 break;
             } catch (SQLException sqle) {
-                System.out.println("Failed to connect to database attempt " + i);
-                System.out.println(sqle.getMessage());
+                log.error("Failed to connect to database attempt " + i);
+                log.error(sqle.getMessage());
             } catch (InterruptedException ie) {
-                System.out.println("Thread interrupted? Should not happen.");
+                log.fatal("Thread interrupted? Should not happen.");
             }
         }
     }
@@ -103,11 +103,18 @@ public class App {
                 // Close connection
                 connection.close();
             } catch (Exception e) {
-                System.out.println("Error closing connection to database");
+                log.error("Error closing connection to database");
             }
         }
     }
 
+    /**
+     * Run a query that returns an ArrayList of objects
+     * @param returnType The class of type T
+     * @param Query The query to run
+     * @param <T> the type of DataObject to return
+     * @return An ArrayList of type <T> containing results or null
+     */
     private <T extends DataObject> ArrayList<T> RunListQuery(Class<T> returnType, String Query){
         try{
             //Create the new Statement
@@ -120,15 +127,17 @@ public class App {
             //Loop through entries and get the data
             while(rs.next()){
                 T type = returnType.newInstance();
-                if (type.ParseRSET(rs)){
-                    log.debug("Parse Succ");
-                }else log.warn("Parse Fail??");
+
+                if (type.ParseRSET(rs))
+                    log.debug("Parsed RSET Successfully");
+                else
+                    log.warn("Failed RSET Parsing -> " + returnType.getSimpleName());
 
                 dataSet.add(type);
             }
             return dataSet;
         } catch (SQLException | IllegalAccessException | InstantiationException e){
-            System.out.println("Except! :: " + e.getMessage());
+            log.error("Exception caught at RunListQuery :: " + e.getMessage());
         }
         return null;
     }
@@ -173,8 +182,8 @@ public class App {
 
             return RunListQuery(Country.class, strSelect);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            log.error(e.getMessage());
+            log.error("Failed to get country details");
             return null;
         }
     }
