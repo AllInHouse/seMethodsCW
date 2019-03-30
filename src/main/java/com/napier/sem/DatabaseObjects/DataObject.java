@@ -4,5 +4,5 @@ import java.sql.ResultSet;
 
 public interface DataObject {
 
-    public boolean ParseRSET(ResultSet rset);
+    boolean ParseRSET(ResultSet rset);
 }

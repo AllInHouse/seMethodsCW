@@ -19,7 +19,7 @@ public class App {
         // App instance to connect to db with
         App app = new App();
 
-        String dbloc = "";
+        String dbloc;
 
         //Check for arguments passed to the app. If args[0] exists we will use it as the host address
         if (args.length > 0) dbloc = args[0];
@@ -41,9 +41,12 @@ public class App {
 
         ArrayList<Country> al = app.RunListQuery(Country.class, qr);
 
-        for(Country country : al){
-            app.PrintCountry(country);
-        }
+        if(al != null) {
+            for (Country country : al) {
+                app.PrintCountry(country);
+            }
+        }else
+            log.error("Testing query returned null..");
         // Disconnect from the db
         app.disconnect();
 
@@ -122,7 +125,7 @@ public class App {
             //Execute query
             ResultSet rs = statement.executeQuery(Query);
             // Create return object
-            ArrayList<T> dataSet = new ArrayList<T>();
+            ArrayList<T> dataSet = new ArrayList<>();
 
             //Loop through entries and get the data
             while(rs.next()){
