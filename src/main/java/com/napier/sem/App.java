@@ -118,7 +118,7 @@ public class App {
      * @param <T> the type of DataObject to return
      * @return An ArrayList of type <T> containing results or null
      */
-    private <T extends DataObject> ArrayList<T> RunListQuery(Class<T> returnType, String Query){
+    public <T extends DataObject> ArrayList<T> RunListQuery(Class<T> returnType, String Query){
         try{
             //Create the new Statement
             Statement statement = connection.createStatement();
