@@ -130,7 +130,7 @@ public class App {
             //Loop through entries and get the data
             while(rs.next()){
                 T type = returnType.newInstance();
-
+                log.debug("Parsing to object :: " + returnType.getSimpleName());
                 if (type.ParseRSET(rs))
                     log.debug("Parsed RSET Successfully");
                 else
