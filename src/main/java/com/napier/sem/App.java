@@ -7,54 +7,44 @@ import com.napier.sem.DatabaseObjects.DataObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.plaf.nimbus.State;
-import java.net.SocketOption;
 import java.sql.*;
 import java.util.ArrayList;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+@SpringBootApplication
+@RestController
 public class App {
 
     public static Logger log = LogManager.getLogger("seMethodsCW");
 
+    public static App application;
+
     public static void main(String[] args) {
         // App instance to connect to db with
-        App app = new App();
+        application = new App();
 
         String dbloc;
-
         //Check for arguments passed to the app. If args[0] exists we will use it as the host address
         if (args.length > 0) dbloc = args[0];
         else dbloc = "db:3306"; //localhost? Is this for Travis?
-
-        System.out.println("DB Loc :: " + dbloc);
+        log.debug("Using DB Location :: " + dbloc);
 
         //app.connect("localhost:33060");
-        app.connect(dbloc);
+        application.connect(dbloc);
 
-        // Execute the sample query
-        //app.sampleQuery();
+        //Setup SPRING :) Winter is so last season..
+        SpringApplication.run(App.class, args);
 
-        //ArrayList<Country> al = app.getCountry(-1);
 
-        String qr = "SELECT Code, Name, Continent, Region, Population, Capital "
-                + "FROM country "
-                + "ORDER BY Population DESC";
-
-        ArrayList<Country> al = app.RunListQuery(Country.class, qr);
-
-        if(al != null) {
-            for (Country country : al) {
-                app.PrintCountry(country);
-            }
-        }else
-            log.error("Testing query returned null..");
         // Disconnect from the db
-        app.disconnect();
+        application.disconnect();
 
         System.out.println("We're doing it all in house");
         log.debug("We're doing it all in house");
@@ -64,7 +54,7 @@ public class App {
     /**
      * Connection to MySQL database.
      */
-    public Connection connection = null;
+    private Connection connection = null;
 
     /**
      * Connect to the MySQL database.
@@ -104,6 +94,7 @@ public class App {
      * Code adapted from the lab tutorials :)
      */
     public void disconnect() {
+        log.info("Disconnecting from database.");
         if (connection != null) {
             try {
                 // Close connection
@@ -151,29 +142,19 @@ public class App {
     /**
      * Sample query that prints the contents of LocalName in the Country table
      */
-    public String sampleQuery() {
-        String out = "Empty :)";
-        try {
-            // New statement
-            Statement statement = connection.createStatement();
-            // Execute query
-            ResultSet rs = statement.executeQuery("SELECT LocalName FROM country");
+    public void sampleQuery() {
+        String qr = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Population DESC";
 
-            int Count = 0; //Count to make sure it doesn't go anywhere near Travis max log size
+        ArrayList<Country> al = application.RunListQuery(Country.class, qr);
 
-            // Print results
-            while (rs.next()) {
-                if (Count > 50) return out; //Only going to 50
-                out = rs.getString("LocalName");
-                System.out.println(out);
-                Count++;
+        if(al != null) {
+            for (Country country : al) {
+                application.PrintCountry(country);
             }
-        }
-        // Catch any exception from this code
-        catch (Exception e) {
-            System.out.println("Except! :: " + e.getMessage());
-        }
-        return out;
+        }else
+            log.error("Testing query returned null..");
     }
 
     @RequestMapping("Country")
@@ -560,7 +541,7 @@ public class App {
                 Country pop = new Country();
                 pop.Continent = rset.getString("Continent");
                 //TODO need to get these values differently, It wont compile as is
-                pop.SumPop = rset.getString("SUM(Population)");
+                //pop.SumPop = rset.getString("SUM(Population)");
             }
             return populationCont;
         } catch (Exception e) {

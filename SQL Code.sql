@@ -1,169 +1,169 @@
 --All the countries in the world organised by largest population to smallest:
-SELECT Code, Name, Continent, Region, Population, Capital FROM country
-ORDER BY Population DESC
+SELECT code, name, continent, region, population, capital FROM country
+ORDER BY population DESC
 
 --All the countries in a continent organised by largest population to smallest:
-SELECT Code, Name, Continent, Region, Population, Capital FROM country
-ORDER BY Continent, Population DESC
+SELECT code, name, continent, region, population, capital FROM country
+ORDER BY continent, population DESC
 
 --All the countries in a region organised by largest population to smallest:
-SELECT Code, Name, Continent, Region, Population, Capital FROM country
-ORDER BY Region, Population DESC
+SELECT code, name, continent, region, population, capital FROM country
+ORDER BY region, population DESC
 
 --The top N populated countries in the world where N is provided by the user:
-SELECT Code, Name, Continent, Region, Population, Capital FROM country
-ORDER BY Population DESC
-LIMIT 
+SELECT code, name, continent, region, population, capital FROM country
+ORDER BY population DESC
+--LIMIT 
 
 --The top N populated countries in a continent where N is provided by the user:
-SELECT Code, Name, Continent, Region, Population, Capital FROM country
-ORDER BY Continent, Population DESC
-LIMIT 
+SELECT code, name, continent, region, population, capital FROM country
+ORDER BY continent, population DESC
+--LIMIT 
 
 --The top N populated countries in a region where N is provided by the user:
-SELECT Code, Name, Continent, Region, Population, Capital FROM country
-ORDER BY Region, Population DESC
-LIMIT 
+SELECT code, name, continent, region, population, capital FROM country
+ORDER BY region, population DESC
+--LIMIT 
 
 --All the cities in the world organised by largest population to smallest:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code 
-ORDER BY Population DESC
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code 
+ORDER BY population DESC
 
 --All the cities in a continent organised by largest population to smallest:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code
-ORDER BY Continent, Population DESC
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code
+ORDER BY continent, population DESC
 
 --All the cities in a region organised by largest population to smallest:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code
-ORDER BY Region, Population DESC
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code
+ORDER BY region, population DESC
 
 --All the cities in a country organised by largest population to smallest:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code 
-ORDER BY country.Name, Population DESC
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code 
+ORDER BY country, population DESC
 
 --All the cities in a district organised by largest population to smallest:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code 
-ORDER BY District, Population DESC
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code 
+ORDER BY district, population DESC
 
 --The top N populated cities in the world where N is provided by the user:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code 
-ORDER BY Population DESC
-LIMIT 
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code 
+ORDER BY population DESC
+--LIMIT 
 
 --The top N populated cities in a continent where N is provided by the user:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code 
-ORDER BY Continent, Population DESC
-LIMIT 
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code 
+ORDER BY continent, population DESC
+--LIMIT 
 
 --The top N populated cities in a region where N is provided by the user:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code 
-ORDER BY Region, Population DESC
-LIMIT 
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code 
+ORDER BY region, population DESC
+--LIMIT 
 
 --The top N populated cities in a country where N is provided by the user:
-SELECT Name, country.Name, District, Population FROM city
-JOIN country ON CountryCode = country.Code 
-ORDER BY country.Name, Population DESC
-LIMIT 
+SELECT name, country.name, district, population FROM city
+JOIN country ON CountryCode = country.code 
+ORDER BY country, population DESC
+--LIMIT 
 
 --The top N populated cities in a district where N is provided by the user:
-SELECT Name, country.Name, District, Population FROM city
-ORDER BY District, Population DESC
-LIMIT 
+SELECT name, country.name, district, population FROM city
+ORDER BY district, population DESC
+--LIMIT 
 
 --All the capital cities in the world organised by largest population to smallest:
-SELECT Capital, Name, Population FROM country
-ORDER BY Population DESC
+SELECT capital, name, population FROM country
+ORDER BY population DESC
 
 --All the capital cities in a continent organised by largest population to smallest:
-SELECT Capital, Name, Population FROM country
-ORDER BY Continent, Population DESC
+SELECT capital, name, population FROM country
+ORDER BY continent, population DESC
 
 --All the capital cities in a region organised by largest to smallest:
-SELECT Capital, Name, Population FROM country
-ORDER BY Region, Population DESC
+SELECT capital, name, population FROM country
+ORDER BY region, population DESC
 
 --The top N populated capital cities in the world where N is provided by the user:
-SELECT Capital, Name, Population FROM country
-ORDER BY Population DESC
-LIMIT 
+SELECT capital, name, population FROM country
+ORDER BY population DESC
+--LIMIT 
 
 --The top N populated capital cities in a continent where N is provided by the user:
-SELECT Capital, Name, Population FROM country
-ORDER BY Continent, Population DESC
-LIMIT 
+SELECT capital, name, population FROM country
+ORDER BY continent, population DESC
+--LIMIT 
 
 --The top N populated capital cities in a region where N is provided by the user:
-SELECT Capital, Name, Population FROM country
-ORDER BY Region, Population DESC
-LIMIT 
+SELECT capital, name, population FROM country
+ORDER BY region, population DESC
+--LIMIT 
 
 --The population of people, people living in cities, and people not living in cities in each continent:
-SELECT Continent, Population, city.Population, SUM(Population - city.Population) FROM country
-JOIN city ON Code = city.CountryCode
-GROUP BY Continent
+SELECT continent, population, city.population, SUM(population - city.population) FROM country
+JOIN city ON code = city.CountryCode
+GROUP BY continent
 
 --The population of people, people living in cities, and people not living in cities in each region:--
-SELECT Region, Population, city.Population, SUM(Population - city.Population) FROM country
-JOIN city ON Code = city.CountryCode
-GROUP BY Region
+SELECT region, population, city.population, SUM(population - city.population) FROM country
+JOIN city ON code = city.CountryCode
+GROUP BY region
 
 --The population of people, people living in cities, and people not living in cities in each country:
-SELECT Name, Population, city.Population, SUM(Population - city.Population) FROM country
-JOIN city ON Code = city.CountryCode
-GROUP BY Name
+SELECT name, population, city.population, SUM(population - city.population) FROM country
+JOIN city ON code = city.CountryCode
+GROUP BY name
 
 --Populations
-SELECT SUM(Population) FROM country
+SELECT SUM(population) FROM country
 
-SELECT Continent, SUM(Population) FROM country
-GROUP BY Continent
-ORDER BY SUM(Population) DESC
+SELECT continent, SUM(population) FROM country
+GROUP BY continent
+ORDER BY SUM(population) DESC
 
-SELECT Region, SUM(Population) FROM country
-GROUP BY Region
-ORDER BY SUM(Population) DESC
+SELECT region, SUM(population) FROM country
+GROUP BY region
+ORDER BY SUM(population) DESC
 
-SELECT Name, Population FROM country
-ORDER BY Population DESC
+SELECT name, population FROM country
+ORDER BY population DESC
 
-SELECT District, SUM(Population) FROM city
-GROUP BY District
-ORDER BY SUM(Population) DESC
+SELECT district, SUM(population) FROM city
+GROUP BY district
+ORDER BY SUM(population) DESC
 
-SELECT Name, Population FROM city
-ORDER BY Population DESC
+SELECT name, population FROM city
+ORDER BY population DESC
 
 --Language Report
-SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) FROM country
-JOIN countrylanguage ON Code = countrylanguage.CountryCode
-WHERE countrylanguage.Language = "Chinese"
-ORDER BY Population DESC
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "Chinese"
+ORDER BY population DESC
 
-SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) FROM country
-JOIN countrylanguage ON Code = countrylanguage.CountryCode
-WHERE countrylanguage.Language = "English"
-ORDER BY Population DESC
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "English"
+ORDER BY population DESC
 
-SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) FROM country
-JOIN countrylanguage ON Code = countrylanguage.CountryCode
-WHERE countrylanguage.Language = "Hindi"
-ORDER BY Population DESC
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "Hindi"
+ORDER BY population DESC
 
-SELECT countrylanguage.Language, Population, SUM(countrylanguage.Percentage) FROM country
-JOIN countrylanguage ON Code = countrylanguage.CountryCode
-WHERE countrylanguage.Language = "Spanish"
-ORDER BY Population DESC
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "Spanish"
+ORDER BY population DESC
 
-SELECT countrylanguage.Language, population, SUM(countrylanguage.Percentage) FROM country
-JOIN countrylanguage ON Code = countrylanguage.CountryCode
-WHERE countrylanguage.Language = "Arabic"
+SELECT language, population, SUM(countrylanguage.percentage) FROM country
+JOIN countrylanguage ON code = countrylanguage.CountryCode
+WHERE language = "Arabic"
 ORDER BY population DESC
