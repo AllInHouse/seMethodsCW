@@ -1,3 +1,4 @@
+
 package com.napier.sem;
 
 import com.napier.sem.DatabaseObjects.City;
@@ -10,6 +11,11 @@ import javax.swing.plaf.nimbus.State;
 import java.net.SocketOption;
 import java.sql.*;
 import java.util.ArrayList;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public class App {
 
@@ -52,9 +58,6 @@ public class App {
 
         System.out.println("We're doing it all in house");
         log.debug("We're doing it all in house");
-
-        //User input to add requested limit
-        //int limNum = Integer.parseInt(System.console().readLine());
     }
 
 
@@ -173,432 +176,229 @@ public class App {
         return out;
     }
 
-    public ArrayList<Country> getCountry(int limNum) {
+    @RequestMapping("Country")
+    public ArrayList<Country> getCountry(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
-                    + "FROM country "
-                    + "ORDER BY Population DESC";
-            if (!(limNum < 0)) {
-                strSelect = strSelect + " LIMIT " + limNum;
-            }
-            // Execute SQL statement
-
-            return RunListQuery(Country.class, strSelect);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            log.error("Failed to get country details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(Country.class, strSelect);
     }
 
-    public ArrayList<Country> getContinent(boolean limit, int limNum) {
+    @RequestMapping("Continent")
+    public ArrayList<Country> getContinent(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Code, Name, Continent, Region, Population, Capital "
-                                + "FROM country "
-                                + "ORDER BY Continent, Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Code, Name, Continent, Region, Population, Capital "
-                                + "FROM country "
-                                + "ORDER BY Continent, Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract country information
-            ArrayList<Country> continents = new ArrayList<Country>();
-
-            while (rset.next()) {
-                Country cont = new Country();
-                cont.ParseRSET(rset);
-            }
-            return continents;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Continent, Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(Country.class, strSelect);
     }
 
-    public ArrayList<Country> getRegion(boolean limit, int limNum) {
+    @RequestMapping("Region")
+    public ArrayList<Country> getRegion(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
-                                + "FROM country "
-                                + "ORDER BY Region, Population DESC";
-
-            if(!(limNum < 0)) strSelect = strSelect + " LIMIT " + limNum;
-
-            return RunListQuery(Country.class, strSelect);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+            + "FROM country "
+            + "ORDER BY Region, Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(Country.class, strSelect);
     }
 
-    public ArrayList<City> getCity(boolean limit, int limNum) {
+    @RequestMapping("City")
+    public ArrayList<City> getCity(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract city information
-            ArrayList<City> cities = new ArrayList<City>();
-
-            while (rset.next()) {
-                City ct = new City();
-                ct.Name = rset.getString("Name");
-                ct.CountryCode = rset.getString("country.Name"); //TODO shouldn't this be CountryCode?
-                ct.District = rset.getString("District");
-                ct.Population = rset.getInt("Population");
-            }
-            return cities;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Name, country.Name, District, Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(City.class, strSelect);
     }
 
-    public ArrayList<City> getContCity(boolean limit, int limNum) {
+    @RequestMapping("City_Cont")
+    public ArrayList<City> getContCity(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY Continent, Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY Continent, Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract city information
-            ArrayList<City> ctCont = new ArrayList<City>();
-
-            while (rset.next()) {
-                City ct = new City();
-                ct.Name = rset.getString("Name");
-                ct.CountryCode = rset.getString("country.Name");
-                ct.District = rset.getString("District");
-                ct.Population = rset.getInt("Population");
-            }
-            return ctCont;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Name, country.Name, District, Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Continent, Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(City.class, strSelect);
     }
 
-    public ArrayList<City> getRegCity(boolean limit, int limNum) {
+    @RequestMapping("City_Reg")
+    public ArrayList<City> getRegCity(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY Region, Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY Region, Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract city information
-            ArrayList<City> ctReg = new ArrayList<City>();
-
-            while (rset.next()) {
-                City ct = new City();
-                ct.Name = rset.getString("Name");
-                ct.CountryCode = rset.getString("country.Name");
-                ct.District = rset.getString("District");
-                ct.Population = rset.getInt("Population");
-            }
-            return ctReg;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Name, country.Name, District, Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Region, Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(City.class, strSelect);
     }
 
-    public ArrayList<City> getCountryCity(boolean limit, int limNum) {
+    @RequestMapping("City_Country")
+    public ArrayList<City> getCountryCity(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY country.Name, Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY country.Name, Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract city information
-            ArrayList<City> ctCountry = new ArrayList<City>();
-
-            while (rset.next()) {
-                City ct = new City();
-                ct.Name = rset.getString("Name");
-                ct.CountryCode = rset.getString("country.Name");
-                ct.District = rset.getString("District");
-                ct.Population = rset.getInt("Population");
-            }
-            return ctCountry;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Name, country.Name, District, Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY country.Name, Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(City.class, strSelect);
     }
 
-    public ArrayList<City> getDistrict(boolean limit, int limNum) {
+    @RequestMapping("City_Country")
+    public ArrayList<City> getDistrict(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY District, Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Name, country.Name, District, Population "
-                                + "FROM city "
-                                + "JOIN country ON CountryCode = country.Code "
-                                + "ORDER BY District, Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract city information
-            ArrayList<City> districts = new ArrayList<City>();
-
-            while (rset.next()) {
-                City ct = new City();
-                ct.Name = rset.getString("Name");
-                ct.CountryCode = rset.getString("country.Name");
-                ct.District = rset.getString("District");
-                ct.Population = rset.getInt("Population");
-            }
-            return districts;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Name, country.Name, District, Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY District, Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(City.class, strSelect);
     }
 
-    public ArrayList<Country> getCap(boolean limit, int limNum) {
+    @RequestMapping("Country_Cap")
+    public ArrayList<Country> getCap(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Capital, Name, Population "
-                                + "FROM country "
-                                + "ORDER BY Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Capital, Name, Population "
-                                + "FROM country "
-                                + "ORDER BY Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract country information
-            ArrayList<Country> capitals = new ArrayList<Country>();
-
-            while (rset.next()) {
-                Country cntry = new Country();
-                cntry.Capital = rset.getInt("Capital");
-                cntry.Name = rset.getString("Name");
-                cntry.Population = rset.getInt("Population");
-            }
-            return capitals;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Capital, Name, Population "
+                + "FROM country "
+                + "ORDER BY Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(Country.class, strSelect);
     }
 
-    public ArrayList<Country> getCapCont(boolean limit, int limNum) {
+    @RequestMapping("Continent_Cap")
+    public ArrayList<Country> getCapCont(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Capital, Name, Population "
-                                + "FROM country "
-                                + "ORDER BY Continent, Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Capital, Name, Population "
-                                + "FROM country "
-                                + "ORDER BY Continent, Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract country information
-            ArrayList<Country> captCont = new ArrayList<Country>();
-
-            while (rset.next()) {
-                Country cntry = new Country();
-                cntry.Capital = rset.getInt("Capital");
-                cntry.Name = rset.getString("Name");
-                cntry.Population = rset.getInt("Population");
-            }
-            return captCont;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Capital, Name, Population "
+                + "FROM country "
+                + "ORDER BY Continent, Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(Country.class, strSelect);
     }
 
-    public ArrayList<Country> getCapReg(boolean limit, int limNum) {
+    @RequestMapping("Region_Cap")
+    public ArrayList<Country> getCapReg(@RequestParam(value = "limNum") String limNum) {
+        int limit;
         try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            String strSelect = "";
-
-            if (limit == false) {
-                // Create string for SQL statement
-                strSelect =
-                        "SELECT Capital, Name, Population "
-                                + "FROM country "
-                                + "ORDER BY Region, Population DESC";
-
-            } else {
-
-                strSelect =
-                        "SELECT Capital, Name, Population "
-                                + "FROM country "
-                                + "ORDER BY Region, Population DESC"
-                                + "LIMIT " + limNum;
-            }
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract country information
-            ArrayList<Country> captReg = new ArrayList<Country>();
-
-            while (rset.next()) {
-                Country cntry = new Country();
-                cntry.Capital = rset.getInt("Capital");
-                cntry.Name = rset.getString("Name");
-                cntry.Population = rset.getInt("Population");
-            }
-            return captReg;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            limit = Integer.parseInt(limNum);
+        } catch (NumberFormatException nfe) {
+            log.error("Caught number format exception, returning bad response.");
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
             return null;
         }
+        String strSelect = "SELECT Capital, Name, Population "
+                + "FROM country "
+                + "ORDER BY Region, Population DESC";
+        if (!(limit < 0)) {
+            strSelect = strSelect + " LIMIT " + limit;
+        }
+        // Execute SQL statement
+        return RunListQuery(Country.class, strSelect);
     }
 
     public ArrayList<Country> getPopCont() {
@@ -629,6 +429,7 @@ public class App {
                 pop.SumPop = rset.getInt("SUM(Population - city.Population)");
             }
             return popCont;
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
@@ -759,7 +560,7 @@ public class App {
                 Country pop = new Country();
                 pop.Continent = rset.getString("Continent");
                 //TODO need to get these values differently, It wont compile as is
-                //pop.SUM(Population) = rset.getString("SUM(Population)");
+                pop.SumPop = rset.getString("SUM(Population)");
             }
             return populationCont;
         } catch (Exception e) {
