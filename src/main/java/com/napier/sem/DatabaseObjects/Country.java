@@ -17,12 +17,12 @@ public class Country implements DataObject{
     public boolean ParseRSET(ResultSet rset){
         boolean setSomething = false; //Using this to make sure something actually gets set
         try{
-            this.Name = rset.getString("Code");
+            this.Code = rset.getString("Code");
             setSomething = true;
         } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: Code"); }
 
         try{
-            this.Code = rset.getString("Name");
+            this.Name = rset.getString("Name");
             setSomething = true;
         } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: Name"); }
 
