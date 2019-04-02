@@ -43,6 +43,8 @@ public class App {
         SpringApplication.run(App.class, args);
 
 
+        application.sampleQuery();
+
         // Disconnect from the db
         application.disconnect();
 
