@@ -48,7 +48,7 @@ public class App {
         // Disconnect from the db
         application.disconnect();
 
-        System.out.println("We're doing it all in house");
+        //System.out.println("We're doing it all in house");
         log.debug("We're doing it all in house");
     }
 
