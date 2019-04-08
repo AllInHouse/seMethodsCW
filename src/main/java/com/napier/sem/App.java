@@ -24,31 +24,25 @@ public class App {
 
     public static Logger log = LogManager.getLogger("seMethodsCW");
 
-    public static App application;
 
     public static void main(String[] args) {
-        // App instance to connect to db with
-        application = new App();
 
         String dbloc;
         //Check for arguments passed to the app. If args[0] exists we will use it as the host address
         if (args.length > 0) dbloc = args[0];
-        else dbloc = "db:3306"; //localhost? Is this for Travis?
+        else dbloc = "localhost:33060"; //localhost? Is this for Travis?
         log.debug("Using DB Location :: " + dbloc);
 
-        //app.connect("localhost:33060");
-        application.connect(dbloc);
+        connect(dbloc);
 
         //Setup SPRING :) Winter is so last season..
         SpringApplication.run(App.class, args);
 
+        //Just in case we reach here..
+        disconnect();
 
-        application.sampleQuery();
-
-        // Disconnect from the db
-        application.disconnect();
-
-        //System.out.println("We're doing it all in house");
+        //Probably not going to see these anymore :'(
+        System.out.println("We're doing it all in house");
         log.debug("We're doing it all in house");
     }
 
@@ -56,13 +50,13 @@ public class App {
     /**
      * Connection to MySQL database.
      */
-    private Connection connection = null;
+    private static Connection connection = null;
 
     /**
      * Connect to the MySQL database.
      * Code adapted from the lab tutorials :)
      */
-    public void connect(String dbLocation) {
+    public static void connect(String dbLocation) {
         try {
             // Load / test database driver
             Class.forName("com.mysql.jdbc.Driver");
@@ -95,7 +89,7 @@ public class App {
      * Disconnect from the MySQL database.
      * Code adapted from the lab tutorials :)
      */
-    public void disconnect() {
+    public static void disconnect() {
         log.info("Disconnecting from database.");
         if (connection != null) {
             try {
@@ -149,17 +143,17 @@ public class App {
                 + "FROM country "
                 + "ORDER BY Population DESC";
 
-        ArrayList<Country> al = application.RunListQuery(Country.class, qr);
+        ArrayList<Country> al = RunListQuery(Country.class, qr);
 
         if(al != null) {
             for (Country country : al) {
-                application.PrintCountry(country);
+                PrintCountry(country);
             }
         }else
             log.error("Testing query returned null..");
     }
 
-    @RequestMapping("Country")
+    //@RequestMapping("country")
     public ArrayList<Country> getCountry(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -179,7 +173,7 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    @RequestMapping("Continent")
+    //@RequestMapping("Continent")
     public ArrayList<Country> getContinent(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -219,7 +213,7 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    @RequestMapping("City")
+    //@RequestMapping("City")
     public ArrayList<City> getCity(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -261,7 +255,7 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    @RequestMapping("City_Reg")
+    //@RequestMapping("City_Reg")
     public ArrayList<City> getRegCity(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -282,7 +276,7 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    @RequestMapping("City_Country")
+    //@RequestMapping("City_Country")
     public ArrayList<City> getCountryCity(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -303,7 +297,7 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    @RequestMapping("City_Country")
+    //@RequestMapping("City_Country")
     public ArrayList<City> getDistrict(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -324,7 +318,7 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    @RequestMapping("Country_Cap")
+    //@RequestMapping("Country_Cap")
     public ArrayList<Country> getCap(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -344,7 +338,7 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    @RequestMapping("Continent_Cap")
+    //@RequestMapping("Continent_Cap")
     public ArrayList<Country> getCapCont(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -364,7 +358,7 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    @RequestMapping("Region_Cap")
+    //@RequestMapping("Region_Cap")
     public ArrayList<Country> getCapReg(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
