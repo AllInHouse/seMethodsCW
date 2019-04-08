@@ -153,7 +153,7 @@ public class App {
             log.error("Testing query returned null..");
     }
 
-    //@RequestMapping("country")
+    @RequestMapping("country")
     public ArrayList<Country> getCountry(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
