@@ -24,30 +24,24 @@ public class App {
 
     public static Logger log = LogManager.getLogger("seMethodsCW");
 
-    //public static App application;
 
     public static void main(String[] args) {
-        // App instance to connect to db with
-        //application = new App();
 
         String dbloc;
         //Check for arguments passed to the app. If args[0] exists we will use it as the host address
         if (args.length > 0) dbloc = args[0];
-        else dbloc = "db:3306"; //localhost? Is this for Travis?
+        else dbloc = "localhost:33060"; //localhost? Is this for Travis?
         log.debug("Using DB Location :: " + dbloc);
 
-        //app.connect("localhost:33060");
-        //application.connect(dbloc);
+        connect(dbloc);
 
         //Setup SPRING :) Winter is so last season..
         SpringApplication.run(App.class, args);
 
+        //Just in case we reach here..
+        disconnect();
 
-        //application.sampleQuery();
-
-        // Disconnect from the db
-        //application.disconnect();
-
+        //Probably not going to see these anymore :'(
         System.out.println("We're doing it all in house");
         log.debug("We're doing it all in house");
     }
@@ -159,7 +153,7 @@ public class App {
             log.error("Testing query returned null..");
     }
 
-    //@RequestMapping("Country")
+    //@RequestMapping("country")
     public ArrayList<Country> getCountry(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
