@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class App {
 
-    public static Logger log = LogManager.getLogger("seMethodsCW");
+    public static final Logger log = LogManager.getLogger("seMethodsCW");
 
 
     public static void main(String[] args) {
@@ -37,13 +37,6 @@ public class App {
 
         //Setup SPRING :) Winter is so last season..
         SpringApplication.run(App.class, args);
-
-        //Just in case we reach here..
-        //disconnect();
-
-        //Probably not going to see these anymore :'(
-        //System.out.println("We're doing it all in house");
-        //log.debug("Log4J_0_We're doing it all in house");
     }
 
 
@@ -102,7 +95,7 @@ public class App {
     }
 
     /**
-     * Run a query that returns an ArrayList of objects
+     * Run a query that returns an ArrayList of DataObjects
      * @param returnType The class of type T
      * @param Query The query to run
      * @param <T> the type of DataObject to return
@@ -619,10 +612,9 @@ public class App {
             // Create string for SQL statement
             String strSelect =
                     "SELECT District, SUM(Population) "
-                            + "FROM city "
+                            + "FROM City "
                             + "GROUP BY District "
                             + "ORDER BY SUM(Population) DESC";
-
 
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -859,24 +851,37 @@ public class App {
      */
     public void PrintCountry(Country cntry) {
         if (cntry == null) throw new IllegalArgumentException();
-        System.out.println("Code | Name | Continent | Region | Population | Capital");
-        System.out.println(cntry.Code + " | " + cntry.Name + " | " + cntry.Continent + " | " + cntry.Region + " | " + cntry.Population + " | " + cntry.Capital);
+        log.debug("Code | Name | Continent | Region | Population | Capital");
+        log.debug(cntry.Code + " | " + cntry.Name + " | " + cntry.Continent + " | " + cntry.Region + " | " + cntry.Population + " | " + cntry.Capital);
     }
 
     public void PrintCity(City ct) {
         if (ct == null) throw new IllegalArgumentException();
-        System.out.println("Name | Country | District | Population");
-        System.out.println(ct.Name + " | " + ct.CountryCode + " | " + ct.District + " | " + ct.Population);
+        log.debug("Name | Country | District | Population");
+        log.debug(ct.Name + " | " + ct.CountryCode + " | " + ct.District + " | " + ct.Population);
     }
 
     public void PrintLanguage(Country lan) {
         if (lan == null) throw new IllegalArgumentException();
-        System.out.println("Name | Population");
-        System.out.println(lan.Name + " | " + lan.Population);
+        log.debug("Name | Population");
+        log.debug(lan.Name + " | " + lan.Population);
     }
 
+    /**
+     * Add the column SumPop to a base of Country
+     */
     public class CountrySumPop extends Country {
 
         public int SumPop;
+
+        @Override
+        public boolean ParseRSET(ResultSet rset) {
+            boolean setSomething = super.ParseRSET(rset);
+            try{
+                this.Code = rset.getString("SumPop");
+                setSomething = true;
+            } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: SumPop"); }
+            return setSomething;
+        }
     }
 }

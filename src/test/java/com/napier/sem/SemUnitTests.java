@@ -1,15 +1,36 @@
 package com.napier.sem;
 
+import com.napier.sem.DatabaseObjects.City;
+import com.napier.sem.DatabaseObjects.Country;
+import com.napier.sem.DatabaseObjects.CountryLanguage;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SemUnitTests {
 
-    static App app;
+    private static App app;
 
     @BeforeAll
     static void BeforeTasks(){
         app = new App();
+    }
+
+    @Test
+    void TestCountryParseWithNull(){
+        Country testCountry = new Country();
+        assertFalse(testCountry.ParseRSET(null));
+    }
+
+    @Test
+    void TestCityParseWithNull(){
+        City testCity = new City();
+        assertFalse(testCity.ParseRSET(null));
+    }
+
+    @Test
+    void TestCountryLanguageParseWithNull(){
+        CountryLanguage testCountryLanguage = new CountryLanguage();
+        assertFalse(testCountryLanguage.ParseRSET(null));
     }
 
     @Test

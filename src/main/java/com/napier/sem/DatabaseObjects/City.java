@@ -13,7 +13,17 @@ public class City implements DataObject{
     public City(){
     }
 
+    /**
+     * Quick way to assign the data returned from a query for the City table
+     * @param rset ResultSet object from the database
+     * @return true if anything has been updated, false if nothing has been changed or rset is null
+     */
     public boolean ParseRSET(ResultSet rset){
+        if(rset == null){
+            App.log.warn("City RSET is null, returning false.");
+            return false;
+        }
+
         boolean setSomething = false; //Using this to make sure something actually gets set
         try{
             this.ID = rset.getInt("ID");

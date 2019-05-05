@@ -14,7 +14,17 @@ public class Country implements DataObject{
     public Country(){
     }
 
+    /**
+     * Quick way to assign the data returned from a query for the Country table
+     * @param rset ResultSet object from the database
+     * @return true if anything has been updated, false if nothing has been changed or rset is null
+     */
     public boolean ParseRSET(ResultSet rset){
+        if(rset == null){
+            App.log.warn("Country RSET is null, returning false.");
+            return false;
+        }
+
         boolean setSomething = false; //Using this to make sure something actually gets set
         try{
             this.Code = rset.getString("Code");
