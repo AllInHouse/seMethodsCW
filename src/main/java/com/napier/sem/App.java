@@ -4,6 +4,7 @@ package com.napier.sem;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
 import com.napier.sem.DatabaseObjects.DataObject;
+import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -131,7 +132,8 @@ public class App {
     /**
      * Sample query that prints the contents of LocalName in the Country table
      */
-    public void sampleQuery() {
+    @RequestMapping("App_Sample_Query")
+    public ArrayList<Country> sampleQuery() {
         String qr = "SELECT Code, Name, Continent, Region, Population, Capital "
                 + "FROM country "
                 + "ORDER BY Population DESC";
@@ -142,8 +144,12 @@ public class App {
             for (Country country : al) {
                 PrintCountry(country);
             }
-        }else
+        }else{
             log.error("Testing query returned null..");
+            return null;
+        }
+
+        return al;
     }
 
     @RequestMapping("country")
@@ -865,23 +871,5 @@ public class App {
         if (lan == null) throw new IllegalArgumentException();
         log.debug("Name | Population");
         log.debug(lan.Name + " | " + lan.Population);
-    }
-
-    /**
-     * Add the column SumPop to a base of Country
-     */
-    public class CountrySumPop extends Country {
-
-        public int SumPop;
-
-        @Override
-        public boolean ParseRSET(ResultSet rset) {
-            boolean setSomething = super.ParseRSET(rset);
-            try{
-                this.Code = rset.getString("SumPop");
-                setSomething = true;
-            } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: SumPop"); }
-            return setSomething;
-        }
     }
 }

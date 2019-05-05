@@ -23,8 +23,19 @@ public class SemIntTests {
     @Test
     void TestSampleQuery()
     {
-        assertEquals(true, true);
-        //assertDoesNotThrow(app.sampleQuery());
+        ArrayList<Country> x = app.sampleQuery();
+        assertNotNull(x);
+        assertEquals(239, x.size());
+        for(Country z : x){
+            assertNotNull(z);
+        }
+    }
+
+    @Test
+    void TestRunningAFakeQuery(){
+        String qr = "SELECT * From Countri";
+        ArrayList<Country> al = app.RunListQuery(Country.class, qr);
+        assertNull(al);
     }
 
     @Test

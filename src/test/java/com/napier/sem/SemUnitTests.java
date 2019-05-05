@@ -3,6 +3,8 @@ package com.napier.sem;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
 import com.napier.sem.DatabaseObjects.CountryLanguage;
+import com.napier.sem.DatabaseObjects.ExtendedObjects.CountryCityPopulation;
+import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +33,15 @@ public class SemUnitTests {
     void TestCountryLanguageParseWithNull(){
         CountryLanguage testCountryLanguage = new CountryLanguage();
         assertFalse(testCountryLanguage.ParseRSET(null));
+    }
+
+    @Test
+    void TestExtendedDataObjects(){
+        CountrySumPop CountrySum = new CountrySumPop();
+        CountryCityPopulation CountryCityPopulation = new CountryCityPopulation();
+
+        assertFalse(CountrySum.ParseRSET(null));
+        assertFalse(CountryCityPopulation.ParseRSET(null));
     }
 
     @Test
