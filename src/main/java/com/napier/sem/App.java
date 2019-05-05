@@ -165,7 +165,7 @@ public class App {
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                 + "FROM country "
                 + "ORDER BY Population DESC";
-        if (!(limit < 0)) {
+        if (!(limit <= 0)) {
             strSelect = strSelect + " LIMIT " + limit;
         }
         // Execute SQL statement
