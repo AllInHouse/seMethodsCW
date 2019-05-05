@@ -29,9 +29,9 @@
 </body>
 <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var title = urlParams.get('title');
+    var limnum = urlParams.get('limNum');
 
-    var URL = "http://" + window.location.hostname + "/app/country?limNum=" + title;
+    var URL = "http://" + window.location.hostname + "/app/country?limNum=" + limnum;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.

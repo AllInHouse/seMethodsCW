@@ -39,11 +39,11 @@ public class App {
         SpringApplication.run(App.class, args);
 
         //Just in case we reach here..
-        disconnect();
+        //disconnect();
 
         //Probably not going to see these anymore :'(
-        System.out.println("We're doing it all in house");
-        log.debug("We're doing it all in house");
+        //System.out.println("We're doing it all in house");
+        //log.debug("Log4J_0_We're doing it all in house");
     }
 
 
