@@ -15,6 +15,11 @@ public class CountrySumPop extends Country {
 
     @Override
     public boolean ParseRSET(ResultSet rset) {
+        if(rset == null){
+            App.log.warn("CountrySumPop RSET is null, returning false.");
+            return false;
+        }
+
         boolean setSomething = super.ParseRSET(rset);
         try{
             this.SumPop = rset.getInt("SumPop");
