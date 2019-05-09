@@ -41,14 +41,14 @@ public class SemIntTests {
     @Test
     void Test_countries_largest_to_smallest(){
         ArrayList<Country> al = app.getCountriesLargestToSmallest();
-        assertNull(al);
+        assertNotNull(al);
         assertEquals(al.size(), 239);
     }
 
     @Test
     void Test_countries_largest_to_smallest_group_continent(){
         ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByContinent();
-        assertNull(al);
+        assertNotNull(al);
         assertEquals(al.size(), 239);
     }
 
