@@ -12,6 +12,7 @@ import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.core.util.ArrayUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -203,6 +204,29 @@ public class App {
                 + "FROM country "
                 + "ORDER BY Continent, Population DESC";
         return RunListQuery(Country.class, strSelect);
+    }
+
+
+    /**
+     * Requirement 3 - /countries_largest_to_smallest_group_region
+     * All the countries in a region organised by largest population to smallest.
+     * @return
+     */
+    @RequestMapping("countries_largest_to_smallest_group_region")
+    public ArrayList<Country> getCountriesLargestToSmallestGroupByRegion(){
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Region, Population DESC";
+        return RunListQuery(Country.class, strSelect);
+    }
+
+    public ArrayList<Country> getTopPopulatdCountriesContinent(){
+
+        ArrayList<Country> full = getCountriesLargestToSmallestGroupByContinent();
+        ArrayList<Country> endResult = null;
+        //Logic to get number of countries here :)
+
+        return endResult;
     }
 
     @RequestMapping("Region")

@@ -53,6 +53,13 @@ public class SemIntTests {
     }
 
     @Test
+    void Test_countries_largest_to_smallest_group_region(){
+        ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByRegion();
+        assertNotNull(al);
+        assertEquals(al.size(), 239);
+    }
+
+    @Test
     void TestRunningAQuery(){
         String qr = "SELECT Code, Name, Continent, Region, Population, Capital "
                 + "FROM country "
