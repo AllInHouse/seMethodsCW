@@ -152,6 +152,11 @@ public class App {
         return al;
     }
 
+    /**
+     * Don't think this actually needed limNum if its requirement 1
+     * @param limNum
+     * @return
+     */
     @RequestMapping("country")
     public ArrayList<Country> getCountry(@RequestParam(value = "limNum") String limNum) {
         int limit;
@@ -169,6 +174,15 @@ public class App {
             strSelect = strSelect + " LIMIT " + limit;
         }
         // Execute SQL statement
+        return RunListQuery(Country.class, strSelect);
+    }
+
+
+    @RequestMapping("countries_largest_to_smallest")
+    public ArrayList<Country> getCountriesLargestToSmallest(){
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Population DESC";
         return RunListQuery(Country.class, strSelect);
     }
 
