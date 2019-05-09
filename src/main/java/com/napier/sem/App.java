@@ -179,6 +179,11 @@ public class App {
     }
 
 
+    /**
+     * Requirement 1 - /countries_largest_to_smallest
+     * All the countries in the world organised by largest population to smallest.
+     * @return ArrayList of Country or Null
+     */
     @RequestMapping("countries_largest_to_smallest")
     public ArrayList<Country> getCountriesLargestToSmallest(){
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
@@ -187,6 +192,11 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
+    /**
+     * Requirement 2 - /countries_largest_to_smallest_group_continent
+     * All the countries in a continent organised by largest population to smallest.
+     * @return ArrayList of Country or Null
+     */
     @RequestMapping("countries_largest_to_smallest_group_continent")
     public ArrayList<Country> getCountriesLargestToSmallestGroupByContinent(){
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
