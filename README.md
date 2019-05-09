@@ -28,4 +28,5 @@
 
 | ID  |    Name   | Met  | Screenshot                           | Link to run |
 |:---:| ----------| ---- | ------------------------------------ | ------------|
-|  1  | All the countries in the world organised by largest population to smallest. | No   | ![Example Image](img/allinhouse.jpeg)| countries_largest_to_smallest  | 
+|  1  | All the countries in the world organised by largest population to smallest. | No   | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest  | 
+|  2  | All the countries in a continent organised by largest population to smallest. | Yes. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_continent | 

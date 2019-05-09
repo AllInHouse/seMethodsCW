@@ -8,6 +8,7 @@ import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -186,23 +187,11 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    //@RequestMapping("Continent")
-    public ArrayList<Country> getContinent(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
+    @RequestMapping("countries_largest_to_smallest_group_continent")
+    public ArrayList<Country> getCountriesLargestToSmallestGroupByContinent(){
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                 + "FROM country "
                 + "ORDER BY Continent, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
         return RunListQuery(Country.class, strSelect);
     }
 

@@ -32,10 +32,24 @@ public class SemIntTests {
     }
 
     @Test
-    void TestRunningAFakeQuery(){
+    void TestRunningAFakeQuery() {
         String qr = "SELECT * From Countri";
         ArrayList<Country> al = app.RunListQuery(Country.class, qr);
         assertNull(al);
+    }
+
+    @Test
+    void Test_countries_largest_to_smallest(){
+        ArrayList<Country> al = app.getCountriesLargestToSmallest();
+        assertNull(al);
+        assertEquals(al.size(), 239);
+    }
+
+    @Test
+    void Test_countries_largest_to_smallest_group_continent(){
+        ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByContinent();
+        assertNull(al);
+        assertEquals(al.size(), 239);
     }
 
     @Test
