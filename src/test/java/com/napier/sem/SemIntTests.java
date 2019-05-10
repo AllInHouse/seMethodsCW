@@ -19,7 +19,7 @@ public class SemIntTests {
     static void init()
     {
         app = new App();
-        Configurator.setLevel(app.log.getName(), Level.INFO);
+        Configurator.setLevel(App.log.getName(), Level.INFO);
         app.connect("db:33060");
     }
 
