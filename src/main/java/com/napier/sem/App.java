@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.ws.RequestWrapper;
-
 @SpringBootApplication
 @RestController
 public class App {
@@ -136,6 +134,22 @@ public class App {
     }
 
     /**
+     * Attempt to parse a string input.
+     * @param input String to parse
+     * @return Number representation of input or -1 if NumberFormatException is thrown.
+     */
+    public int TryParseInput(String input){
+        int result;
+        try{
+            result = Integer.parseInt(input);
+        }catch (NumberFormatException nfe){
+            log.warn("TryParseInput for input : '" + input + "' has failed. returning -1.");
+            return -1;
+        }
+        return result;
+    }
+
+    /**
      * Sample query that prints the contents of LocalName in the Country table
      */
     @RequestMapping("App_Sample_Query")
@@ -221,6 +235,24 @@ public class App {
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                 + "FROM country "
                 + "ORDER BY Region, Population DESC";
+        return RunListQuery(Country.class, strSelect);
+    }
+
+    /**
+     * Requirement 4 - /get_countries_largest_to_smallest_limited
+     * The top N populated countries in the world where N is provided by the user.
+     * @param limNum N in the above requirement
+     * @return ArrayList of Country or Null
+     */
+    @RequestMapping("get_countries_largest_to_smallest_limited")
+    public ArrayList<Country> getCountriesLargestToSmallestLimited(@RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Population DESC "
+                + " LIMIT " + limit;
         return RunListQuery(Country.class, strSelect);
     }
 
