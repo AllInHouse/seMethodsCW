@@ -11,8 +11,12 @@ import org.apache.logging.log4j.Logger;
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.logging.log4j.core.util.ArrayUtils;
+import org.apache.logging.log4j.core.util.KeyValuePair;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -206,7 +210,6 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-
     /**
      * Requirement 3 - /countries_largest_to_smallest_group_region
      * All the countries in a region organised by largest population to smallest.
@@ -220,11 +223,45 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    public ArrayList<Country> getTopPopulatdCountriesContinent(){
+    /**
+     *
+     * @param limNum
+     * @return
+     */
+    @RequestMapping("attempted_req_5")
+    public ArrayList<Country> getTopPopulatdCountriesContinent(@RequestParam(value = "limNum") String limNum){
+        int limit;
+        try{
+            limit = Integer.parseInt(limNum);
+        }catch (NumberFormatException nfe){
+            log.warn("Number Format Exception in getTopPopulatdCountriesContinent :: returning null.");
+            return null;
+        }
 
         ArrayList<Country> full = getCountriesLargestToSmallestGroupByContinent();
-        ArrayList<Country> endResult = null;
+        HashMap<String, Integer> counter = new HashMap<String, Integer>();
+        HashMap<String, ArrayList<Country>> temp = new HashMap<String, ArrayList<Country>>();
+        ArrayList<Country> endResult = new ArrayList<Country>();
         //Logic to get number of countries here :)
+
+        for (Country c : full){
+            if(temp.containsKey(c.Region)){
+                int count = counter.get(c.Region);
+                if(count >= limit) continue;
+
+                temp.get(c.Region).add(c);
+                counter.put(c.Region, counter.get(c.Region) + 1);
+            }else{
+                temp.put(c.Region, new ArrayList<Country>());
+                temp.get(c.Region).add(c);
+
+                counter.put(c.Region, 1);
+            }
+        }
+
+        for(Map.Entry<String, ArrayList<Country>> se : temp.entrySet()){
+            endResult.addAll(se.getValue());
+        }
 
         return endResult;
     }
