@@ -28,32 +28,32 @@ public class City implements DataObject{
         try{
             this.ID = rset.getInt("ID");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: ID"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: ID"); }
 
         try{
             this.Name = rset.getString("Name");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: Name"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: Name"); }
 
         try{
             this.CountryCode = rset.getString("CountryCode");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: CountryCode"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: CountryCode"); }
 
         try{
             this.Country = rset.getString("Country");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: Country"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: Country"); }
 
         try{
             this.District = rset.getString("District");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: District"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: District"); }
 
         try{
             this.Population = rset.getInt("Population");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: Population"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: Population"); }
         return setSomething;
     }
 

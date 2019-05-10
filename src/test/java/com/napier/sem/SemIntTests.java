@@ -15,11 +15,13 @@ public class SemIntTests {
 
     static App app;
 
+    private static final int NumberOfCities = 4079;
+    private static final int NumberOfCountries = 239;
+
     @BeforeAll
     static void init()
     {
         app = new App();
-        Configurator.setLevel(App.log.getName(), Level.INFO);
         app.connect("db:33060");
     }
 
@@ -28,7 +30,7 @@ public class SemIntTests {
     {
         ArrayList<Country> x = app.sampleQuery();
         assertNotNull(x);
-        assertEquals(239, x.size());
+        assertEquals(NumberOfCountries, x.size());
         for(Country z : x){
             assertNotNull(z);
         }
@@ -45,21 +47,21 @@ public class SemIntTests {
     void Test_countries_largest_to_smallest(){
         ArrayList<Country> al = app.getCountriesLargestToSmallest();
         assertNotNull(al);
-        assertEquals(al.size(), 239);
+        assertEquals(al.size(), NumberOfCountries);
     }
 
     @Test //Requirement 2
     void Test_countries_largest_to_smallest_group_continent(){
         ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByContinent();
         assertNotNull(al);
-        assertEquals(al.size(), 239);
+        assertEquals(al.size(), NumberOfCountries);
     }
 
     @Test //Requirement 3
     void Test_countries_largest_to_smallest_group_region(){
         ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByRegion();
         assertNotNull(al);
-        assertEquals(al.size(), 239);
+        assertEquals(al.size(), NumberOfCountries);
     }
 
 
@@ -67,21 +69,35 @@ public class SemIntTests {
     void Test_cities_largest_to_smallest(){
         ArrayList<City> al = app.getCitiesLargestToSmallest();
         assertNotNull(al);
-        assertEquals(al.size(), 4079);
+        assertEquals(al.size(), NumberOfCities);
     }
 
     @Test //Requirement 8
     void Test_cities_largest_to_smallest_group_continent(){
         ArrayList<City> al = app.getCitiesLargestToSmallestGroupByContinent();
         assertNotNull(al);
-        assertEquals(al.size(), 4079);
+        assertEquals(al.size(), NumberOfCities);
     }
 
     @Test //Requirement 9
     void Test_cities_largest_to_smallest_group_region(){
         ArrayList<City> al = app.getCitiesLargestToSmallestGroupByRegion();
         assertNotNull(al);
-        assertEquals(al.size(), 4079);
+        assertEquals(al.size(), NumberOfCities);
+    }
+
+    @Test //Requirement 10
+    void Test_cities_largest_to_smallest_group_country(){
+        ArrayList<City> al = app.getCitiesLargestToSmallestGroupByCountry();
+        assertNotNull(al);
+        assertEquals(al.size(), NumberOfCities);
+    }
+
+    @Test //Requirement 11
+    void Test_cities_largest_to_smallest_group_district(){
+        ArrayList<City> al = app.getCitiesLargestToSmallestGroupByDistrict();
+        assertNotNull(al);
+        assertEquals(al.size(), NumberOfCities);
     }
 
     @Test

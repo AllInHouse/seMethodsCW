@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.RequestWrapper;
+
 @SpringBootApplication
 @RestController
 public class App {
@@ -182,6 +184,7 @@ public class App {
     }
 
 
+
     /**
      * Requirement 1 - /countries_largest_to_smallest
      * All the countries in the world organised by largest population to smallest.
@@ -307,6 +310,37 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
+    /**
+     * Requirement 10 - /cities_largest_to_smallest_group_country
+     * All the cities in a country organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_group_country")
+    public ArrayList<City> getCitiesLargestToSmallestGroupByCountry(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY country.Name, Population DESC";
+        return RunListQuery(City.class, strSelect);
+    }
+
+    /**
+     * Requirement 11 - /cities_largest_to_smallest_group_district
+     * All the cities in a district organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_group_district")
+    public ArrayList<City> getCitiesLargestToSmallestGroupByDistrict(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY District, Population DESC";
+        return RunListQuery(City.class, strSelect);
+    }
+
+
+
+
     @RequestMapping("Region")
     public ArrayList<Country> getRegion(@RequestParam(value = "limNum") String limNum) {
         int limit;
@@ -348,89 +382,7 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    @RequestMapping("City_Cont")
-    public ArrayList<City> getContCity(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
-        String strSelect = "SELECT Name, country.Name, District, Population "
-                + "FROM city "
-                + "JOIN country ON CountryCode = country.Code "
-                + "ORDER BY Continent, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
-        return RunListQuery(City.class, strSelect);
-    }
 
-    @RequestMapping("City_Reg")
-    public ArrayList<City> getRegCity(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
-        String strSelect = "SELECT Name, country.Name, District, Population "
-                + "FROM city "
-                + "JOIN country ON CountryCode = country.Code "
-                + "ORDER BY Region, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
-        return RunListQuery(City.class, strSelect);
-    }
-
-    @RequestMapping("City_Country")
-    public ArrayList<City> getCountryCity(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
-        String strSelect = "SELECT Name, country.Name, District, Population "
-                + "FROM city "
-                + "JOIN country ON CountryCode = country.Code "
-                + "ORDER BY country.Name, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
-        return RunListQuery(City.class, strSelect);
-    }
-
-    //@RequestMapping("City_Country")
-    public ArrayList<City> getDistrict(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
-        String strSelect = "SELECT Name, country.Name, District, Population "
-                + "FROM city "
-                + "JOIN country ON CountryCode = country.Code "
-                + "ORDER BY District, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
-        return RunListQuery(City.class, strSelect);
-    }
 
     //@RequestMapping("Country_Cap")
     public ArrayList<Country> getCap(@RequestParam(value = "limNum") String limNum) {

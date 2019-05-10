@@ -24,7 +24,7 @@ public class CountrySumPop extends Country {
         try{
             this.SumPop = rset.getInt("SumPop");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: SumPop"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: SumPop"); }
         return setSomething;
     }
 }

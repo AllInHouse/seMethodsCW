@@ -28,22 +28,22 @@ public class CountryLanguage implements DataObject{
         try{
             this.CountryCode = rset.getString("CountryCode");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: CountryCode"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: CountryCode"); }
 
         try{
             this.Language = rset.getString("Language");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: Language"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: Language"); }
 
         try{
             this.IsOfficial = rset.getBoolean("IsOfficial");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: isOfficial"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: isOfficial"); }
 
         try{
             this.Percentage = rset.getFloat("Percentage");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: Percentage"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: Percentage"); }
         return setSomething;
     }
 

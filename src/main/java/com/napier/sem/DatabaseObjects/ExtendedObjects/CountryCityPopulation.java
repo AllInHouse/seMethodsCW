@@ -24,7 +24,7 @@ public class CountryCityPopulation extends Country {
         try{
             this.CityPopulation = rset.getInt("CityPopulation");
             setSomething = true;
-        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: CityPopulation"); }
+        } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: CityPopulation"); }
         return setSomething;
     }
 }
