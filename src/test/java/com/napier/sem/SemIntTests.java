@@ -113,6 +113,20 @@ public class SemIntTests {
         assertEquals(al.size(), NumberOfCities);
     }
 
+    @Test //Requirement 12
+    void Test_cities_largest_to_smallest_limited(){
+        ArrayList<City> al = app.getCitiesLargestToSmallestLimited("7");
+        assertNotNull(al);
+        assertEquals(al.size(), 7);
+
+        al = app.getCitiesLargestToSmallestLimited("2");
+        assertNotNull(al);
+        assertEquals(al.size(), 2);
+
+        al = app.getCitiesLargestToSmallestLimited("pear");
+        assertNull(al);
+    }
+
     @Test
     void TestRunningAQuery(){
         String qr = "SELECT Code, Name, Continent, Region, Population, Capital "

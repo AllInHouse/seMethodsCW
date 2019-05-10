@@ -39,3 +39,4 @@
 |  9  | All the cities in a region organised by largest population to smallest.        | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_region             | 
 | 10  | All the cities in a country organised by largest population to smallest.       | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_country            | 
 | 11  | All the cities in a district organised by largest population to smallest.      | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_district           | 
+| 12  | The top N populated cities in the world where N is provided by the user.       | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 

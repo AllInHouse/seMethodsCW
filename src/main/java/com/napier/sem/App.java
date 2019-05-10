@@ -370,7 +370,24 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
+    /**
+     * Requirement 12 - /cities_largest_to_smallest_limited
+     * The top N populated cities in the world where N is provided by the user.
+     * @param limNum N in the above requirement
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_limited")
+    public ArrayList<City> getCitiesLargestToSmallestLimited(@RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
 
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Population DESC "
+                + " LIMIT " + limit;
+        return RunListQuery(City.class, strSelect);
+    }
 
 
     @RequestMapping("Region")
