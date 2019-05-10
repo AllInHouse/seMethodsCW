@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,25 +39,33 @@ public class SemIntTests {
         assertNull(al);
     }
 
-    @Test
+    @Test //Requirement 1
     void Test_countries_largest_to_smallest(){
         ArrayList<Country> al = app.getCountriesLargestToSmallest();
         assertNotNull(al);
         assertEquals(al.size(), 239);
     }
 
-    @Test
+    @Test //Requirement 2
     void Test_countries_largest_to_smallest_group_continent(){
         ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByContinent();
         assertNotNull(al);
         assertEquals(al.size(), 239);
     }
 
-    @Test
+    @Test //Requirement 3
     void Test_countries_largest_to_smallest_group_region(){
         ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByRegion();
         assertNotNull(al);
         assertEquals(al.size(), 239);
+    }
+
+
+    @Test //Requirement 7
+    void Test_cities_largest_to_smallest(){
+        ArrayList<City> al = app.getCitiesLargestToSmallest();
+        assertNotNull(al);
+        assertEquals(al.size(), 4079);
     }
 
     @Test

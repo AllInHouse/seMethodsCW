@@ -213,7 +213,7 @@ public class App {
     /**
      * Requirement 3 - /countries_largest_to_smallest_group_region
      * All the countries in a region organised by largest population to smallest.
-     * @return
+     * @return ArrayList of Country or Null
      */
     @RequestMapping("countries_largest_to_smallest_group_region")
     public ArrayList<Country> getCountriesLargestToSmallestGroupByRegion(){
@@ -264,6 +264,21 @@ public class App {
         }
 
         return endResult;
+    }
+
+
+    /**
+     * Requirement 7 - /cities_largest_to_smallest
+     * All the cities in the world organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest")
+    public ArrayList<City> getCitiesLargestToSmallest(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Population DESC";
+        return RunListQuery(City.class, strSelect);
     }
 
     @RequestMapping("Region")

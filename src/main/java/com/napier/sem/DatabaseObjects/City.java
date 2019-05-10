@@ -41,6 +41,11 @@ public class City implements DataObject{
         } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: CountryCode"); }
 
         try{
+            this.Country = rset.getString("Country");
+            setSomething = true;
+        } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: Country"); }
+
+        try{
             this.District = rset.getString("District");
             setSomething = true;
         } catch (SQLException sqlE) { App.log.debug("Column does not exist in RSET :: District"); }
@@ -66,6 +71,11 @@ public class City implements DataObject{
      * City CountryCode
      */
     public String CountryCode;
+
+    /**
+     * Country name to make some queries easier
+     */
+    public String Country;
 
     /**
      * City District
