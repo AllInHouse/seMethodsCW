@@ -2,9 +2,10 @@ package com.napier.sem;
 
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class SemIntTests {
     static void init()
     {
         app = new App();
+        Configurator.setLevel(app.log.getName(), Level.INFO);
         app.connect("db:33060");
     }
 
