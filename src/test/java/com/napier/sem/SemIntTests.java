@@ -64,6 +64,19 @@ public class SemIntTests {
         assertEquals(al.size(), NumberOfCountries);
     }
 
+    @Test //Requirement 4
+    void Test_get_countries_largest_to_smallest_limited(){
+        ArrayList<Country> al = app.getCountriesLargestToSmallestLimited("7");
+        assertNotNull(al);
+        assertEquals(al.size(), 7);
+
+        al = app.getCountriesLargestToSmallestLimited("2");
+        assertNotNull(al);
+        assertEquals(al.size(), 2);
+
+        al = app.getCountriesLargestToSmallestLimited("pear");
+        assertNull(al);
+    }
 
     @Test //Requirement 7
     void Test_cities_largest_to_smallest(){
