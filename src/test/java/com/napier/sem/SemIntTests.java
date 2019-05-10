@@ -68,6 +68,13 @@ public class SemIntTests {
         assertEquals(al.size(), 4079);
     }
 
+    @Test //Requirement 8
+    void Test_cities_largest_to_smallest_group_continent(){
+        ArrayList<City> al = app.getCitiesLargestToSmallestGroupByContinent();
+        assertNotNull(al);
+        assertEquals(al.size(), 4079);
+    }
+
     @Test
     void TestRunningAQuery(){
         String qr = "SELECT Code, Name, Continent, Region, Population, Capital "

@@ -35,3 +35,4 @@
 |  5  | All the countries in a region organised by largest population to smallest. | No. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_region | 
 |  6  | All the countries in a region organised by largest population to smallest. | No. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_region | 
 |  7  | All the cities in the world organised by largest population to smallest.   | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest | 
+|  8  | All the cities in a continent organised by largest population to smallest. | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_continent | 

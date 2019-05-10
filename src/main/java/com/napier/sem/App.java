@@ -281,6 +281,20 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
+    /**
+     * Requirement 8 - /cities_largest_to_smallest_group_continent
+     * All the cities in a continent organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_group_continent")
+    public ArrayList<City> getCitiesLargestToSmallestGroupByContinent(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Continent, Population DESC";
+        return RunListQuery(City.class, strSelect);
+    }
+
     @RequestMapping("Region")
     public ArrayList<Country> getRegion(@RequestParam(value = "limNum") String limNum) {
         int limit;
