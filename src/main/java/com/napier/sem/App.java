@@ -8,15 +8,11 @@ import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.logging.log4j.core.util.ArrayUtils;
-import org.apache.logging.log4j.core.util.KeyValuePair;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -85,10 +81,12 @@ public class App {
         }
     }
 
-    /**
+    /*
      * Disconnect from the MySQL database.
      * Code adapted from the lab tutorials :)
+     * Not used anymore now that Spring is integrated
      */
+    /*
     public static void disconnect() {
         log.info("Disconnecting from database.");
         if (connection != null) {
@@ -99,7 +97,7 @@ public class App {
                 log.error("Error closing connection to database");
             }
         }
-    }
+    }*/
 
     /**
      * Run a query that returns an ArrayList of DataObjects
@@ -160,8 +158,8 @@ public class App {
 
     /**
      * Don't think this actually needed limNum if its requirement 1
-     * @param limNum
-     * @return
+     * @param limNum the limit
+     * @return ArrayList of Country or Null
      */
     @RequestMapping("country")
     public ArrayList<Country> getCountry(@RequestParam(value = "limNum") String limNum) {
@@ -315,7 +313,7 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    //@RequestMapping("City")
+    @RequestMapping("City")
     public ArrayList<City> getCity(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -357,7 +355,7 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    //@RequestMapping("City_Reg")
+    @RequestMapping("City_Reg")
     public ArrayList<City> getRegCity(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -378,7 +376,7 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    //@RequestMapping("City_Country")
+    @RequestMapping("City_Country")
     public ArrayList<City> getCountryCity(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
