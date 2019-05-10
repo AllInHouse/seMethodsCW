@@ -118,9 +118,9 @@ public class App {
             //Loop through entries and get the data
             while(rs.next()){
                 T type = returnType.newInstance();
-                log.debug("Parsing to object :: " + returnType.getSimpleName());
+                log.trace("Parsing to object :: " + returnType.getSimpleName());
                 if (type.ParseRSET(rs))
-                    log.debug("Parsed RSET Successfully");
+                    log.trace("Parsed RSET Successfully");
                 else
                     log.warn("Failed RSET Parsing -> " + returnType.getSimpleName());
 
