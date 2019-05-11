@@ -64,7 +64,13 @@ public class Population implements DataObject{
     /**
      * Total Population Living in Cities Percent
      */
-    public String TotalPopInCitiesPercent = (TotalPopInCities / TotalPopulation)*100 + "%" ;
+    public String TotalPopInCitiesPercent = getTotalPopInCitiesPercent();
+
+
+    private String getTotalPopInCitiesPercent(){
+        if(TotalPopInCities == 0 || TotalPopulation == 0) return "0%";
+        else return (TotalPopInCities / TotalPopulation)*100 + "%" ;
+    }
 
     /**
      * Total Population not living in cities
@@ -74,6 +80,11 @@ public class Population implements DataObject{
     /**
      * Total Population Not Living in Cities Percent
      */
-    public String TotalPopNotInCitiesPercent = (TotalPopNotInCities / TotalPopulation)*100 + "%" ;
+    public String TotalPopNotInCitiesPercent = getTotalPopNotInCitiesPercent();
+
+    private String getTotalPopNotInCitiesPercent(){
+        if(TotalPopNotInCities == 0 || TotalPopulation == 0) return "0%";
+        else return (TotalPopNotInCities / TotalPopulation)*100 + "%" ;
+    }
 
 }
