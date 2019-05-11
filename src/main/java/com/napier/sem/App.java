@@ -1,14 +1,15 @@
 
 package com.napier.sem;
 
-import com.napier.sem.DatabaseObjects.City;
-import com.napier.sem.DatabaseObjects.Country;
-import com.napier.sem.DatabaseObjects.DataObject;
+import com.napier.sem.DatabaseObjects.*;
+import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class App {
 
-    public static Logger log = LogManager.getLogger("seMethodsCW");
+    public static final Logger log = LogManager.getLogger("seMethodsCW");
 
 
     public static void main(String[] args) {
@@ -37,13 +38,6 @@ public class App {
 
         //Setup SPRING :) Winter is so last season..
         SpringApplication.run(App.class, args);
-
-        //Just in case we reach here..
-        //disconnect();
-
-        //Probably not going to see these anymore :'(
-        //System.out.println("We're doing it all in house");
-        //log.debug("Log4J_0_We're doing it all in house");
     }
 
 
@@ -85,10 +79,12 @@ public class App {
         }
     }
 
-    /**
+    /*
      * Disconnect from the MySQL database.
      * Code adapted from the lab tutorials :)
+     * Not used anymore now that Spring is integrated
      */
+    /*
     public static void disconnect() {
         log.info("Disconnecting from database.");
         if (connection != null) {
@@ -99,10 +95,10 @@ public class App {
                 log.error("Error closing connection to database");
             }
         }
-    }
+    }*/
 
     /**
-     * Run a query that returns an ArrayList of objects
+     * Run a query that returns an ArrayList of DataObjects
      * @param returnType The class of type T
      * @param Query The query to run
      * @param <T> the type of DataObject to return
@@ -120,9 +116,9 @@ public class App {
             //Loop through entries and get the data
             while(rs.next()){
                 T type = returnType.newInstance();
-                log.debug("Parsing to object :: " + returnType.getSimpleName());
+                log.trace("Parsing to object :: " + returnType.getSimpleName());
                 if (type.ParseRSET(rs))
-                    log.debug("Parsed RSET Successfully");
+                    log.trace("Parsed RSET Successfully");
                 else
                     log.warn("Failed RSET Parsing -> " + returnType.getSimpleName());
 
@@ -136,9 +132,26 @@ public class App {
     }
 
     /**
+     * Attempt to parse a string input.
+     * @param input String to parse
+     * @return Number representation of input or -1 if NumberFormatException is thrown.
+     */
+    public int TryParseInput(String input){
+        int result;
+        try{
+            result = Integer.parseInt(input);
+        }catch (NumberFormatException nfe){
+            log.warn("TryParseInput for input : '" + input + "' has failed. returning -1.");
+            return -1;
+        }
+        return result;
+    }
+
+    /**
      * Sample query that prints the contents of LocalName in the Country table
      */
-    public void sampleQuery() {
+    @RequestMapping("App_Sample_Query")
+    public ArrayList<Country> sampleQuery() {
         String qr = "SELECT Code, Name, Continent, Region, Population, Capital "
                 + "FROM country "
                 + "ORDER BY Population DESC";
@@ -149,10 +162,19 @@ public class App {
             for (Country country : al) {
                 PrintCountry(country);
             }
-        }else
+        }else{
             log.error("Testing query returned null..");
+            return null;
+        }
+
+        return al;
     }
 
+    /**
+     * Don't think this actually needed limNum if its requirement 1
+     * @param limNum the limit
+     * @return ArrayList of Country or Null
+     */
     @RequestMapping("country")
     public ArrayList<Country> getCountry(@RequestParam(value = "limNum") String limNum) {
         int limit;
@@ -166,31 +188,283 @@ public class App {
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                 + "FROM country "
                 + "ORDER BY Population DESC";
-        if (!(limit < 0)) {
+        if (!(limit <= 0)) {
             strSelect = strSelect + " LIMIT " + limit;
         }
         // Execute SQL statement
         return RunListQuery(Country.class, strSelect);
     }
 
-    //@RequestMapping("Continent")
-    public ArrayList<Country> getContinent(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
+
+
+    /**
+     * Requirement 1 - /countries_largest_to_smallest
+     * All the countries in the world organised by largest population to smallest.
+     * @return ArrayList of Country or Null
+     */
+    @RequestMapping("countries_largest_to_smallest")
+    public ArrayList<Country> getCountriesLargestToSmallest(){
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Population DESC";
+        return RunListQuery(Country.class, strSelect);
+    }
+
+    /**
+     * Requirement 2 - /countries_largest_to_smallest_group_continent
+     * All the countries in a continent organised by largest population to smallest.
+     * @return ArrayList of Country or Null
+     */
+    @RequestMapping("countries_largest_to_smallest_group_continent")
+    public ArrayList<Country> getCountriesLargestToSmallestGroupByContinent(){
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                 + "FROM country "
                 + "ORDER BY Continent, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
         return RunListQuery(Country.class, strSelect);
+    }
+
+    /**
+     * Requirement 3 - /countries_largest_to_smallest_group_region
+     * All the countries in a region organised by largest population to smallest.
+     * @return ArrayList of Country or Null
+     */
+    @RequestMapping("countries_largest_to_smallest_group_region")
+    public ArrayList<Country> getCountriesLargestToSmallestGroupByRegion(){
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Region, Population DESC";
+        return RunListQuery(Country.class, strSelect);
+    }
+
+    /**
+     * Requirement 4 - /get_countries_largest_to_smallest_limited
+     * The top N populated countries in the world where N is provided by the user.
+     * @param limNum N in the above requirement
+     * @return ArrayList of Country or Null
+     */
+    @RequestMapping("get_countries_largest_to_smallest_limited")
+    public ArrayList<Country> getCountriesLargestToSmallestLimited(@RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+                + "FROM country "
+                + "ORDER BY Population DESC "
+                + " LIMIT " + limit;
+        return RunListQuery(Country.class, strSelect);
+    }
+
+    /**
+     *
+     * @param limNum
+     * @return
+     */
+    @RequestMapping("attempted_req_5")
+    public ArrayList<Country> getTopPopulatdCountriesContinent(@RequestParam(value = "limNum") String limNum){
+        int limit;
+        try{
+            limit = Integer.parseInt(limNum);
+        }catch (NumberFormatException nfe){
+            log.warn("Number Format Exception in getTopPopulatdCountriesContinent :: returning null.");
+            return null;
+        }
+
+        ArrayList<Country> full = getCountriesLargestToSmallestGroupByContinent();
+        HashMap<String, Integer> counter = new HashMap<String, Integer>();
+        HashMap<String, ArrayList<Country>> temp = new HashMap<String, ArrayList<Country>>();
+        ArrayList<Country> endResult = new ArrayList<Country>();
+        //Logic to get number of countries here :)
+
+        for (Country c : full){
+            if(temp.containsKey(c.Region)){
+                int count = counter.get(c.Region);
+                if(count >= limit) continue;
+
+                temp.get(c.Region).add(c);
+                counter.put(c.Region, counter.get(c.Region) + 1);
+            }else{
+                temp.put(c.Region, new ArrayList<Country>());
+                temp.get(c.Region).add(c);
+
+                counter.put(c.Region, 1);
+            }
+        }
+
+        for(Map.Entry<String, ArrayList<Country>> se : temp.entrySet()){
+            endResult.addAll(se.getValue());
+        }
+
+        return endResult;
+    }
+
+
+    /**
+     * Requirement 7 - /cities_largest_to_smallest
+     * All the cities in the world organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest")
+    public ArrayList<City> getCitiesLargestToSmallest(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Population DESC";
+        return RunListQuery(City.class, strSelect);
+    }
+
+    /**
+     * Requirement 8 - /cities_largest_to_smallest_group_continent
+     * All the cities in a continent organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_group_continent")
+    public ArrayList<City> getCitiesLargestToSmallestGroupByContinent(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Continent, Population DESC";
+        return RunListQuery(City.class, strSelect);
+    }
+
+    /**
+     * Requirement 9 - /cities_largest_to_smallest_group_region
+     * All the cities in a region organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_group_region")
+    public ArrayList<City> getCitiesLargestToSmallestGroupByRegion(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Region, Population DESC";
+        return RunListQuery(City.class, strSelect);
+    }
+
+    /**
+     * Requirement 10 - /cities_largest_to_smallest_group_country
+     * All the cities in a country organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_group_country")
+    public ArrayList<City> getCitiesLargestToSmallestGroupByCountry(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY country.Name, Population DESC";
+        return RunListQuery(City.class, strSelect);
+    }
+
+    /**
+     * Requirement 11 - /cities_largest_to_smallest_group_district
+     * All the cities in a district organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_group_district")
+    public ArrayList<City> getCitiesLargestToSmallestGroupByDistrict(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY District, Population DESC";
+        return RunListQuery(City.class, strSelect);
+    }
+
+    /**
+     * Requirement 12 - /cities_largest_to_smallest_limited
+     * The top N populated cities in the world where N is provided by the user.
+     * @param limNum N in the above requirement
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("cities_largest_to_smallest_limited")
+    public ArrayList<City> getCitiesLargestToSmallestLimited(@RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "ORDER BY Population DESC "
+                + " LIMIT " + limit;
+        return RunListQuery(City.class, strSelect);
+    }
+
+    //The top N populated cities in a continent where N is provided by the user.
+
+    //The top N populated cities in a region where N is provided by the user.
+
+    //The top N populated cities in a country where N is provided by the user.
+
+    //The top N populated cities in a district where N is provided by the user.
+
+    /**
+     * Requirement 17 - /capital_cities_largest_to_smallest
+     * All the capital cities in the world organised by largest population to smallest.
+     * @return ArrayList of CapitalCity or Null
+     */
+    @RequestMapping("capital_cities_largest_to_smallest")
+    public ArrayList<CapitalCity> getCapitalCitiesLargestToSmallest(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population, country.Continent as Continent "
+                + "FROM country "
+                + "JOIN city on country.Capital = city.ID "
+                + "ORDER BY Population DESC";
+        return RunListQuery(CapitalCity.class, strSelect);
+    }
+
+    /**
+     * Requirement 18 - /capital_cities_lagest_to_smallest_group_continent
+     * All the capital cities in a continent organised by largest population to smallest.
+     * @return ArrayList of CapitalCity or Null
+     */
+    @RequestMapping("capital_cities_lagest_to_smallest_group_continent")
+    public ArrayList<CapitalCity> getCapitalCitiesLargestToSmallestGroupByContinent(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population, country.Continent as Continent "
+                + "FROM country "
+                + "JOIN city on country.Capital = city.ID "
+                + "ORDER BY country.Continent, Population DESC";
+        return RunListQuery(CapitalCity.class, strSelect);
+    }
+
+    /**
+     * Requirement 19 - /capital_cities_largest_to_smallest_group_region
+     * All the capital cities in a region organised by largest to smallest.
+     * @return ArrayList of CapitalCity or Null
+     */
+    @RequestMapping("capital_cities_largest_to_smallest_group_region")
+    public ArrayList<CapitalCity> getCapitalCitiesLargestToSmallestGroupByRegion(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population, country.Continent as Continent "
+                + "FROM country "
+                + "JOIN city on country.Capital = city.ID "
+                + "ORDER BY country.Region, Population DESC";
+        return RunListQuery(CapitalCity.class, strSelect);
+    }
+
+    /**
+     * Requirement 20 - /capital_cities_largest_to_smallest_limited
+     * The top N populated capital cities in the world where N is provided by the user.
+     * @param limNum N in the above requirement
+     * @return ArrayList of CapitalCity or Null
+     */
+    @RequestMapping("capital_cities_largest_to_smallest_limited")
+    public ArrayList<CapitalCity> getCapitalCitiesLargestToSmallestLimited(@RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population, country.Continent as Continent "
+                + "FROM country "
+                + "JOIN city on country.Capital = city.ID "
+                + "ORDER BY Population DESC "
+                + " LIMIT " + limit;
+        return RunListQuery(CapitalCity.class, strSelect);
+    }
+
+    //The top N populated capital cities in a continent where N is provided by the user.
+
+    //The top N populated capital cities in a region where N is provided by the user.
+
+    //The population of people, people living in cities, and people not living in cities in each continent.
+
+    public ArrayList<Population> getPopulationPerContinent(){
+        String strSelect = "";
+        return RunListQuery(Population.class, strSelect);
     }
 
     @RequestMapping("Region")
@@ -213,7 +487,7 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    //@RequestMapping("City")
+    @RequestMapping("City")
     public ArrayList<City> getCity(@RequestParam(value = "limNum") String limNum) {
         int limit;
         try {
@@ -234,89 +508,7 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    @RequestMapping("City_Cont")
-    public ArrayList<City> getContCity(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
-        String strSelect = "SELECT Name, country.Name, District, Population "
-                + "FROM city "
-                + "JOIN country ON CountryCode = country.Code "
-                + "ORDER BY Continent, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
-        return RunListQuery(City.class, strSelect);
-    }
 
-    //@RequestMapping("City_Reg")
-    public ArrayList<City> getRegCity(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
-        String strSelect = "SELECT Name, country.Name, District, Population "
-                + "FROM city "
-                + "JOIN country ON CountryCode = country.Code "
-                + "ORDER BY Region, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
-        return RunListQuery(City.class, strSelect);
-    }
-
-    //@RequestMapping("City_Country")
-    public ArrayList<City> getCountryCity(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
-        String strSelect = "SELECT Name, country.Name, District, Population "
-                + "FROM city "
-                + "JOIN country ON CountryCode = country.Code "
-                + "ORDER BY country.Name, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
-        return RunListQuery(City.class, strSelect);
-    }
-
-    //@RequestMapping("City_Country")
-    public ArrayList<City> getDistrict(@RequestParam(value = "limNum") String limNum) {
-        int limit;
-        try {
-            limit = Integer.parseInt(limNum);
-        } catch (NumberFormatException nfe) {
-            log.error("Caught number format exception, returning bad response.");
-            ResponseEntity.status(HttpStatus.BAD_REQUEST);
-            return null;
-        }
-        String strSelect = "SELECT Name, country.Name, District, Population "
-                + "FROM city "
-                + "JOIN country ON CountryCode = country.Code "
-                + "ORDER BY District, Population DESC";
-        if (!(limit < 0)) {
-            strSelect = strSelect + " LIMIT " + limit;
-        }
-        // Execute SQL statement
-        return RunListQuery(City.class, strSelect);
-    }
 
     //@RequestMapping("Country_Cap")
     public ArrayList<Country> getCap(@RequestParam(value = "limNum") String limNum) {
@@ -619,10 +811,9 @@ public class App {
             // Create string for SQL statement
             String strSelect =
                     "SELECT District, SUM(Population) "
-                            + "FROM city "
+                            + "FROM City "
                             + "GROUP BY District "
                             + "ORDER BY SUM(Population) DESC";
-
 
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -859,24 +1050,19 @@ public class App {
      */
     public void PrintCountry(Country cntry) {
         if (cntry == null) throw new IllegalArgumentException();
-        System.out.println("Code | Name | Continent | Region | Population | Capital");
-        System.out.println(cntry.Code + " | " + cntry.Name + " | " + cntry.Continent + " | " + cntry.Region + " | " + cntry.Population + " | " + cntry.Capital);
+        log.debug("Code | Name | Continent | Region | Population | Capital");
+        log.debug(cntry.Code + " | " + cntry.Name + " | " + cntry.Continent + " | " + cntry.Region + " | " + cntry.Population + " | " + cntry.Capital);
     }
 
     public void PrintCity(City ct) {
         if (ct == null) throw new IllegalArgumentException();
-        System.out.println("Name | Country | District | Population");
-        System.out.println(ct.Name + " | " + ct.CountryCode + " | " + ct.District + " | " + ct.Population);
+        log.debug("Name | Country | District | Population");
+        log.debug(ct.Name + " | " + ct.CountryCode + " | " + ct.District + " | " + ct.Population);
     }
 
     public void PrintLanguage(Country lan) {
         if (lan == null) throw new IllegalArgumentException();
-        System.out.println("Name | Population");
-        System.out.println(lan.Name + " | " + lan.Population);
-    }
-
-    public class CountrySumPop extends Country {
-
-        public int SumPop;
+        log.debug("Name | Population");
+        log.debug(lan.Name + " | " + lan.Population);
     }
 }
