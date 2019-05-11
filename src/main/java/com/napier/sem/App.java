@@ -474,7 +474,7 @@ public class App {
     public ArrayList<AditionalQueries> getContinentPopulation(@RequestParam(value = "continent") String continent){
         String strSelect = "SELECT Continent AS Name, SUM(Population) AS Population "
                 + "FROM country "
-                + "WHERE Continent = " + continent + " "
+                + "WHERE Continent = '" + continent + "' "
                 + "GROUP BY Continent";
         return RunListQuery(AditionalQueries.class, strSelect);
     }
@@ -488,7 +488,7 @@ public class App {
     public ArrayList<AditionalQueries> getRegionPopulation(@RequestParam(value = "region") String region){
         String strSelect = "SELECT Region AS Name, SUM(Population) AS Population "
                 + "FROM country "
-                + "WHERE Region = " + region + " "
+                + "WHERE Region = '" + region + "' "
                 + "GROUP BY Region";
         return RunListQuery(AditionalQueries.class, strSelect);
     }
@@ -502,7 +502,7 @@ public class App {
     public ArrayList<AditionalQueries> getCountryPopulation(@RequestParam(value = "country") String country){
         String strSelect = "SELECT Name, SUM(Population) AS Population "
                 + "FROM country "
-                + "WHERE Name = " + country;
+                + "WHERE Name = '" + country + "'";
         return RunListQuery(AditionalQueries.class, strSelect);
     }
 
@@ -515,7 +515,7 @@ public class App {
     public ArrayList<AditionalQueries> getDistrictPopulation(@RequestParam(value = "district") String district){
         String strSelect = "SELECT District AS Name, SUM(Population) AS Population "
                 + "FROM city "
-                + "WHERE District = " + district + " "
+                + "WHERE District = '" + district + "' "
                 + "GROUP BY District";
         return RunListQuery(AditionalQueries.class, strSelect);
     }
@@ -529,7 +529,7 @@ public class App {
     public ArrayList<AditionalQueries> getCityPopulation(@RequestParam(value = "city") String city){
         String strSelect = "SELECT Name, SUM(Population) AS Population "
                 + "FROM city "
-                + "WHERE Name = " + city;
+                + "WHERE Name = '" + city + "'";
         return RunListQuery(AditionalQueries.class, strSelect);
     }
 
