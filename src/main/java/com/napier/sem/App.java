@@ -1,10 +1,7 @@
 
 package com.napier.sem;
 
-import com.napier.sem.DatabaseObjects.CapitalCity;
-import com.napier.sem.DatabaseObjects.City;
-import com.napier.sem.DatabaseObjects.Country;
-import com.napier.sem.DatabaseObjects.DataObject;
+import com.napier.sem.DatabaseObjects.*;
 import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -465,6 +462,10 @@ public class App {
 
     //The population of people, people living in cities, and people not living in cities in each continent.
 
+    public ArrayList<Population> getPopulationPerContinent(){
+        String strSelect = "";
+        return RunListQuery(Population.class, strSelect);
+    }
 
     @RequestMapping("Region")
     public ArrayList<Country> getRegion(@RequestParam(value = "limNum") String limNum) {
