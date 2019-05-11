@@ -270,6 +270,40 @@ public class SemIntTests {
         assertNull(al);
     }
 
+    @Test //Requirement 21
+    void Test_top_populated_capital_cities_continent(){
+        ArrayList<City> al = app.getTopPopulatedCapitalCitiesContinent("Asia", "4");
+        assertNotNull(al);
+        assertEquals(al.size(), 4);
+
+        al = app.getTopPopulatedCapitalCitiesContinent("Asia","2");
+        assertNotNull(al);
+        assertEquals(al.size(), 2);
+
+        al = app.getTopPopulatedCapitalCitiesContinent("Terra","3");
+        assertEquals(0, al.size());
+
+        al = app.getTopPopulatedCapitalCitiesContinent("Asia", "pear");
+        assertNull(al);
+    }
+
+    @Test //Requirement 22
+    void Test_top_populated_capital_cities_region(){
+        ArrayList<City> al = app.getTopPopulatedCapitalCitiesRegion("Western Europe", "4");
+        assertNotNull(al);
+        assertEquals(al.size(), 4);
+
+        al = app.getTopPopulatedCapitalCitiesRegion("Western Europe","2");
+        assertNotNull(al);
+        assertEquals(al.size(), 2);
+
+        al = app.getTopPopulatedCapitalCitiesRegion("Terra","3");
+        assertEquals(0, al.size());
+
+        al = app.getTopPopulatedCapitalCitiesRegion("Western Europe", "pear");
+        assertNull(al);
+    }
+
     @Test //Requirement 26?
     void Test_world_population(){
         ArrayList<AditionalQueries> al = app.getWorldPopulation();

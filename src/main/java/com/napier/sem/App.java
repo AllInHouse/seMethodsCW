@@ -520,9 +520,45 @@ public class App {
         return RunListQuery(CapitalCity.class, strSelect);
     }
 
-    //The top N populated capital cities in a continent where N is provided by the user.
+    /**
+     * Requirement 21 - /top_populated_capital_cities_continent
+     * The top N populated capital cities in a continent where N is provided by the user.
+     * @param continent The continent to get from
+     * @param limNum The limit for entries
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("top_populated_capital_cities_continent")
+    public ArrayList<City> getTopPopulatedCapitalCitiesContinent(@RequestParam(value = "continent") String continent, @RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population "
+                + "FROM country "
+                + "JOIN city ON country.Capital = city.ID "
+                + "WHERE country.Continent = '" + continent + "' "
+                + "ORDER BY Population DESC "
+                + "LIMIT " + limit;
+        return RunListQuery(City.class, strSelect);
+    }
 
-    //The top N populated capital cities in a region where N is provided by the user.
+    /**
+     * Requirement 22 - /top_populated_capital_cities_continent
+     * The top N populated capital cities in a region where N is provided by the user.
+     * @param region The region to get from
+     * @param limNum The limit for entries
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("top_populated_capital_cities_region")
+    public ArrayList<City> getTopPopulatedCapitalCitiesRegion(@RequestParam(value = "region") String region, @RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population "
+                + "FROM country "
+                + "JOIN city ON country.Capital = city.ID "
+                + "WHERE country.Region = '" + region + "' "
+                + "ORDER BY Population DESC "
+                + "LIMIT " + limit;
+        return RunListQuery(City.class, strSelect);
+    }
 
     /**
      * Requirement 23 - /population_per_continent
