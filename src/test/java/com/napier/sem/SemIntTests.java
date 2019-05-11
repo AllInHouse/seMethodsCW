@@ -53,32 +53,32 @@ public class SemIntTests {
     void Test_countries_largest_to_smallest(){
         ArrayList<Country> al = app.getCountriesLargestToSmallest();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCountries);
+        assertEquals(NumberOfCountries, al.size());
     }
 
     @Test //Requirement 2
     void Test_countries_largest_to_smallest_group_continent(){
         ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByContinent();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCountries);
+        assertEquals(NumberOfCountries, al.size());
     }
 
     @Test //Requirement 3
     void Test_countries_largest_to_smallest_group_region(){
         ArrayList<Country> al = app.getCountriesLargestToSmallestGroupByRegion();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCountries);
+        assertEquals(NumberOfCountries, al.size());
     }
 
     @Test //Requirement 4
     void Test_get_countries_largest_to_smallest_limited(){
         ArrayList<Country> al = app.getCountriesLargestToSmallestLimited("7");
         assertNotNull(al);
-        assertEquals(al.size(), 7);
+        assertEquals(7, al.size());
 
         al = app.getCountriesLargestToSmallestLimited("2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getCountriesLargestToSmallestLimited("pear");
         assertNull(al);
@@ -88,11 +88,11 @@ public class SemIntTests {
     void Test_top_populated_countries_continent(){
         ArrayList<Country> al = app.getTopPopulatedCountriesContinent("Asia", "4");
         assertNotNull(al);
-        assertEquals(al.size(), 4);
+        assertEquals(4, al.size());
 
         al = app.getTopPopulatedCountriesContinent("Asia","2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getTopPopulatedCountriesContinent("Terra","3");
         assertEquals(0, al.size());
@@ -105,11 +105,11 @@ public class SemIntTests {
     void Test_top_populated_countries_region(){
         ArrayList<Country> al = app.getTopPopulatedCountriesRegion("Western Europe", "4");
         assertNotNull(al);
-        assertEquals(al.size(), 4);
+        assertEquals(4, al.size());
 
         al = app.getTopPopulatedCountriesRegion("Western Europe","2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getTopPopulatedCountriesRegion("Terra","3");
         assertEquals(0, al.size());
@@ -122,46 +122,46 @@ public class SemIntTests {
     void Test_cities_largest_to_smallest(){
         ArrayList<City> al = app.getCitiesLargestToSmallest();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCities);
+        assertEquals(NumberOfCities, al.size());
     }
 
     @Test //Requirement 8
     void Test_cities_largest_to_smallest_group_continent(){
         ArrayList<City> al = app.getCitiesLargestToSmallestGroupByContinent();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCities);
+        assertEquals(NumberOfCities, al.size());
     }
 
     @Test //Requirement 9
     void Test_cities_largest_to_smallest_group_region(){
         ArrayList<City> al = app.getCitiesLargestToSmallestGroupByRegion();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCities);
+        assertEquals(NumberOfCities, al.size());
     }
 
     @Test //Requirement 10
     void Test_cities_largest_to_smallest_group_country(){
         ArrayList<City> al = app.getCitiesLargestToSmallestGroupByCountry();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCities);
+        assertEquals(NumberOfCities, al.size());
     }
 
     @Test //Requirement 11
     void Test_cities_largest_to_smallest_group_district(){
         ArrayList<City> al = app.getCitiesLargestToSmallestGroupByDistrict();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCities);
+        assertEquals(NumberOfCities, al.size());
     }
 
     @Test //Requirement 12
     void Test_cities_largest_to_smallest_limited(){
         ArrayList<City> al = app.getCitiesLargestToSmallestLimited("7");
         assertNotNull(al);
-        assertEquals(al.size(), 7);
+        assertEquals(7, al.size());
 
         al = app.getCitiesLargestToSmallestLimited("2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getCitiesLargestToSmallestLimited("pear");
         assertNull(al);
@@ -171,11 +171,11 @@ public class SemIntTests {
     void Test_top_populated_cities_continent(){
         ArrayList<City> al = app.getTopPopulatedCitiesContinent("Asia", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 1);
+        assertEquals(1, al.size());
 
         al = app.getTopPopulatedCitiesContinent("Asia","2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getTopPopulatedCitiesContinent("Terra","3");
         assertEquals(0, al.size());
@@ -188,11 +188,11 @@ public class SemIntTests {
     void Test_top_populated_cities_region(){
         ArrayList<City> al = app.getTopPopulatedCitiesRegion("Western Europe", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 1);
+        assertEquals(1, al.size());
 
         al = app.getTopPopulatedCitiesRegion("Western Europe","2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getTopPopulatedCitiesRegion("Terra","3");
         assertEquals(0, al.size());
@@ -205,11 +205,11 @@ public class SemIntTests {
     void Test_top_populated_cities_country(){
         ArrayList<City> al = app.getTopPopulatedCitiesCountry("United Kingdom", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 1);
+        assertEquals(1, al.size());
 
         al = app.getTopPopulatedCitiesCountry("United Kingdom","2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getTopPopulatedCitiesCountry("Terra","3");
         assertEquals(0, al.size());
@@ -222,11 +222,11 @@ public class SemIntTests {
     void Test_top_populated_cities_district(){
         ArrayList<City> al = app.getTopPopulatedCitiesDistrict("Nagasaki", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 1);
+        assertEquals(1, al.size());
 
         al = app.getTopPopulatedCitiesDistrict("Nagasaki","2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getTopPopulatedCitiesDistrict("Terra","3");
         assertEquals(0, al.size());
@@ -239,32 +239,32 @@ public class SemIntTests {
     void Test_capital_cities_largest_to_smallest(){
         ArrayList<CapitalCity> al = app.getCapitalCitiesLargestToSmallest();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCapitalCities);
+        assertEquals(NumberOfCapitalCities, al.size());
     }
 
     @Test //Requirement 18
     void Test_capital_cities_lagest_to_smallest_group_continent(){
         ArrayList<CapitalCity> al = app.getCapitalCitiesLargestToSmallestGroupByContinent();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCapitalCities);
+        assertEquals(NumberOfCapitalCities, al.size());
     }
 
     @Test //Requirement 19
     void Test_capital_cities_largest_to_smallest_group_region(){
         ArrayList<CapitalCity> al = app.getCapitalCitiesLargestToSmallestGroupByRegion();
         assertNotNull(al);
-        assertEquals(al.size(), NumberOfCapitalCities);
+        assertEquals(NumberOfCapitalCities, al.size());
     }
 
     @Test //Requirement 20
     void Test_capital_cities_largest_to_smallest_limited(){
         ArrayList<CapitalCity> al = app.getCapitalCitiesLargestToSmallestLimited("7");
         assertNotNull(al);
-        assertEquals(al.size(), 7);
+        assertEquals(7, al.size());
 
         al = app.getCapitalCitiesLargestToSmallestLimited("2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getCapitalCitiesLargestToSmallestLimited("pear");
         assertNull(al);
@@ -274,11 +274,11 @@ public class SemIntTests {
     void Test_top_populated_capital_cities_continent(){
         ArrayList<City> al = app.getTopPopulatedCapitalCitiesContinent("Asia", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 1);
+        assertEquals(1, al.size());
 
         al = app.getTopPopulatedCapitalCitiesContinent("Asia","2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getTopPopulatedCapitalCitiesContinent("Terra","3");
         assertEquals(0, al.size());
@@ -291,11 +291,11 @@ public class SemIntTests {
     void Test_top_populated_capital_cities_region(){
         ArrayList<City> al = app.getTopPopulatedCapitalCitiesRegion("Western Europe", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 1);
+        assertEquals(1, al.size());
 
         al = app.getTopPopulatedCapitalCitiesRegion("Western Europe","2");
         assertNotNull(al);
-        assertEquals(al.size(), 2);
+        assertEquals(2, al.size());
 
         al = app.getTopPopulatedCapitalCitiesRegion("Terra","3");
         assertEquals(0, al.size());
