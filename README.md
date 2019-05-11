@@ -1,5 +1,10 @@
 # seMethodsCW
 
+## Required badges
+
+- License [![GitHub license](https://img.shields.io/github/license/AllInHouse/seMethodsCW.svg)](https://github.com/AllInHouse/seMethodsCW)
+- Latest Github Release ![GitHub release](https://img.shields.io/github/release/AllInHouse/seMethodsCW.svg)
+
 ## Build Status
 
 - Master Build Status [![Build Status](https://travis-ci.org/AllInHouse/seMethodsCW.svg?branch=master)](https://travis-ci.org/AllInHouse/seMethodsCW)
