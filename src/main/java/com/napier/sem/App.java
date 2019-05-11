@@ -252,7 +252,6 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-
     /**
      * Requirement 5 - /top_populated_countries_continent
      * The top N populated countries in a continent where N is provided by the user.
@@ -261,7 +260,7 @@ public class App {
      * @return ArrayList of Country or Null
      */
     @RequestMapping("top_populated_countries_continent")
-    public ArrayList<Country> getTopPopulatdCountriesContinent(@RequestParam(value = "continent") String continent, @RequestParam(value = "limNum") String limNum){
+    public ArrayList<Country> getTopPopulatedCountriesContinent(@RequestParam(value = "continent") String continent, @RequestParam(value = "limNum") String limNum){
         int limit = TryParseInput(limNum);
         if(limit < 0) return null;
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
@@ -280,7 +279,7 @@ public class App {
      * @return ArrayList of Country or Null
      */
     @RequestMapping("top_populated_countries_region")
-    public ArrayList<Country> getTopPopulatdCountriesRegion(@RequestParam(value = "region") String region, @RequestParam(value = "limNum") String limNum){
+    public ArrayList<Country> getTopPopulatedCountriesRegion(@RequestParam(value = "region") String region, @RequestParam(value = "limNum") String limNum){
         int limit = TryParseInput(limNum);
         if(limit < 0) return null;
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
@@ -380,13 +379,85 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    //The top N populated cities in a continent where N is provided by the user.
+    /**
+     * Requirement 13 - /top_populated_cities_continent
+     * The top N populated cities in a continent where N is provided by the user.
+     * @param continent The continent to get from
+     * @param limNum The limit for entries
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("top_populated_cities_continent")
+    public ArrayList<City> getTopPopulatedCitiesContinent(@RequestParam(value = "continent") String continent, @RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "WHERE country.Continent = '" + continent + "' "
+                + "ORDER BY Population DESC "
+                + "LIMIT " + limit;
+        return RunListQuery(City.class, strSelect);
+    }
 
-    //The top N populated cities in a region where N is provided by the user.
+    /**
+     * Requirement 14 - /top_populated_cities_region
+     * The top N populated cities in a region where N is provided by the user.
+     * @param region The region to get from
+     * @param limNum The limit for entries
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("top_populated_cities_region")
+    public ArrayList<City> getTopPopulatedCitiesRegion(@RequestParam(value = "region") String region, @RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "WHERE country.region = '" + region + "' "
+                + "ORDER BY Population DESC "
+                + "LIMIT " + limit;
+        return RunListQuery(City.class, strSelect);
+    }
 
-    //The top N populated cities in a country where N is provided by the user.
+    /**
+     * Requirement 15 - /top_populated_cities_country
+     * The top N populated cities in a country where N is provided by the user.
+     * @param country The country to get from
+     * @param limNum The limit for entries
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("top_populated_cities_country")
+    public ArrayList<City> getTopPopulatedCitiesCountry(@RequestParam(value = "country") String country, @RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "WHERE country.Name = '" + country + "' "
+                + "ORDER BY Population DESC "
+                + "LIMIT " + limit;
+        return RunListQuery(City.class, strSelect);
+    }
 
-    //The top N populated cities in a district where N is provided by the user.
+    /**
+     * Requirement 16 - /top_populated_cities_district
+     * The top N populated cities in a district where N is provided by the user.
+     * @param district The district to get from
+     * @param limNum The limit for entries
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("top_populated_cities_district")
+    public ArrayList<City> getTopPopulatedCitiesDistrict(@RequestParam(value = "district") String district, @RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+                + "FROM city "
+                + "JOIN country ON CountryCode = country.Code "
+                + "WHERE city.District = '" + district + "' "
+                + "ORDER BY Population DESC "
+                + "LIMIT " + limit;
+        return RunListQuery(City.class, strSelect);
+    }
 
     /**
      * Requirement 17 - /capital_cities_largest_to_smallest
@@ -407,7 +478,7 @@ public class App {
      * All the capital cities in a continent organised by largest population to smallest.
      * @return ArrayList of CapitalCity or Null
      */
-    @RequestMapping("capital_cities_lagest_to_smallest_group_continent")
+    @RequestMapping("capital_cities_largest_to_smallest_group_continent")
     public ArrayList<CapitalCity> getCapitalCitiesLargestToSmallestGroupByContinent(){
         String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population, country.Continent as Continent "
                 + "FROM country "

@@ -28,11 +28,11 @@
 <div class="showData">Waiting</div>
 </body>
 <script>
-    //Not needed for this query
-    //var urlParams = new URLSearchParams(window.location.search);
-    //var limnum = urlParams.get('limNum');
+    var urlParams = new URLSearchParams(window.location.search);
+    var limnum = urlParams.get('limNum');
+    var district = urlParams.get('district');
 
-    var URL = "http://" + window.location.hostname + "/app/capital_cities_lagest_to_smallest_group_continent";
+    var URL = "http://" + window.location.hostname + "/app/top_populated_cities_district?district=" + district + "&limNum=" + limnum;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.

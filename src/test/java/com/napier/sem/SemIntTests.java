@@ -4,8 +4,6 @@ import com.napier.sem.DatabaseObjects.AditionalQueries;
 import com.napier.sem.DatabaseObjects.CapitalCity;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -88,35 +86,35 @@ public class SemIntTests {
 
     @Test //Requirement 5
     void Test_top_populated_countries_continent(){
-        ArrayList<Country> al = app.getTopPopulatdCountriesContinent("Asia", "4");
+        ArrayList<Country> al = app.getTopPopulatedCountriesContinent("Asia", "4");
         assertNotNull(al);
         assertEquals(al.size(), 4);
 
-        al = app.getTopPopulatdCountriesContinent("Asia","2");
+        al = app.getTopPopulatedCountriesContinent("Asia","2");
         assertNotNull(al);
         assertEquals(al.size(), 2);
 
-        al = app.getTopPopulatdCountriesContinent("Terra","3");
+        al = app.getTopPopulatedCountriesContinent("Terra","3");
         assertNull(al);
 
-        al = app.getTopPopulatdCountriesContinent("Asia", "pear");
+        al = app.getTopPopulatedCountriesContinent("Asia", "pear");
         assertNull(al);
     }
 
     @Test //Requirement 6
     void Test_top_populated_countries_region(){
-        ArrayList<Country> al = app.getTopPopulatdCountriesRegion("Western Europe", "4");
+        ArrayList<Country> al = app.getTopPopulatedCountriesRegion("Western Europe", "4");
         assertNotNull(al);
         assertEquals(al.size(), 4);
 
-        al = app.getTopPopulatdCountriesRegion("Western Europe","2");
+        al = app.getTopPopulatedCountriesRegion("Western Europe","2");
         assertNotNull(al);
         assertEquals(al.size(), 2);
 
-        al = app.getTopPopulatdCountriesRegion("Terra","3");
+        al = app.getTopPopulatedCountriesRegion("Terra","3");
         assertNull(al);
 
-        al = app.getTopPopulatdCountriesRegion("Western Europe", "pear");
+        al = app.getTopPopulatedCountriesRegion("Western Europe", "pear");
         assertNull(al);
     }
 
@@ -166,6 +164,74 @@ public class SemIntTests {
         assertEquals(al.size(), 2);
 
         al = app.getCitiesLargestToSmallestLimited("pear");
+        assertNull(al);
+    }
+
+    @Test //Requirement 13
+    void Test_top_populated_cities_continent(){
+        ArrayList<City> al = app.getTopPopulatedCitiesContinent("Asia", "4");
+        assertNotNull(al);
+        assertEquals(al.size(), 4);
+
+        al = app.getTopPopulatedCitiesContinent("Asia","2");
+        assertNotNull(al);
+        assertEquals(al.size(), 2);
+
+        al = app.getTopPopulatedCitiesContinent("Terra","3");
+        assertNull(al);
+
+        al = app.getTopPopulatedCitiesContinent("Asia", "pear");
+        assertNull(al);
+    }
+
+    @Test //Requirement 14
+    void Test_top_populated_cities_region(){
+        ArrayList<City> al = app.getTopPopulatedCitiesRegion("Western Europe", "4");
+        assertNotNull(al);
+        assertEquals(al.size(), 4);
+
+        al = app.getTopPopulatedCitiesRegion("Western Europe","2");
+        assertNotNull(al);
+        assertEquals(al.size(), 2);
+
+        al = app.getTopPopulatedCitiesRegion("Terra","3");
+        assertNull(al);
+
+        al = app.getTopPopulatedCitiesRegion("Western Europe", "pear");
+        assertNull(al);
+    }
+
+    @Test //Requirement 15
+    void Test_top_populated_cities_country(){
+        ArrayList<City> al = app.getTopPopulatedCitiesCountry("United Kingdom", "4");
+        assertNotNull(al);
+        assertEquals(al.size(), 4);
+
+        al = app.getTopPopulatedCitiesCountry("United Kingdom","2");
+        assertNotNull(al);
+        assertEquals(al.size(), 2);
+
+        al = app.getTopPopulatedCitiesCountry("Terra","3");
+        assertNull(al);
+
+        al = app.getTopPopulatedCitiesCountry("United Kingdom", "pear");
+        assertNull(al);
+    }
+
+    @Test //Requirement 16
+    void Test_top_populated_cities_district(){
+        ArrayList<City> al = app.getTopPopulatedCitiesDistrict("Nagasaki", "4");
+        assertNotNull(al);
+        assertEquals(al.size(), 4);
+
+        al = app.getTopPopulatedCitiesDistrict("Nagasaki","2");
+        assertNotNull(al);
+        assertEquals(al.size(), 2);
+
+        al = app.getTopPopulatedCitiesDistrict("Terra","3");
+        assertNull(al);
+
+        al = app.getTopPopulatedCitiesDistrict("Nagasaki", "pear");
         assertNull(al);
     }
 
