@@ -34,7 +34,7 @@ public class CapitalCity implements DataObject{
         } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: Continent"); }
 
         try{
-            this.Population = rset.getInt("Population");
+            this.Population = rset.getLong("Population");
             setSomething = true;
         } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: Population"); }
         return setSomething;
@@ -58,6 +58,6 @@ public class CapitalCity implements DataObject{
     /**
      * Population of the capital city
      */
-    public int Population;
+    public Long Population;
 
 }

@@ -11,7 +11,7 @@ public class Population implements DataObject{
     }
 
     /**
-     * Quick way to assign the data returned from a query for the City table
+     * Quick way to assign the data returned from a population query
      * @param rset ResultSet object from the database
      * @return true if anything has been updated, false if nothing has been changed or rset is null
      */
@@ -29,17 +29,17 @@ public class Population implements DataObject{
         } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: Name"); }
 
         try{
-            this.TotalPopulation = rset.getInt("TotalPopulation");
+            this.TotalPopulation = rset.getLong("TotalPopulation");
             setSomething = true;
         } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: TotalPopulation"); }
 
         try{
-            this.TotalPopInCities = rset.getInt("TotalPopInCities");
+            this.TotalPopInCities = rset.getLong("TotalPopInCities");
             setSomething = true;
         } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: TotalPopInCities"); }
 
         try{
-            this.TotalPopNotInCities = rset.getInt("TotalPopNotInCities");
+            this.TotalPopNotInCities = rset.getLong("TotalPopNotInCities");
             setSomething = true;
         } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: TotalPopNotInCities"); }
 
@@ -56,12 +56,12 @@ public class Population implements DataObject{
     /**
      * Total population
      */
-    public int TotalPopulation;
+    public Long TotalPopulation;
 
     /**
      * Total Population Living in Cities
      */
-    public int TotalPopInCities;
+    public Long TotalPopInCities;
 
     /**
      * Total Population Living in Cities Percent
@@ -77,7 +77,7 @@ public class Population implements DataObject{
     /**
      * Total Population not living in cities
      */
-    public int TotalPopNotInCities;
+    public Long TotalPopNotInCities;
 
     /**
      * Total Population Not Living in Cities Percent

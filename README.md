@@ -26,17 +26,30 @@
 
 ## Final Delivery Table
 
-| ID  |    Name                                                                        | Met  | Screenshot                            | Link to run                                         |
-|:---:| -------------------------------------------------------------------------------| ---- | ------------------------------------- | ----------------------------------------------------|
-|  1  | All the countries in the world organised by largest population to smallest.    | Yes. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest                       | 
-|  2  | All the countries in a continent organised by largest population to smallest.  | Yes. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_continent       | 
-|  3  | All the countries in a region organised by largest population to smallest.     | Yes. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_region          | 
-|  4  | The top N populated countries in the world where N is provided by the user.    | No.  | ![Example Image](img/allinhouse.jpeg) | get_countries_largest_to_smallest_limited?limNum=   | 
-|  5  | All the countries in a region organised by largest population to smallest.     | No.  | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_region          | 
-|  6  | All the countries in a region organised by largest population to smallest.     | No.  | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_region          | 
-|  7  | All the cities in the world organised by largest population to smallest.       | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest                          | 
-|  8  | All the cities in a continent organised by largest population to smallest.     | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_continent          | 
-|  9  | All the cities in a region organised by largest population to smallest.        | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_region             | 
-| 10  | All the cities in a country organised by largest population to smallest.       | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_country            | 
-| 11  | All the cities in a district organised by largest population to smallest.      | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_district           | 
-| 12  | The top N populated cities in the world where N is provided by the user.       | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| ID  |    Name                                                                                                     | Met  | Screenshot                            | Link to run                                         |
+|:---:| ------------------------------------------------------------------------------------------------------------| ---- | ------------------------------------- | ----------------------------------------------------|
+|  1  | All the countries in the world organised by largest population to smallest.                                 | Yes. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest                       | 
+|  2  | All the countries in a continent organised by largest population to smallest.                               | Yes. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_continent       | 
+|  3  | All the countries in a region organised by largest population to smallest.                                  | Yes. | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_region           | 
+|  4  | The top N populated countries in the world where N is provided by the user.                                 | yes. | ![Example Image](img/allinhouse.jpeg) | get_countries_largest_to_smallest_limited?limNum=   | 
+|  5  | All the countries in a region organised by largest population to smallest.                                  | yes. | ![Example Image](img/allinhouse.jpeg) | top_populated_countries_continent?continent=&limNum=   | 
+|  6  | All the countries in a region organised by largest population to smallest.                                  | No.  | ![Example Image](img/allinhouse.jpeg) | countries_largest_to_smallest_group_region          | 
+|  7  | All the cities in the world organised by largest population to smallest.                                    | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest                          | 
+|  8  | All the cities in a continent organised by largest population to smallest.                                  | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_continent          | 
+|  9  | All the cities in a region organised by largest population to smallest.                                     | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_region             | 
+| 10  | All the cities in a country organised by largest population to smallest.                                    | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_country            | 
+| 11  | All the cities in a district organised by largest population to smallest.                                   | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_district           | 
+| 12  | The top N populated cities in the world where N is provided by the user.                                    | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 13  | The top N populated cities in the world where N is provided by the user.                                    | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 14  | The top N populated cities in the world where N is provided by the user.                                    | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 15  | The top N populated cities in the world where N is provided by the user.                                    | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 16  | The top N populated cities in the world where N is provided by the user.                                    | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 17  | All the capital cities in the world organised by largest population to smallest.                            | Yes. | ![Example Image](img/allinhouse.jpeg) | capital_cities_largest_to_smallest                  | 
+| 18  | All the capital cities in a continent organised by largest population to smallest.                          | Yes. | ![Example Image](img/allinhouse.jpeg) | capital_cities_lagest_to_smallest_group_continent   | 
+| 19  | All the capital cities in a region organised by largest to smallest.                                        | Yes. | ![Example Image](img/allinhouse.jpeg) | capital_cities_largest_to_smallest_group_region     | 
+| 20  | The top N populated capital cities in the world where N is provided by the user.                            | Yes. | ![Example Image](img/allinhouse.jpeg) | capital_cities_largest_to_smallest_limited          | 
+| 21  | The top N populated capital cities in a continent where N is provided by the user.                          | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 22  | The top N populated capital cities in a region where N is provided by the user.                             | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 23  | The population of people, people living in cities, and people not living in cities in each continent.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 24  | The population of people, people living in cities, and people not living in cities in each region.          | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 25  | The population of people, people living in cities, and people not living in cities in each country.         | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 

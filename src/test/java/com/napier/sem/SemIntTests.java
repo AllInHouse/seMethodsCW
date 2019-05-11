@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.DatabaseObjects.AditionalQueries;
 import com.napier.sem.DatabaseObjects.CapitalCity;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
@@ -19,6 +20,11 @@ public class SemIntTests {
     private static final int NumberOfCities = 4079;
     private static final int NumberOfCountries = 239;
     private static final int NumberOfCapitalCities = 232;
+
+    private static final Long WorldPop = 6078749450L;
+    private static final int NumberOfContinents = 7;
+    private static final int NumberOfRegions = 25;
+    private static final int NumberOfDistricts = 1367;
 
     @BeforeAll
     static void init()
@@ -162,6 +168,59 @@ public class SemIntTests {
 
         al = app.getCapitalCitiesLargestToSmallestLimited("pear");
         assertNull(al);
+    }
+
+    @Test //Requirement 26?
+    void Test_world_population(){
+        ArrayList<AditionalQueries> al = app.getWorldPopulation();
+        assertNotNull(al);
+
+        assertEquals(1, al.size());
+        assertEquals(WorldPop, al.get(0).Population);
+    }
+
+    @Test //Requirement 27?
+    void Test_continent_population(){
+        ArrayList<AditionalQueries> al = app.getContinentPopulation("Asia");
+        assertNotNull(al);
+
+        assertEquals(1, al.size());
+    }
+
+    @Test //Requirement 28?
+    void Test_region_population(){
+        ArrayList<AditionalQueries> al = app.getRegionPopulation("South America");
+        assertNotNull(al);
+
+        assertEquals(1, al.size());
+        assertEquals(345780000, al.get(0).Population);
+    }
+
+    @Test //Requirement 29?
+    void Test_country_population(){
+        ArrayList<AditionalQueries> al = app.getCountryPopulation("United Kingdom");
+        assertNotNull(al);
+
+        assertEquals(1, al.size());
+        assertEquals(59623400, al.get(0).Population);
+    }
+
+    @Test //Requirement 30?
+    void Test_district_population(){
+        ArrayList<AditionalQueries> al = app.getDistrictPopulation("Nagasaki");
+        assertNotNull(al);
+
+        assertEquals(1, al.size());
+        assertEquals(770057, al.get(0).Population);
+    }
+
+    @Test //Requirement 31?
+    void Test_city_population(){
+        ArrayList<AditionalQueries> al = app.getCityPopulation("Edinburgh");
+        assertNotNull(al);
+
+        assertEquals(1, al.size());
+        assertEquals(450180, al.get(0).Population);
     }
 
     @Test
