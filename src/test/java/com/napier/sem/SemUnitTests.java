@@ -52,6 +52,8 @@ public class SemUnitTests {
         pop.TotalPopNotInCities = 80;
         pop.TotalPopInCities = 20;
 
+        pop.UpdateCalculatedValues();
+
         assertEquals(pop.TotalPopInCitiesPercent, "20%");
         assertEquals(pop.TotalPopNotInCitiesPercent, "80%");
     }

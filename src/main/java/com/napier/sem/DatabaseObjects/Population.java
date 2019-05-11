@@ -43,6 +43,8 @@ public class Population implements DataObject{
             setSomething = true;
         } catch (SQLException sqlE) { App.log.trace("Column does not exist in RSET :: TotalPopNotInCities"); }
 
+        UpdateCalculatedValues(); //Update the percent values based on any data from the RSET.
+
         return setSomething;
     }
 
@@ -64,7 +66,7 @@ public class Population implements DataObject{
     /**
      * Total Population Living in Cities Percent
      */
-    public String TotalPopInCitiesPercent = getTotalPopInCitiesPercent();
+    public String TotalPopInCitiesPercent;
 
 
     private String getTotalPopInCitiesPercent(){
@@ -80,11 +82,16 @@ public class Population implements DataObject{
     /**
      * Total Population Not Living in Cities Percent
      */
-    public String TotalPopNotInCitiesPercent = getTotalPopNotInCitiesPercent();
+    public String TotalPopNotInCitiesPercent;
 
     private String getTotalPopNotInCitiesPercent(){
         if(TotalPopNotInCities == 0 || TotalPopulation == 0) return "0%";
         else return (TotalPopNotInCities / TotalPopulation)*100 + "%" ;
+    }
+
+    public void UpdateCalculatedValues(){
+        TotalPopNotInCitiesPercent = getTotalPopNotInCitiesPercent();
+        TotalPopInCitiesPercent = getTotalPopInCitiesPercent();
     }
 
 }
