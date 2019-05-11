@@ -594,7 +594,6 @@ public class App {
                 //CountrySumPop pop = new CountrySumPop();
                 //pop.Continent = rset.getString("Continent");
                 //pop.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
                 //pop.city.Population = rset.getString("city.Population");
                 //pop.SumPop = rset.getInt("SUM(Population - city.Population)");
             }
@@ -631,7 +630,6 @@ public class App {
                 Country pop = new Country();
                 pop.Region = rset.getString("Region");
                 //pop.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
                 //pop.city.Population = rset.getString("city.Population");
                 //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
             }
@@ -667,7 +665,6 @@ public class App {
                 Country popC = new Country();
                 popC.Name = rset.getString("Name");
                 //popC.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
                 //pop.city.Population = rset.getString("city.Population");
                 //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
             }
@@ -761,6 +758,8 @@ public class App {
     }
 
 
+    /*
+    //Requirement 32
     public ArrayList<LanguageQuery> getLanguagesReport(){
         String strSelect = "";
 
@@ -791,7 +790,6 @@ public class App {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
                 //lan.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanChinese;
@@ -826,7 +824,6 @@ public class App {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
                 //lan.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanEnglish;
@@ -861,7 +858,6 @@ public class App {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
                 //lan.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanHindi;
@@ -896,7 +892,6 @@ public class App {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
                 //lan.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanSpanish;
@@ -931,7 +926,6 @@ public class App {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
                 //lan.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
             return lanArabic;
@@ -940,7 +934,7 @@ public class App {
             System.out.println("Failed to get country details");
             return null;
         }
-    }
+    }*/
 
     /**
      * Not sure this will stay, prints out all data for a City.
