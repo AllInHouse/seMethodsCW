@@ -95,7 +95,7 @@ public class SemIntTests {
         assertEquals(al.size(), 2);
 
         al = app.getTopPopulatedCountriesContinent("Terra","3");
-        assertNull(al);
+        assertEquals(0, al.size());
 
         al = app.getTopPopulatedCountriesContinent("Asia", "pear");
         assertNull(al);
@@ -112,7 +112,7 @@ public class SemIntTests {
         assertEquals(al.size(), 2);
 
         al = app.getTopPopulatedCountriesRegion("Terra","3");
-        assertNull(al);
+        assertEquals(0, al.size());
 
         al = app.getTopPopulatedCountriesRegion("Western Europe", "pear");
         assertNull(al);
@@ -178,7 +178,7 @@ public class SemIntTests {
         assertEquals(al.size(), 2);
 
         al = app.getTopPopulatedCitiesContinent("Terra","3");
-        assertNull(al);
+        assertEquals(0, al.size());
 
         al = app.getTopPopulatedCitiesContinent("Asia", "pear");
         assertNull(al);
@@ -195,7 +195,7 @@ public class SemIntTests {
         assertEquals(al.size(), 2);
 
         al = app.getTopPopulatedCitiesRegion("Terra","3");
-        assertNull(al);
+        assertEquals(0, al.size());
 
         al = app.getTopPopulatedCitiesRegion("Western Europe", "pear");
         assertNull(al);
@@ -212,7 +212,7 @@ public class SemIntTests {
         assertEquals(al.size(), 2);
 
         al = app.getTopPopulatedCitiesCountry("Terra","3");
-        assertNull(al);
+        assertEquals(0, al.size());
 
         al = app.getTopPopulatedCitiesCountry("United Kingdom", "pear");
         assertNull(al);
@@ -229,7 +229,7 @@ public class SemIntTests {
         assertEquals(al.size(), 2);
 
         al = app.getTopPopulatedCitiesDistrict("Terra","3");
-        assertNull(al);
+        assertEquals(0, al.size());
 
         al = app.getTopPopulatedCitiesDistrict("Nagasaki", "pear");
         assertNull(al);
