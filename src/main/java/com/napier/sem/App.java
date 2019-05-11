@@ -311,7 +311,7 @@ public class App {
      */
     @RequestMapping("cities_largest_to_smallest_group_region")
     public ArrayList<City> getCitiesLargestToSmallestGroupByRegion(){
-        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, city.Population as Population "
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, District, Region, city.Population as Population "
                 + "FROM city "
                 + "JOIN country ON CountryCode = country.Code "
                 + "ORDER BY Region, Population DESC";

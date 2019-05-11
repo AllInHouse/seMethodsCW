@@ -53,3 +53,8 @@
 | 23  | The population of people, people living in cities, and people not living in cities in each continent.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
 | 24  | The population of people, people living in cities, and people not living in cities in each region.          | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
 | 25  | The population of people, people living in cities, and people not living in cities in each country.         | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 26  | The population of the world.                                                                                | Yes. | ![Example Image](img/allinhouse.jpeg) | world_population                                    | 
+| 27  | The population of a continent.                                                                              | Yes. | ![Example Image](img/allinhouse.jpeg) | continent_population?continent=                     | 
+| 28  | The population of a region.                                                                                 | Yes. | ![Example Image](img/allinhouse.jpeg) | region_population?region=                           | 
+| 29  | The population of a country.                                                                                | Yes. | ![Example Image](img/allinhouse.jpeg) | country_population?country=                         | 
+| 30  | The population of a city.                                                                                   | Yes. | ![Example Image](img/allinhouse.jpeg) | district_population?district=                       | 
