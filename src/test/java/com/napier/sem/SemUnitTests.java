@@ -48,9 +48,9 @@ public class SemUnitTests {
     @Test
     void TestPopulationCalculation(){
         Population pop = new Population();
-        pop.TotalPopulation = 100;
-        pop.TotalPopNotInCities = 80;
-        pop.TotalPopInCities = 20;
+        pop.TotalPopulation = 100L;
+        pop.TotalPopNotInCities = 80L;
+        pop.TotalPopInCities = 20L;
 
         pop.UpdateCalculatedValues();
 

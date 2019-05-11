@@ -471,6 +471,91 @@ public class App {
         return RunListQuery(Population.class, strSelect);
     }
 
+    //The population of people, people living in cities, and people not living in cities in each region.
+
+    //The population of people, people living in cities, and people not living in cities in each country.
+
+    /**
+     * Requirement 26? - /world_population
+     * The population of the world.
+     * @return ArrayList containing a single AditionalQueries object
+     */
+    @RequestMapping("world_population")
+    public ArrayList<AditionalQueries> getWorldPopulation(){
+        String strSelect = "SELECT 'World Population' AS Name, SUM(Population) AS Population "
+            + "FROM country";
+        return RunListQuery(AditionalQueries.class, strSelect);
+    }
+
+    /**
+     * Requirement 27? - /continent_population
+     * The population of a continent.
+     * @return ArrayList of AditionalQueries or Null
+     */
+    @RequestMapping("continent_population")
+    public ArrayList<AditionalQueries> getContinentPopulation(@RequestParam(value = "continent") String continent){
+        String strSelect = "SELECT Continent AS Name, SUM(Population) AS Population "
+                + "FROM country "
+                + "WHERE Continent = " + continent + " "
+                + "GROUP BY Continent";
+        return RunListQuery(AditionalQueries.class, strSelect);
+    }
+
+    /**
+     * Requirement 28? - /region_population
+     * The population of a region.
+     * @return ArrayList of AditionalQueries or Null
+     */
+    @RequestMapping("region_population")
+    public ArrayList<AditionalQueries> getRegionPopulation(@RequestParam(value = "region") String region){
+        String strSelect = "SELECT Region AS Name, SUM(Population) AS Population "
+                + "FROM country "
+                + "WHERE Region = " + region + " "
+                + "GROUP BY Region";
+        return RunListQuery(AditionalQueries.class, strSelect);
+    }
+
+    /**
+     * Requirement 29? - /country_population
+     * The population of a country.
+     * @return ArrayList of AditionalQueries or Null
+     */
+    @RequestMapping("country_population")
+    public ArrayList<AditionalQueries> getCountryPopulation(@RequestParam(value = "country") String country){
+        String strSelect = "SELECT Name, SUM(Population) AS Population "
+                + "FROM country "
+                + "WHERE Name = " + country;
+        return RunListQuery(AditionalQueries.class, strSelect);
+    }
+
+    /**
+     * Requirement 30? - /district_population
+     * The population of a district.
+     * @return ArrayList of AditionalQueries or Null
+     */
+    @RequestMapping("district_population")
+    public ArrayList<AditionalQueries> getDistrictPopulation(@RequestParam(value = "district") String district){
+        String strSelect = "SELECT District AS Name, SUM(Population) AS Population "
+                + "FROM city "
+                + "WHERE District = " + district + " "
+                + "GROUP BY District";
+        return RunListQuery(AditionalQueries.class, strSelect);
+    }
+
+    /**
+     * Requirement 31? - /city_population
+     * The population of a city.
+     * @return ArrayList of AditionalQueries or Null
+     */
+    @RequestMapping("city_population")
+    public ArrayList<AditionalQueries> getCityPopulation(@RequestParam(value = "city") String city){
+        String strSelect = "SELECT Name, SUM(Population) AS Population "
+                + "FROM city "
+                + "WHERE Name = " + city;
+        return RunListQuery(AditionalQueries.class, strSelect);
+    }
+
+
 
 
     @RequestMapping("Region")
@@ -598,7 +683,7 @@ public class App {
             while (rset.next()) {
                 CountrySumPop pop = new CountrySumPop();
                 pop.Continent = rset.getString("Continent");
-                pop.Population = rset.getInt("Population");
+                //pop.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //pop.city.Population = rset.getString("city.Population");
                 pop.SumPop = rset.getInt("SUM(Population - city.Population)");
@@ -634,7 +719,7 @@ public class App {
             while (rset.next()) {
                 Country pop = new Country();
                 pop.Region = rset.getString("Region");
-                pop.Population = rset.getInt("Population");
+                //pop.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //pop.city.Population = rset.getString("city.Population");
                 //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
@@ -669,7 +754,7 @@ public class App {
             while (rset.next()) {
                 Country popC = new Country();
                 popC.Name = rset.getString("Name");
-                popC.Population = rset.getInt("Population");
+                //popC.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //pop.city.Population = rset.getString("city.Population");
                 //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
@@ -799,7 +884,7 @@ public class App {
             while (rset.next()) {
                 Country pop = new Country();
                 pop.Name = rset.getString("Name");
-                pop.Population = rset.getInt("Population");
+                //pop.Population = rset.getInt("Population");
             }
             return populationCountry;
         } catch (Exception e) {
@@ -896,7 +981,7 @@ public class App {
             while (rset.next()) {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getInt("Population");
+                //lan.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
@@ -931,7 +1016,7 @@ public class App {
             while (rset.next()) {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getInt("Population");
+                //lan.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
@@ -966,7 +1051,7 @@ public class App {
             while (rset.next()) {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getInt("Population");
+                //lan.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
@@ -1001,7 +1086,7 @@ public class App {
             while (rset.next()) {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getInt("Population");
+                //lan.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
@@ -1036,7 +1121,7 @@ public class App {
             while (rset.next()) {
                 Country lan = new Country();
                 lan.Name = rset.getString("Name");
-                lan.Population = rset.getInt("Population");
+                //lan.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //lan.SUM(countrylanguage.Percentage) = rset.getInt("SUM(countrylanguage.Percentage)");
             }
