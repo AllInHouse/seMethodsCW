@@ -40,3 +40,11 @@
 | 10  | All the cities in a country organised by largest population to smallest.       | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_country            | 
 | 11  | All the cities in a district organised by largest population to smallest.      | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_group_district           | 
 | 12  | The top N populated cities in the world where N is provided by the user.       | Yes. | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 13  | The top N populated cities in the world where N is provided by the user.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 14  | The top N populated cities in the world where N is provided by the user.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 15  | The top N populated cities in the world where N is provided by the user.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 16  | The top N populated cities in the world where N is provided by the user.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 17  | The top N populated cities in the world where N is provided by the user.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 18  | The top N populated cities in the world where N is provided by the user.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 19  | The top N populated cities in the world where N is provided by the user.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 20  | The top N populated cities in the world where N is provided by the user.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 

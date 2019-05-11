@@ -460,12 +460,18 @@ public class App {
 
     //The top N populated capital cities in a region where N is provided by the user.
 
-    //The population of people, people living in cities, and people not living in cities in each continent.
-
+    /**
+     * Requirement 23 - /population_per_continent
+     * The population of people, people living in cities, and people not living in cities in each continent.
+     * @return ArrayList of Population or Null
+     */
+    @RequestMapping("population_per_continent")
     public ArrayList<Population> getPopulationPerContinent(){
         String strSelect = "";
         return RunListQuery(Population.class, strSelect);
     }
+
+
 
     @RequestMapping("Region")
     public ArrayList<Country> getRegion(@RequestParam(value = "limNum") String limNum) {
