@@ -1,11 +1,9 @@
 package com.napier.sem;
 
-import com.napier.sem.DatabaseObjects.CapitalCity;
-import com.napier.sem.DatabaseObjects.City;
-import com.napier.sem.DatabaseObjects.Country;
-import com.napier.sem.DatabaseObjects.CountryLanguage;
+import com.napier.sem.DatabaseObjects.*;
 import com.napier.sem.DatabaseObjects.ExtendedObjects.CountryCityPopulation;
 import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
+import org.hibernate.validator.constraints.br.TituloEleitoral;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +37,23 @@ public class SemUnitTests {
     void TestCountryLanguageParseWithNull(){
         CountryLanguage testCountryLanguage = new CountryLanguage();
         assertFalse(testCountryLanguage.ParseRSET(null));
+    }
+
+    @Test
+    void TestPopulationParseWithNull(){
+        Population population = new Population();
+        assertFalse(population.ParseRSET(null));
+    }
+
+    @Test
+    void TestPopulationCalculation(){
+        Population pop = new Population();
+        pop.TotalPopulation = 100;
+        pop.TotalPopNotInCities = 80;
+        pop.TotalPopInCities = 20;
+
+        assertEquals(pop.TotalPopInCitiesPercent, "20%");
+        assertEquals(pop.TotalPopNotInCitiesPercent, "80%");
     }
 
     @Test
