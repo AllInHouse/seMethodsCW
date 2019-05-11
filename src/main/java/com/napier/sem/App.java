@@ -254,49 +254,27 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
+
     /**
-     *
-     * @param limNum
-     * @return
+     * Requirement 5 - /top_populated_countries_continent
+     * The top N populated countries in a continent where N is provided by the user.
+     * @param continent The continent to get from
+     * @param limNum The limit for entries
+     * @return ArrayList of Country or Null
      */
-    @RequestMapping("attempted_req_5")
-    public ArrayList<Country> getTopPopulatdCountriesContinent(@RequestParam(value = "limNum") String limNum){
-        int limit;
-        try{
-            limit = Integer.parseInt(limNum);
-        }catch (NumberFormatException nfe){
-            log.warn("Number Format Exception in getTopPopulatdCountriesContinent :: returning null.");
-            return null;
-        }
-
-        ArrayList<Country> full = getCountriesLargestToSmallestGroupByContinent();
-        HashMap<String, Integer> counter = new HashMap<String, Integer>();
-        HashMap<String, ArrayList<Country>> temp = new HashMap<String, ArrayList<Country>>();
-        ArrayList<Country> endResult = new ArrayList<Country>();
-        //Logic to get number of countries here :)
-
-        for (Country c : full){
-            if(temp.containsKey(c.Region)){
-                int count = counter.get(c.Region);
-                if(count >= limit) continue;
-
-                temp.get(c.Region).add(c);
-                counter.put(c.Region, counter.get(c.Region) + 1);
-            }else{
-                temp.put(c.Region, new ArrayList<Country>());
-                temp.get(c.Region).add(c);
-
-                counter.put(c.Region, 1);
-            }
-        }
-
-        for(Map.Entry<String, ArrayList<Country>> se : temp.entrySet()){
-            endResult.addAll(se.getValue());
-        }
-
-        return endResult;
+    @RequestMapping("top_populated_countries_continent")
+    public ArrayList<Country> getTopPopulatdCountriesContinent(@RequestParam(value = "continent") String continent, @RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+               + "FROM country "
+               + "WHERE Continent = " + continent + " "
+               + "ORDER BY Population DESC "
+               + "LIMIT " + limit;
+        return RunListQuery(Country.class, strSelect);
     }
 
+    //The top N populated countries in a region where N is provided by the user.
 
     /**
      * Requirement 7 - /cities_largest_to_smallest
