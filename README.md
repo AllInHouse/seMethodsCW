@@ -29,7 +29,7 @@
 11. Take responsibility for your own actions, if you have made any mistakes, own up to them and we will try to work it out as a team.
 
 ## Delivery Status
-
+28 requirements of 32 have been implemented, which is 87.5%.
 
 
 ## Final Delivery Table
