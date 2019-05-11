@@ -2,7 +2,7 @@
 
 ## Required badges
 
-- License [![GitHub license](https://img.shields.io/github/license/AllInHouse/seMethodsCW.svg)](https://github.com/AllInHouse/seMethodsCW)
+- License [![GitHub license](https://img.shields.io/github/license/AllInHouse/seMethodsCW.svg)](https://github.com/AllInHouse/seMethodsCW/blob/master/LICENSE)
 - Latest Github Release ![GitHub release](https://img.shields.io/github/release/AllInHouse/seMethodsCW.svg)
 
 ## Build Status
