@@ -169,9 +169,9 @@ public class SemIntTests {
 
     @Test //Requirement 13
     void Test_top_populated_cities_continent(){
-        ArrayList<City> al = app.getTopPopulatedCitiesContinent("Asia", "4");
+        ArrayList<City> al = app.getTopPopulatedCitiesContinent("Asia", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 4);
+        assertEquals(al.size(), 1);
 
         al = app.getTopPopulatedCitiesContinent("Asia","2");
         assertNotNull(al);
@@ -186,9 +186,9 @@ public class SemIntTests {
 
     @Test //Requirement 14
     void Test_top_populated_cities_region(){
-        ArrayList<City> al = app.getTopPopulatedCitiesRegion("Western Europe", "4");
+        ArrayList<City> al = app.getTopPopulatedCitiesRegion("Western Europe", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 4);
+        assertEquals(al.size(), 1);
 
         al = app.getTopPopulatedCitiesRegion("Western Europe","2");
         assertNotNull(al);
@@ -203,9 +203,9 @@ public class SemIntTests {
 
     @Test //Requirement 15
     void Test_top_populated_cities_country(){
-        ArrayList<City> al = app.getTopPopulatedCitiesCountry("United Kingdom", "4");
+        ArrayList<City> al = app.getTopPopulatedCitiesCountry("United Kingdom", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 4);
+        assertEquals(al.size(), 1);
 
         al = app.getTopPopulatedCitiesCountry("United Kingdom","2");
         assertNotNull(al);
@@ -220,9 +220,9 @@ public class SemIntTests {
 
     @Test //Requirement 16
     void Test_top_populated_cities_district(){
-        ArrayList<City> al = app.getTopPopulatedCitiesDistrict("Nagasaki", "4");
+        ArrayList<City> al = app.getTopPopulatedCitiesDistrict("Nagasaki", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 4);
+        assertEquals(al.size(), 1);
 
         al = app.getTopPopulatedCitiesDistrict("Nagasaki","2");
         assertNotNull(al);
@@ -272,9 +272,9 @@ public class SemIntTests {
 
     @Test //Requirement 21
     void Test_top_populated_capital_cities_continent(){
-        ArrayList<City> al = app.getTopPopulatedCapitalCitiesContinent("Asia", "4");
+        ArrayList<City> al = app.getTopPopulatedCapitalCitiesContinent("Asia", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 4);
+        assertEquals(al.size(), 1);
 
         al = app.getTopPopulatedCapitalCitiesContinent("Asia","2");
         assertNotNull(al);
@@ -289,9 +289,9 @@ public class SemIntTests {
 
     @Test //Requirement 22
     void Test_top_populated_capital_cities_region(){
-        ArrayList<City> al = app.getTopPopulatedCapitalCitiesRegion("Western Europe", "4");
+        ArrayList<City> al = app.getTopPopulatedCapitalCitiesRegion("Western Europe", "1");
         assertNotNull(al);
-        assertEquals(al.size(), 4);
+        assertEquals(al.size(), 1);
 
         al = app.getTopPopulatedCapitalCitiesRegion("Western Europe","2");
         assertNotNull(al);
