@@ -268,7 +268,7 @@ public class App {
         if(limit < 0) return null;
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                + "FROM country "
-               + "WHERE Continent = " + continent + " "
+               + "WHERE Continent = '" + continent + "' "
                + "ORDER BY Population DESC "
                + "LIMIT " + limit;
         return RunListQuery(Country.class, strSelect);
@@ -276,18 +276,18 @@ public class App {
 
     /**
      * Requirement 6 - /top_populated_countries_region
-     * The top N populated countries in a continent where N is provided by the user.
-     * @param continent The continent to get from
+     * The top N populated countries in a region where N is provided by the user.
+     * @param region The region to get from
      * @param limNum The limit for entries
      * @return ArrayList of Country or Null
      */
     @RequestMapping("top_populated_countries_region")
-    public ArrayList<Country> getTopPopulatdCountriesContinent(@RequestParam(value = "region") String region, @RequestParam(value = "limNum") String limNum){
+    public ArrayList<Country> getTopPopulatdCountriesRegion(@RequestParam(value = "region") String region, @RequestParam(value = "limNum") String limNum){
         int limit = TryParseInput(limNum);
         if(limit < 0) return null;
         String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
                + "FROM country "
-               + "WHERE Region = " + region + " "
+               + "WHERE Region = '" + region + "' "
                + "ORDER BY Population DESC "
                + "LIMIT " + limit;
         return RunListQuery(Country.class, strSelect);
