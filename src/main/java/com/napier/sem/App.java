@@ -274,7 +274,24 @@ public class App {
         return RunListQuery(Country.class, strSelect);
     }
 
-    //The top N populated countries in a region where N is provided by the user.
+    /**
+     * Requirement 6 - /top_populated_countries_region
+     * The top N populated countries in a continent where N is provided by the user.
+     * @param continent The continent to get from
+     * @param limNum The limit for entries
+     * @return ArrayList of Country or Null
+     */
+    @RequestMapping("top_populated_countries_region")
+    public ArrayList<Country> getTopPopulatdCountriesContinent(@RequestParam(value = "region") String region, @RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+        String strSelect = "SELECT Code, Name, Continent, Region, Population, Capital "
+               + "FROM country "
+               + "WHERE Region = " + region + " "
+               + "ORDER BY Population DESC "
+               + "LIMIT " + limit;
+        return RunListQuery(Country.class, strSelect);
+    }
 
     /**
      * Requirement 7 - /cities_largest_to_smallest
@@ -646,7 +663,7 @@ public class App {
 
             // Create string for SQL statement
             String strSelect =
-                    "SELECT Continent, Population, city.Population, SUM(Population - city.Population) "
+                    "SELECT Continent AS Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
                             + "FROM country "
                             + "JOIN city ON Code = city.CountryCode "
                             + "GROUP BY Continent";
@@ -664,7 +681,7 @@ public class App {
                 //pop.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //pop.city.Population = rset.getString("city.Population");
-                pop.SumPop = rset.getInt("SUM(Population - city.Population)");
+                //pop.SumPop = rset.getInt("SUM(Population - city.Population)");
             }
             return popCont;
             
@@ -682,7 +699,7 @@ public class App {
 
             // Create string for SQL statement
             String strSelect =
-                    "SELECT Region, Population, city.Population, SUM(Population - city.Population) "
+                    "SELECT Region AS Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
                             + "FROM country "
                             + "JOIN city ON Code = city.CountryCode "
                             + "GROUP BY Region";
@@ -717,7 +734,7 @@ public class App {
 
             // Create string for SQL statement
             String strSelect =
-                    "SELECT Name, Population, city.Population, SUM(Population - city.Population) "
+                    "SELECT Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
                             + "FROM country "
                             + "JOIN city ON Code = city.CountryCode "
                             + "GROUP BY Name";
