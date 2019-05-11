@@ -51,3 +51,5 @@
 | 21  | The top N populated capital cities in a continent where N is provided by the user.                          | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
 | 22  | The top N populated capital cities in a region where N is provided by the user.                             | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
 | 23  | The population of people, people living in cities, and people not living in cities in each continent.       | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 24  | The population of people, people living in cities, and people not living in cities in each region.          | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
+| 25  | The population of people, people living in cities, and people not living in cities in each country.         | No.  | ![Example Image](img/allinhouse.jpeg) | cities_largest_to_smallest_limited?limNum=          | 
