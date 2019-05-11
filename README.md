@@ -57,5 +57,5 @@
 | 28  | The population of a region.                                                                                 | Yes. | ![Example Image](img/allinhouse.jpeg) | region_population?region=                           | 
 | 29  | The population of a country.                                                                                | Yes. | ![Example Image](img/allinhouse.jpeg) | country_population?country=                         | 
 | 30  | The population of a district.                                                                               | Yes. | ![Example Image](img/allinhouse.jpeg) | district_population?district=                       |
-| 31  | The population of a city.                                                                                   | Yes. | ![Example Image](img/allinhouse.jpeg) |                        |
-| 32  | The most popularly spoken languages in the world.                                                           | Yes. | ![Example Image](img/allinhouse.jpeg) |                        | 
+| 31  | The population of a city.                                                                                   | No. | ![Example Image](img/allinhouse.jpeg) |                        |
+| 32  | The most popularly spoken languages in the world.                                                           | No. | ![Example Image](img/allinhouse.jpeg) |                        | 
