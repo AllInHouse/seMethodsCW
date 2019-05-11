@@ -2,7 +2,6 @@
 package com.napier.sem;
 
 import com.napier.sem.DatabaseObjects.*;
-import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -657,6 +656,25 @@ public class App {
 
 
 
+
+    /*
+
+
+    Finally, the organisation has asked if it is possible to provide the number of
+    people who speak the following the following languages from greatest number to
+    smallest, including the percentage of the world population:
+
+
+Chinese.
+English.
+Hindi.
+Spanish.
+Arabic.
+
+
+
+     */
+
     public ArrayList<Country> getPopCont() {
         try {
             // Create an SQL statement
@@ -677,8 +695,8 @@ public class App {
             ArrayList<Country> popCont = new ArrayList<Country>();
 
             while (rset.next()) {
-                CountrySumPop pop = new CountrySumPop();
-                pop.Continent = rset.getString("Continent");
+                //CountrySumPop pop = new CountrySumPop();
+                //pop.Continent = rset.getString("Continent");
                 //pop.Population = rset.getInt("Population");
                 //TODO need to get these values differently, It wont compile as is
                 //pop.city.Population = rset.getString("city.Population");

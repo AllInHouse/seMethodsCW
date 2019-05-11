@@ -1,8 +1,6 @@
 package com.napier.sem;
 
 import com.napier.sem.DatabaseObjects.*;
-import com.napier.sem.DatabaseObjects.ExtendedObjects.CountryCityPopulation;
-import com.napier.sem.DatabaseObjects.ExtendedObjects.CountrySumPop;
 import org.hibernate.validator.constraints.br.TituloEleitoral;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,15 +55,6 @@ public class SemUnitTests {
         assertNotNull(pop);
         //assertEquals(pop.TotalPopInCitiesPercent, "20%");
         //assertEquals(pop.TotalPopNotInCitiesPercent, "80%");
-    }
-
-    @Test
-    void TestExtendedDataObjects(){
-        CountrySumPop CountrySum = new CountrySumPop();
-        CountryCityPopulation CountryCityPopulation = new CountryCityPopulation();
-
-        assertFalse(CountrySum.ParseRSET(null));
-        assertFalse(CountryCityPopulation.ParseRSET(null));
     }
 
     @Test
