@@ -440,6 +440,25 @@ public class App {
         return RunListQuery(CapitalCity.class, strSelect);
     }
 
+    /**
+     * Requirement 20 - /capital_cities_largest_to_smallest_limited
+     * The top N populated capital cities in the world where N is provided by the user.
+     * @param limNum N in the above requirement
+     * @return ArrayList of CapitalCity or Null
+     */
+    @RequestMapping("capital_cities_largest_to_smallest_limited")
+    public ArrayList<CapitalCity> getCapitalCitiesLargestToSmallestLimited(@RequestParam(value = "limNum") String limNum){
+        int limit = TryParseInput(limNum);
+        if(limit < 0) return null;
+
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population, country.Continent as Continent "
+                + "FROM country "
+                + "JOIN city on country.Capital = city.ID "
+                + "ORDER BY Population DESC "
+                + " LIMIT " + limit;
+        return RunListQuery(CapitalCity.class, strSelect);
+    }
+
 
     @RequestMapping("Region")
     public ArrayList<Country> getRegion(@RequestParam(value = "limNum") String limNum) {
