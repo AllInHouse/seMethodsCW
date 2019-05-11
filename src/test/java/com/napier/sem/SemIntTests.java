@@ -18,7 +18,7 @@ public class SemIntTests {
 
     private static final int NumberOfCities = 4079;
     private static final int NumberOfCountries = 239;
-    private static final int NumberOfCapitalCities = NumberOfCountries;
+    private static final int NumberOfCapitalCities = 232;
 
     @BeforeAll
     static void init()
@@ -132,6 +132,13 @@ public class SemIntTests {
     @Test //Requirement 17
     void Test_capital_cities_largest_to_smallest(){
         ArrayList<CapitalCity> al = app.getCapitalCitiesLargestToSmallest();
+        assertNotNull(al);
+        assertEquals(al.size(), NumberOfCapitalCities);
+    }
+
+    @Test //Requirement 18
+    void Test_capital_cities_lagest_to_smallest_group_continent(){
+        ArrayList<CapitalCity> al = app.getCapitalCitiesLargestToSmallestGroupByContinent();
         assertNotNull(al);
         assertEquals(al.size(), NumberOfCapitalCities);
     }

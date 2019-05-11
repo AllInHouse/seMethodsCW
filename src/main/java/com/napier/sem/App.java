@@ -412,6 +412,20 @@ public class App {
         return RunListQuery(CapitalCity.class, strSelect);
     }
 
+    /**
+     * Requirement 18 - /capital_cities_lagest_to_smallest_group_continent
+     * All the capital cities in a continent organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("capital_cities_lagest_to_smallest_group_continent")
+    public ArrayList<CapitalCity> getCapitalCitiesLargestToSmallestGroupByContinent(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population, country.Continent as Continent "
+                + "FROM country "
+                + "JOIN city on country.Capital = city.ID "
+                + "ORDER BY country.Continent, Population DESC";
+        return RunListQuery(CapitalCity.class, strSelect);
+    }
+
 
     @RequestMapping("Region")
     public ArrayList<Country> getRegion(@RequestParam(value = "limNum") String limNum) {
