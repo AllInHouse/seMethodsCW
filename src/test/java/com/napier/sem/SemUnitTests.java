@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.DatabaseObjects.CapitalCity;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
 import com.napier.sem.DatabaseObjects.CountryLanguage;
@@ -29,6 +30,11 @@ public class SemUnitTests {
         assertFalse(testCity.ParseRSET(null));
     }
 
+    void TestCapitalCityParseWithNull(){
+        CapitalCity testCity = new CapitalCity();
+        assertFalse(testCity.ParseRSET(null));
+    }
+
     @Test
     void TestCountryLanguageParseWithNull(){
         CountryLanguage testCountryLanguage = new CountryLanguage();
@@ -42,6 +48,21 @@ public class SemUnitTests {
 
         assertFalse(CountrySum.ParseRSET(null));
         assertFalse(CountryCityPopulation.ParseRSET(null));
+    }
+
+    @Test
+    void TestIntParsing(){
+        int x = app.TryParseInput("7");
+        assertEquals(x, 7);
+
+        int y = app.TryParseInput("356789");
+        assertEquals(y, 356789);
+
+        int z = app.TryParseInput("cherry");
+        assertEquals(z, -1);
+
+        int a = app.TryParseInput(null);
+        assertEquals(a, -1);
     }
 
     @Test

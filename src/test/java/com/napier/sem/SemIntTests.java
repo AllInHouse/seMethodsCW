@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.DatabaseObjects.CapitalCity;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
 import org.apache.logging.log4j.Level;
@@ -17,6 +18,7 @@ public class SemIntTests {
 
     private static final int NumberOfCities = 4079;
     private static final int NumberOfCountries = 239;
+    private static final int NumberOfCapitalCities = NumberOfCountries;
 
     @BeforeAll
     static void init()
@@ -125,6 +127,13 @@ public class SemIntTests {
 
         al = app.getCitiesLargestToSmallestLimited("pear");
         assertNull(al);
+    }
+
+    @Test //Requirement 17
+    void Test_capital_cities_largest_to_smallest(){
+        ArrayList<CapitalCity> al = app.getCapitalCitiesLargestToSmallest();
+        assertNotNull(al);
+        assertEquals(al.size(), NumberOfCapitalCities);
     }
 
     @Test

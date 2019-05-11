@@ -1,6 +1,7 @@
 
 package com.napier.sem;
 
+import com.napier.sem.DatabaseObjects.CapitalCity;
 import com.napier.sem.DatabaseObjects.City;
 import com.napier.sem.DatabaseObjects.Country;
 import com.napier.sem.DatabaseObjects.DataObject;
@@ -387,6 +388,28 @@ public class App {
                 + "ORDER BY Population DESC "
                 + " LIMIT " + limit;
         return RunListQuery(City.class, strSelect);
+    }
+
+    //The top N populated cities in a continent where N is provided by the user.
+
+    //The top N populated cities in a region where N is provided by the user.
+
+    //The top N populated cities in a country where N is provided by the user.
+
+    //The top N populated cities in a district where N is provided by the user.
+
+    /**
+     * Requirement 17 - /capital_cities_largest_to_smallest
+     * All the capital cities in the world organised by largest population to smallest.
+     * @return ArrayList of City or Null
+     */
+    @RequestMapping("capital_cities_largest_to_smallest")
+    public ArrayList<CapitalCity> getCapitalCitiesLargestToSmallest(){
+        String strSelect = "SELECT city.Name as Name, country.Name as Country, city.Population as Population, country.Continent as Continent "
+                + "FROM country "
+                + "JOIN city on country.Capital = city.ID "
+                + "ORDER BY Population DESC";
+        return RunListQuery(CapitalCity.class, strSelect);
     }
 
 
