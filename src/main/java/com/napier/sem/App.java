@@ -559,21 +559,127 @@ public class App {
         return RunListQuery(City.class, strSelect);
     }
 
-    /**
+	
+    /*
      * Requirement 23 - /population_per_continent
      * The population of people, people living in cities, and people not living in cities in each continent.
      * @return ArrayList of Population or Null
-     */
+    
     @RequestMapping("population_per_continent")
     public ArrayList<Population> getPopulationPerContinent(){
         String strSelect = "";
         return RunListQuery(Population.class, strSelect);
     }
+	
+	public ArrayList<Country> getPopCont() {
+        try {
+            // Create an SQL statement
+            Statement stmt = connection.createStatement();
+
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Continent AS Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
+                            + "FROM country "
+                            + "JOIN city ON Code = city.CountryCode "
+                            + "GROUP BY Continent";
+
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // Extract country information
+            ArrayList<Country> popCont = new ArrayList<Country>();
+
+            while (rset.next()) {
+                //CountrySumPop pop = new CountrySumPop();
+                //pop.Continent = rset.getString("Continent");
+                //pop.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.city.Population = rset.getString("city.Population");
+                //pop.SumPop = rset.getInt("SUM(Population - city.Population)");
+            }
+            return popCont;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
 
     //The population of people, people living in cities, and people not living in cities in each region.
+    public ArrayList<Country> getPopReg() {
+        try {
+            // Create an SQL statement
+            Statement stmt = connection.createStatement();
+
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Region AS Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
+                            + "FROM country "
+                            + "JOIN city ON Code = city.CountryCode "
+                            + "GROUP BY Region";
+
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // Extract country information
+            ArrayList<Country> popReg = new ArrayList<Country>();
+
+            while (rset.next()) {
+                Country pop = new Country();
+                pop.Region = rset.getString("Region");
+                //pop.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.city.Population = rset.getString("city.Population");
+                //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
+            }
+            return popReg;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
 
     //The population of people, people living in cities, and people not living in cities in each country.
+    public ArrayList<Country> getPop() {
+        try {
+            // Create an SQL statement
+            Statement stmt = connection.createStatement();
 
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
+                            + "FROM country "
+                            + "JOIN city ON Code = city.CountryCode "
+                            + "GROUP BY Name";
+
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // Extract country information
+            ArrayList<Country> pop = new ArrayList<Country>();
+
+            while (rset.next()) {
+                Country popC = new Country();
+                popC.Name = rset.getString("Name");
+                //popC.Population = rset.getInt("Population");
+                //TODO need to get these values differently, It wont compile as is
+                //pop.city.Population = rset.getString("city.Population");
+                //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
+            }
+            return pop;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+	*/
+	
     /**
      * Requirement 26? - /world_population
      * The population of the world.
@@ -660,113 +766,6 @@ public class App {
 
         return RunListQuery(LanguageQuery.class, strSelect);
     }
-
-    public ArrayList<Country> getPopCont() {
-        try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT Continent AS Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
-                            + "FROM country "
-                            + "JOIN city ON Code = city.CountryCode "
-                            + "GROUP BY Continent";
-
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract country information
-            ArrayList<Country> popCont = new ArrayList<Country>();
-
-            while (rset.next()) {
-                //CountrySumPop pop = new CountrySumPop();
-                //pop.Continent = rset.getString("Continent");
-                //pop.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
-                //pop.city.Population = rset.getString("city.Population");
-                //pop.SumPop = rset.getInt("SUM(Population - city.Population)");
-            }
-            return popCont;
-            
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
-    public ArrayList<Country> getPopReg() {
-        try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT Region AS Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
-                            + "FROM country "
-                            + "JOIN city ON Code = city.CountryCode "
-                            + "GROUP BY Region";
-
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract country information
-            ArrayList<Country> popReg = new ArrayList<Country>();
-
-            while (rset.next()) {
-                Country pop = new Country();
-                pop.Region = rset.getString("Region");
-                //pop.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
-                //pop.city.Population = rset.getString("city.Population");
-                //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
-            }
-            return popReg;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
-    public ArrayList<Country> getPop() {
-        try {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT Name, SUM(country.Population) AS TotalPopulation, SUM(city.Population) AS TotalPopInCities, (SUM(country.Population)-SUM(city.Population)) AS TotalPopNotInCities "
-                            + "FROM country "
-                            + "JOIN city ON Code = city.CountryCode "
-                            + "GROUP BY Name";
-
-
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Extract country information
-            ArrayList<Country> pop = new ArrayList<Country>();
-
-            while (rset.next()) {
-                Country popC = new Country();
-                popC.Name = rset.getString("Name");
-                //popC.Population = rset.getInt("Population");
-                //TODO need to get these values differently, It wont compile as is
-                //pop.city.Population = rset.getString("city.Population");
-                //pop.SUM(Population - city.Population) = rset.getInt("SUM(Population - city.Population)");
-            }
-            return pop;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
 
     public ArrayList<Country> getlanChinese() {
         try {
